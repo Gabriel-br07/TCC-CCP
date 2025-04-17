@@ -1,0 +1,57 @@
+Show, mano! Agora que entendi certinho que **a sua parte é escrever a Metodologia**, vou construir esse texto com base nas instruções do líder do grupo, mas no seu estilo — algo claro, direto, com um tom mais humano e que reflita bem que você entendeu o que tá fazendo e sabe explicar com confiança acadêmica, sem parecer um robô.
+
+Aqui vai a **versão completa da seção de Metodologia** do TCC, feita com capricho pra você:
+
+---
+
+## Metodologia
+
+A metodologia deste trabalho foi pensada para transformar dados públicos do SEEU (Sistema Eletrônico de Execução Unificada) em uma base estruturada, útil e consultável por meio de uma aplicação de inteligência artificial. O objetivo é permitir que um modelo de linguagem natural (LLM), com suporte da técnica de **Retrieval-Augmented Generation (RAG)**, consiga compreender e responder perguntas sobre os documentos jurídicos de maneira eficiente, contextualizada e relevante.
+
+### 1. Coleta e organização dos dados
+
+O primeiro passo será identificar e reunir os documentos públicos disponíveis relacionados ao SEEU, como resoluções, notas técnicas, relatórios e manuais disponibilizados pelo CNJ (Conselho Nacional de Justiça). Esses materiais servirão como a base textual do nosso projeto. Após a coleta, os arquivos serão organizados em uma estrutura de diretórios lógica, separando os tipos de documentos por categoria, data e origem. Essa organização vai facilitar as etapas seguintes, principalmente o processamento automático dos textos.
+
+### 2. Pré-processamento dos dados
+
+Os textos coletados passarão por um processo de **limpeza e normalização**. Isso inclui:
+- Remoção de caracteres especiais e espaços em excesso;
+- Padronização de fontes e acentuação;
+- Correção de possíveis erros de OCR (caso algum documento venha em formato escaneado).
+
+Além disso, será feita uma análise para segmentar os documentos em **partes menores**, como parágrafos ou seções, que possam ser vetorizadas individualmente e referenciadas com maior precisão pelo modelo.
+
+### 3. Vetorização do conteúdo
+
+Com os dados organizados e limpos, a próxima etapa é transformar o conteúdo textual em **vetores semânticos**. Essa vetorização permite que os dados possam ser buscados com base no seu significado, não apenas por palavras-chave. Para isso, serão utilizados **modelos de embeddings** como o `all-MiniLM-L6-v2`, `BAAI/bge-base` ou similares, que geram representações numéricas de textos com boa performance.
+
+Esses vetores serão armazenados em um **banco de dados vetorial**, que será a base de conhecimento da nossa pipeline RAG.
+
+### 4. Escolha do banco de dados vetorial
+
+Durante a elaboração da arquitetura, foram avaliadas diferentes soluções para armazenamento vetorial. As opções consideradas foram:
+- **Elasticsearch**: já consolidado no mercado, com suporte a buscas semânticas e fácil escalabilidade.
+- **PostgreSQL com extensão pgvector**: alternativa leve e robusta, ideal para projetos acadêmicos com menor custo operacional.
+- **FAISS (Facebook AI Similarity Search)**: altamente otimizado para busca vetorial, embora menos amigável em termos de integração com APIs web.
+
+A escolha final será guiada por critérios como performance de busca, facilidade de integração com o backend e compatibilidade com a ferramenta de orquestração do chatbot. Optamos adotar o **PostgreSQL com pgvector** por ser gratuito, eficiente e de fácil configuração.
+
+### 5. Integração com o LLM via RAG
+
+Após os dados estarem vetorizados e armazenados, entra a parte de integração com o modelo de linguagem (LLM). A técnica **RAG (Retrieval-Augmented Generation)** será usada para consultar os vetores relacionados a uma pergunta feita ao chatbot. O fluxo será o seguinte:
+1. O usuário envia uma pergunta;
+2. A pergunta é vetorizada com o mesmo modelo de embeddings;
+3. O sistema busca os vetores mais próximos no banco de dados;
+4. Os trechos correspondentes aos vetores encontrados são enviados como **contexto adicional** ao LLM;
+5. O modelo gera uma resposta com base nesse contexto, garantindo precisão e relevância.
+
+Esse processo faz com que o modelo não precise "memorizar" todas as informações do SEEU, mas sim consulte o conteúdo necessário em tempo real, tornando a aplicação mais leve, confiável e atualizável.
+
+### 6. Ferramentas e tecnologias utilizadas
+
+O projeto será desenvolvido utilizando ferramentas modernas e gratuitas, com foco em acessibilidade e reprodutibilidade acadêmica. Entre as principais tecnologias estão:
+- **Python** para desenvolvimento da pipeline;
+- **LangChain** para orquestração da lógica RAG;
+- **Transformers (HuggingFace)** para vetorização e uso do modelo LLM;
+- **PostgreSQL + pgvector** para o armazenamento vetorial;
+- **VS Code + GitHub** para versionamento e controle colaborativo do código.
