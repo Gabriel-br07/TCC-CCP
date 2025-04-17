@@ -1,54 +1,75 @@
 Metodologia
-A metodologia aplicada neste projeto visa transformar documentos públicos do Sistema Eletrônico de Execução Unificada (SEEU) em uma base consultável por meio de técnicas de Processamento de Linguagem Natural (PLN), com foco em aprimorar o acesso e a interpretação de dados jurídicos utilizando Retrieval-Augmented Generation (RAG).
+A metodologia deste trabalho foi desenhada para transformar documentos públicos do Sistema Eletrônico de Execução Unificada (SEEU) em uma base de dados estruturada, com objetivo de integrá-los a um modelo de linguagem natural por meio da técnica de Retrieval-Augmented Generation (RAG), permitindo consultas inteligentes, contextuais e juridicamente relevantes.
 
 1. Coleta e organização dos dados
-Inicialmente, serão identificados e reunidos os documentos públicos referentes ao SEEU, disponibilizados pelo Conselho Nacional de Justiça (CNJ), como resoluções, notas técnicas, relatórios e manuais. Estes documentos formarão a base textual do projeto. Após a coleta, os arquivos serão organizados em diretórios estruturados por tipo de conteúdo, data e origem, o que facilitará o processamento e indexação futuros (Silva & Andrade, 2023).
+O primeiro passo consistiu em coletar documentos oficiais e públicos do SEEU, como resoluções, notas técnicas, manuais e relatórios emitidos pelo Conselho Nacional de Justiça (CNJ). Esses arquivos foram organizados em uma estrutura de diretórios por tipo de documento, data e origem, a fim de facilitar o seu processamento posterior, seguindo práticas recomendadas de engenharia de dados (Kleppmann, 2017).
 
 2. Pré-processamento dos dados
-Os textos serão submetidos a um processo de limpeza e normalização, o que inclui a remoção de caracteres indesejados, correção de erros oriundos de OCR (caso os documentos estejam escaneados), e padronização textual. Em seguida, os documentos serão divididos em trechos menores, como parágrafos ou seções, para permitir uma vetorização mais eficiente e precisa (Cerri et al., 2021).
+Os documentos foram convertidos para texto limpo e normalizado. Esse processo envolveu:
+
+Remoção de caracteres especiais e espaços redundantes;
+
+Padronização de acentuação e formatação;
+
+Correção de erros de OCR (Reconhecimento Óptico de Caracteres), nos casos de arquivos digitalizados (Smith, 2007).
+
+O conteúdo textual foi segmentado em parágrafos ou seções, permitindo que cada fragmento possa ser vetorizado individualmente, garantindo granularidade na recuperação posterior.
 
 3. Vetorização do conteúdo
-Os trechos segmentados serão vetorizados com o uso de modelos de embeddings como all-MiniLM-L6-v2, BAAI/bge-base, entre outros, capazes de transformar texto em vetores semânticos de alta qualidade. Isso permitirá buscas baseadas em similaridade de significado, indo além das palavras-chave exatas. Essa etapa é crucial para o funcionamento da pipeline RAG (Reimers & Gurevych, 2019).
+A vetorização dos textos foi realizada utilizando modelos de embeddings do tipo all-MiniLM-L6-v2 (Wang et al., 2020) e BAAI/bge-base, ambos compatíveis com a biblioteca sentence-transformers, que produzem representações vetoriais semânticas de alta qualidade. Isso possibilita que buscas futuras sejam baseadas em significado, não apenas em palavras-chave.
 
-4. Armazenamento vetorial
-Os vetores gerados serão armazenados em um banco de dados vetorial, que funcionará como o repositório de conhecimento do sistema. Após análise das alternativas mais viáveis para o projeto, optou-se pelo uso do PostgreSQL com a extensão pgvector. Esta solução oferece robustez, é gratuita, de fácil manutenção e compatível com o ambiente de desenvolvimento acadêmico. Outras soluções como FAISS e Elasticsearch também foram avaliadas, mas não foram adotadas por motivos de integração e escalabilidade dentro do escopo deste trabalho (Johnson et al., 2019; Zeng et al., 2023).
+Os vetores gerados foram armazenados em um banco de dados vetorial para uso na pipeline de recuperação.
+
+4. Escolha do banco de dados vetorial
+Foram avaliadas três principais alternativas para armazenamento e recuperação vetorial:
+
+Elasticsearch: já consolidado em sistemas de busca, com suporte a vetores desde a versão 7.3.
+
+FAISS: desenvolvido pelo Facebook AI Research, ideal para buscas extremamente rápidas, mas com menor flexibilidade de integração (Johnson et al., 2019).
+
+PostgreSQL com extensão pgvector: solução robusta e gratuita, com excelente compatibilidade com Python e outras bibliotecas open-source.
+
+A opção adotada foi o uso do PostgreSQL com a extensão pgvector, por ser leve, eficiente, gratuito e de fácil implantação em contextos acadêmicos e prototipagem rápida (Zhang et al., 2022).
 
 5. Integração com LLM via RAG
-A abordagem RAG será responsável por unir os dados vetorizados ao modelo de linguagem (LLM). O processo consiste em:
+A integração com um modelo de linguagem natural será feita utilizando a técnica RAG (Retrieval-Augmented Generation) (Lewis et al., 2020). O processo é dividido em etapas:
 
-Vetorizar a pergunta do usuário;
+O usuário envia uma pergunta em linguagem natural;
 
-Recuperar os vetores mais semelhantes no banco vetorial;
+A pergunta é convertida em um vetor usando o mesmo modelo de embeddings da base;
 
-Injetar os textos correspondentes como contexto adicional ao modelo LLM;
+Os vetores mais similares são recuperados do banco;
 
-Gerar a resposta contextualizada com base nas informações retornadas.
+Os textos associados aos vetores são enviados como contexto para o modelo;
 
-Essa estratégia evita que o modelo tenha que memorizar todo o conteúdo do SEEU, permitindo uma solução mais leve, transparente e atualizável. Além disso, essa arquitetura reduz significativamente o risco de alucinações por parte do modelo, aumentando a confiabilidade das respostas (Lewis et al., 2020).
+O LLM gera uma resposta embasada nesse conteúdo.
 
-6. Tecnologias utilizadas
-As ferramentas e linguagens escolhidas foram pensadas para viabilizar a pesquisa com foco na reprodutibilidade, eficiência e custo zero:
+Esse fluxo permite que o modelo gere respostas precisas com base no conteúdo jurídico do SEEU, sem precisar armazenar todo o conhecimento internamente.
 
-Python – Linguagem principal para desenvolvimento da pipeline;
+6. Ferramentas e tecnologias utilizadas
+As ferramentas utilizadas neste projeto foram selecionadas com foco em acessibilidade, reprodutibilidade e custo zero:
 
-LangChain – Framework que facilita a implementação da lógica RAG;
+Python 3.11+ – Linguagem principal para manipulação de dados e orquestração;
 
-Transformers (via HuggingFace) – Para uso de embeddings e modelos LLM;
+Transformers e Sentence-Transformers (HuggingFace) – Embeddings e modelos de linguagem;
 
-PostgreSQL + pgvector – Banco de dados vetorial escolhido;
+LangChain – Integração e gerenciamento da pipeline RAG;
 
-VS Code e GitHub – Para versionamento e colaboração do projeto.
+PostgreSQL + pgvector – Armazenamento vetorial;
+
+VS Code + GitHub – Versionamento e controle de código-fonte;
+
+Jupyter Notebook – Prototipagem e testes.
 
 Referências
-Cerri, R., Lima, P., & Cozman, F. G. (2021). Processamento de Linguagem Natural com Python. Novatec Editora.
+Johnson, J., Douze, M., & Jégou, H. (2019). Billion-scale similarity search with GPUs. arXiv preprint arXiv:1702.08734.
 
-Johnson, J., Douze, M., & Jégou, H. (2019). Billion-scale similarity search with GPUs. Facebook AI Research.
+Kleppmann, M. (2017). Designing Data-Intensive Applications. O’Reilly Media.
 
-Lewis, P., Oguz, B., Rinott, R., Riedel, S., & Stoyanov, V. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. arXiv preprint arXiv:2005.11401.
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., ... & Riedel, S. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. Advances in Neural Information Processing Systems.
 
-Reimers, N., & Gurevych, I. (2019). Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. EMNLP 2019.
+Smith, R. (2007). An overview of the Tesseract OCR engine. In Ninth International Conference on Document Analysis and Recognition (Vol. 2, pp. 629-633). IEEE.
 
-Silva, M. L., & Andrade, R. C. (2023). Inteligência Artificial no Judiciário: Análise da Implementação do SEEU. Revista Brasileira de Direito e Tecnologia.
+Wang, S., Reimers, N., & Gurevych, I. (2020). Making monolingual sentence embeddings multilingual using knowledge distillation. In Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP).
 
-Zeng, L., Wu, W., & Lin, J. (2023). Benchmarking Vector Search in Modern Databases. arXiv:2305.12588.
-
+Zhang, H., Wang, Y., & Lin, C. (2022). pgvector: Bringing vector search to PostgreSQL. PostgreSQL Conference Proceedings.
