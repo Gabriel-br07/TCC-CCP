@@ -1,29 +1,22 @@
-\documentclass[oneside]{estilo}
+\documentclass[12pt,oneside,a4paper]{estilo}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{abntex2cite}
-\usepackage{lmodern}
+% --- Pacotes adicionais estritamente de conteúdo ---
 \usepackage{graphicx}
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage{booktabs}
-\usepackage{microtype}
-\usepackage{indentfirst}
+\usepackage{microtype}          
 \usepackage{hyperref}
 \hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    citecolor=blue,
-    filecolor=black,
-    urlcolor=blue,
-    pdftitle={Pipeline RAG para o SEEU},
-    pdfauthor={Gabriel Oliveira Faria, Pedro Samuel, Zandor Duarte},
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Pipeline RAG para o SEEU},
+  pdfauthor={Gabriel Oliveira Faria, Pedro Samuel, Zandor Duarte},
 }
 
-\usepackage[a4paper, top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
-\setlength{\parindent}{1.5cm}
-\setlength{\parskip}{0.2cm}
-\frenchspacing
+% --- Se o estilo NÃO carregar abntex2cite ---
+\usepackage{abntex2cite}  
 
 \begin{document}
 
