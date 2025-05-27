@@ -5,21 +5,52 @@
 \chapter{Introdução}
 \label{sec:introducao}
 
-Em nível estadual, o Tribunal de Justiça da Bahia (TJ-BA) mantém cerca de 24\,000 execuções penais ativas no Sistema Eletrônico de Execução Unificado (SEEU). Como a Lei de Execução Penal requer revisão trimestral e a Súmula 533 do Superior Tribunal de Justiça (STJ) confirma esse prazo, são necessários aproximadamente 8\,000 despachos por mês (\(\approx 267\) por dia) \cite{brasil1984lep,stj2015sumula533}.  
-No Mutirão Processual Penal 2024 foram lançados 18\,600 atos em 60~dias, volume superior à meta fixada pela Portaria n.º 304/2024 do Conselho Nacional de Justiça (CNJ) e que evidencia sobrecarga \cite{tjba2024mutirao,cnj2024portaria304}.
+Em nível estadual, o Tribunal de Justiça da Bahia (TJ-BA) mantém cerca de
+24\,000 execuções penais ativas no Sistema Eletrônico de Execução Unificado
+(SEEU). Como a Lei de Execução Penal (LEP) impõe revisão trimestral e a
+Súmula 533 do Superior Tribunal de Justiça (STJ) confirma esse prazo, são
+necessários aproximadamente 8\,000 despachos por mês (267/dia)
+\cite{brasil1984lep,stj2015sumula533}. No Mutirão Processual Penal 2024 foram
+lançados 18\,600 atos em 60 dias, volume acima da meta da Portaria 304/2024 do
+Conselho Nacional de Justiça (CNJ), o que evidencia sobrecarga
+\cite{tjba2024mutirao,cnj2024portaria304}.
 
-Situação semelhante ocorreu no Tribunal de Justiça do Ceará (TJ-CE): a elaboração manual de 146 despachos consumiria mais de quatro horas, enquanto um robô executa cada um em 30~s \cite{tjce2023robos}. Esse panorama reforça a pertinência da \textit{pipeline} de \textit{Retrieval-Augmented Generation} (RAG) proposta, capaz de automatizar a busca semântica e gerar minutas, recuperando produtividade sem prejuízo à qualidade nem às garantias processuais.
+Situação semelhante ocorreu no Tribunal de Justiça do Ceará (TJ-CE): a elaboração
+manual de 146 despachos consumiria mais de quatro horas, enquanto um robô
+executa cada um em 30 s \cite{tjce2023robos}.  Esses dados reforçam a
+pertinência da \emph{pipeline} de \emph{Retrieval-Augmented Generation} (RAG)
+proposta, capaz de automatizar a busca semântica e gerar minutas, recuperando
+produtividade sem prejudicar a qualidade nem as garantias processuais.
 
-A digitalização dos serviços públicos consolidou-se como pilar da modernização judicial, impulsionada por parcerias entre organismos internacionais e o Judiciário. O Programa das Nações Unidas para o Desenvolvimento (PNUD) e o CNJ, por exemplo, firmaram projetos que ampliam a transparência e o acesso à Justiça por meio de soluções digitais e governança inovadora \cite{undp2025pnudcnj}.
+A digitalização dos serviços públicos tornou-se pilar da modernização judicial,
+impulsionada por parcerias entre organismos internacionais e o Judiciário.  O
+Programa das Nações Unidas para o Desenvolvimento (PNUD) e o CNJ, por exemplo,
+firmaram projetos que ampliam a transparência e o acesso à Justiça por meio de
+soluções digitais e governança inovadora \cite{undp2025pnudcnj}.
 
-A experiência da Estônia evidencia o impacto de uma infraestrutura digital robusta na gestão de grandes volumes de informação pública: após a implantação do sistema e-Government, 98\,\% das declarações de imposto passaram a ser enviadas on-line em poucos minutos, e o mesmo percentual de empresas realiza seu registro por plataformas eletrônicas, aumentando a rastreabilidade e reduzindo fraudes \cite{divald2021eformalization}.  
-Guardadas as devidas proporções, o SEEU enfrenta desafio semelhante — consolidar milhares de atos processuais dispersos e assegurar revisões trimestrais obrigatórias. O caso estoniano indica que a automação de consultas e a padronização digital podem gerar ganhos comparáveis de eficiência e transparência, reforçando a pertinência da \textit{pipeline} RAG aqui proposta.
+A experiência do \emph{e-Government} da Estônia mostra o impacto de
+infraestrutura digital robusta: 98 \% das declarações de imposto passam a ser
+enviadas on-line em poucos minutos, e o mesmo percentual de empresas é
+registrado eletronicamente, aumentando a rastreabilidade e reduzindo fraudes
+\cite{divald2021eformalization}. Guardadas as proporções, o SEEU enfrenta
+desafio semelhante — consolidar milhares de atos processuais dispersos e
+assegurar as revisões trimestrais obrigatórias. O caso estoniano indica que
+automação e padronização digitais podem gerar ganhos análogos de eficiência e
+transparência, reforçando o valor da \emph{pipeline} RAG proposta.
 
-Apesar desses avanços, a consulta manual a grandes acervos documentais permanece morosa e sujeita a erros, retardando decisões judiciais. Pesquisas sobre bancos de dados vetoriais demonstram que a indexação de documentos via \textit{embeddings} e a busca semântica reduzem significativamente a latência e aumentam a precisão na recuperação da informação \cite{taipalus2024vector,gao2023survey}.
+Apesar dos avanços, a consulta manual a grandes acervos documentais ainda é
+demorada e sujeita a erros. Pesquisas mostram que bancos de dados vetoriais e
+\emph{embeddings} reduzem a latência e aumentam a precisão de recuperação
+\cite{taipalus2024vector,gao2023survey}. Técnicas RAG — que combinam
+Inteligência Artificial (IA) e \emph{Large Language Models} (LLMs) — despontam
+como solução para consultas em linguagem natural. Revisões recentes destacam o
+potencial dessa abordagem \cite{qwak2024integrating,pujiono2024implementing}.
 
-As técnicas de RAG — que combinam inteligência artificial e grandes modelos de linguagem — despontam como solução para consultas em linguagem natural baseadas em documentos originais. Revisões recentes destacam seu potencial quando integradas a vetores de \textit{embeddings} para gerar respostas contextualizadas \cite{qwak2024integrating}, e estudos já aplicam variações de RAG a tarefas multimodais com resultados promissores \cite{pujiono2024implementing}.
-
-Este trabalho propõe construir uma \textit{pipeline} RAG para o SEEU, implementada em Python, orquestrada por LangChain, exposta por meio de chatbot em Flask e empacotada em Docker para implantação consistente. Operadores do Direito poderão realizar buscas intuitivas e integrar a solução a sistemas externos por meio de API~REST.
+Este trabalho propõe construir uma \emph{pipeline} RAG para o SEEU,
+implementada em Python, orquestrada por LangChain, exposta por chatbot em Flask
+e empacotada em Docker para implantação consistente. Operadores do Direito
+poderão realizar buscas intuitivas e integrar a solução a sistemas externos por
+meio de uma Application Programming Interface (API) Representational State Transfer (REST).
 
 
 
@@ -32,18 +63,22 @@ Este trabalho propõe construir uma \textit{pipeline} RAG para o SEEU, implement
 \label{sec:objetivos}
 
 \subsection{Objetivo Geral}
-Desenvolver, para o Sistema Eletrônico de Execução Unificado (SEEU), uma \textit{pipeline} de \textit{Retrieval-Augmented Generation} (RAG) que automatize a recuperação e a disponibilização de dados públicos da execução penal, oferecendo interface conversacional (chatbot) e API~REST, a fim de modernizar os processos judiciais e ampliar a eficiência e a transparência da gestão.
+Desenvolver, para o SEEU, uma \emph{pipeline} RAG que automatize a recuperação
+e a disponibilização de dados públicos da execução penal, oferecendo chatbot e
+API REST, a fim de modernizar os processos judiciais e ampliar eficiência e
+transparência.
 
-\subsection{Objetivos Específicos}
+\subsection{Objetivos específicos}
 \begin{enumerate}[label=\arabic*.]
-  \item Coletar e organizar os dados públicos do SEEU, principalmente os documentos de suporte;
-  \item Realizar a vetorização desses dados em um banco de dados vetorial (Elasticsearch, OpenSearch ou PostgreSQL+pgvector);
-  \item Desenvolver uma pipeline que conecte o índice vetorial ao LLM selecionado, criando mecanismos para consultas precisas;
-  \item Realizar testes de integração para avaliar a eficiência e a qualidade das respostas geradas;
-  \item Criar uma interface de chatbot integrada à pipeline de RAG e ao LLM para interação em tempo real;
-  \item Conduzir testes de usabilidade e implementar ajustes para aprimorar a experiência do usuário;
-  \item Implementar uma API REST documentada para consumo externo;
-  \item Preparar o ambiente para deployment, considerando aspectos de segurança e escalabilidade.
+  \item Coletar e organizar os dados públicos do SEEU;
+  \item Vetorizar esses dados em um banco vetorial (Elasticsearch, OpenSearch
+        ou PostgreSQL + pgvector);
+  \item Conectar o índice vetorial ao LLM selecionado;
+  \item Testar a eficiência e a qualidade das respostas;
+  \item Disponibilizar um chatbot integrado à \emph{pipeline};
+  \item Conduzir testes de usabilidade e ajustar a experiência do usuário;
+  \item Implementar uma API REST documentada;
+  \item Preparar o ambiente de \emph{deployment} com segurança e escalabilidade.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -53,7 +88,7 @@ Desenvolver, para o Sistema Eletrônico de Execução Unificado (SEEU), uma \tex
 \section{Trabalhos Correlatos}
 \label{sec:trabalhos-correlatos}
 
-Esta seção discute estudos que aplicam \textit{Retrieval-Augmented Generation} (RAG) a contextos jurídicos ou regulatórios, evidenciando avanços e limitações relevantes para o Sistema Eletrônico de Execução Unificado (SEEU).
+Esta seção discute estudos que aplicam RAG a contextos jurídicos ou regulatórios, evidenciando avanços e limitações relevantes para o SEEU.
 
 \textbf{Edwards (2024)} apresenta um \textit{pipeline} RAG que integra grafos de conhecimento — construídos por especialistas e por LLMs — a uma base vetorial, automatizando relatórios de acreditação AACSB. O roteamento de consultas, a decomposição em subconsultas e a síntese automática de respostas reduzem o esforço humano e aumentam a transparência; entretanto, a curadoria desses grafos ainda exige validação manual \cite{edwards2024hybrid}.  
 \emph{Relação com o SEEU}: o sistema proposto neste TCC adota roteamento e síntese similares, mas aplica regras jurídicas automáticas para validar o grafo, minimizando a intervenção humana.
@@ -75,15 +110,14 @@ A solução consiste em uma \textit{pipeline} RAG organizada nos seguintes módu
 
 \begin{itemize}[label=\textbullet]
   \item \textbf{Coleta automática} de documentos oficiais (PDF) do SEEU;
-  \item \textbf{Pré-processamento} — limpeza, OCR e segmentação em \emph{chunks};
-  \item \textbf{Vetorização} e indexação em base vetorial (FAISS ou OpenSearch);
+  \item \textbf{Pré-processamento} — limpeza,Optical Character Recognition (OCR) e segmentação em \emph{chunks};
+  \item \textbf{Vetorização} e indexação em base vetorial (Facebook AI Similarity Search (FAISS) ou OpenSearch);
   \item \textbf{Orquestração} via LangChain, com fallback híbrido (keyword + semantic);
   \item \textbf{Interface conversacional} (chatbot) e \textbf{API REST} documentada em OpenAPI;
   \item \textbf{Camada de validação jurídica} para reduzir alucinações;
   \item \textbf{Testes automatizados} de integração e regressão (precisão, recall, F1);
   \item \textbf{Monitoramento e métricas} (tempo de resposta, taxa de erro, taxa de alucinação);
-  \item \textbf{Segurança e controle de acesso} (JWT, HTTPS, LGPD);
-  \item \textbf{Deployment conteinerizado} (Docker/Kubernetes) com CI/CD;
+  \item \textbf{Deployment conteinerizado} (Docker/Kubernetes) com Continuous Integration / Continuous Deployment (CI/CD);
   \item \textbf{Documentação técnica completa} (código-fonte comentado, manuais, API);
   \item \textbf{Plano de mitigação de riscos} e atualização contínua de dependências.
 \end{itemize}
@@ -94,9 +128,12 @@ A solução consiste em uma \textit{pipeline} RAG organizada nos seguintes módu
 % CAPÍTULO 2 – FUNDAMENTAÇÃO TEÓRICA E REVISÃO DE LITERATURA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 % ============================================================
 \chapter{Fundamentação Teórica e Revisão de Literatura}
 \label{chap:fundamentacao_literatura}
+
+Apresentam-se aqui os conceitos essenciais que embasam este trabalho: bancos de dados vetoriais para armazenamento e consulta de embeddings gerados por modelos de machine learning \cite{qwak2024integrating}; modelos de LLMs baseados em Transformer e seu uso no SEEU \cite{lewis2020rag,gao2023survey}; o método RAG, que une recuperação de documentos e geração de texto para reduzir alucinações \cite{edwards2024hybrid}; e, finalmente, o papel do PNUD e sua parceria com o CNJ em iniciativas de transformação digital e acesso à justiça \cite{undp2025sobre,undp2025pnudcnj}.
 
 \section{Bancos de Dados Vetoriais}
 \label{sec:bancos-vetoriais}
@@ -118,7 +155,7 @@ aplicações:
   \item \textbf{Pipelines de IA} – armazenamento eficiente de embeddings utilizados por modelos de \emph{deep learning}.
 \end{itemize}
 Tais bases oferecem consultas rápidas, baixa latência e alta escalabilidade —
-qualidades essenciais em \emph{NLP}, visão computacional e outros domínios que
+qualidades essenciais em Natural Language Processing (\emph{NLP}), visão computacional e outros domínios que
 envolvem grandes conjuntos de dados não estruturados
 \cite{qwak2024integrating}.
 
@@ -139,7 +176,10 @@ envolvem grandes conjuntos de dados não estruturados
   \item[Oracle Vector DB:] integração nativa ao ecossistema Oracle, com alta performance e segurança empresarial. Limitação: licenciamento oneroso e menor flexibilidade frente a soluções abertas \cite{oracle2025vector}.
 
   \item[IBM Vector DB:] forte integração com ferramentas de IA da IBM, oferecendo recursos robustos de análise vetorial. Limitação: custo elevado e configuração complexa \cite{ibm2025vector}.
-\end{description}
+
+  \subsection{Conclusão}
+    Nesta seção, foram apresentados os principais conceitos e aplicações dos bancos de dados vetoriais, bem como uma análise comparativa das soluções mais utilizadas no mercado. Verificou-se que a escolha da tecnologia adequada depende do equilíbrio entre desempenho, escalabilidade e requisitos organizacionais. Plataformas especializadas, como Milvus e FAISS, oferecem maior eficiência em buscas de similaridade, enquanto soluções integradas, como PostgreSQL+pgvector, favorecem a unificação de dados em um único SGBD. Por fim, espera-se que o contínuo aprimoramento nas técnicas de indexação e compressão de embeddings consolide ainda mais o papel dos bancos vetoriais em projetos de IA e processamento de dados semiestruturados.
+
 
 %--------------------------------------------------------------------
 % ------------------------------------------------------------
@@ -147,11 +187,10 @@ envolvem grandes conjuntos de dados não estruturados
 \label{sec:llm}
 
 \subsection*{INTRODUÇÃO}
-Os Modelos de Linguagem de Grande Porte (LLMs), baseados na arquitetura
+Os Modelos de LLMs, baseados na arquitetura
 Transformer \cite{vaswani2017attention,naveeda2024comprehensive}, elevaram o
 estado da arte em Processamento de Linguagem Natural (PLN), permitindo síntese,
-tradução e interpretação semântica de documentos em larga escala. No Sistema
-Eletrônico de Execução Unificado (SEEU), essas redes neurais substituem buscas
+tradução e interpretação semântica de documentos em larga escala. No SEEU, essas redes neurais substituem buscas
 puramente lexicais por consultas semânticas, aumentando a agilidade e a
 precisão das respostas. A integração de LLMs a bancos de dados vetoriais
 \cite{taipalus2024vector,qwak2024integrating} reforça essa capacidade,
@@ -201,8 +240,7 @@ digital no setor público.
 \label{sec:rag}
 
 \subsection{Introdução}
-\textit{Retrieval-Augmented Generation} (RAG) associa a competência de
-\textit{Large Language Models} (LLMs) em gerar texto à recuperação automática de
+O RAG associa a competência de LLMs em gerar texto à recuperação automática de
 documentos, reduzindo \textit{alucinações} ao fundamentar as respostas em
 evidências externas verificáveis
 \cite{lewis2020rag,gao2023survey,edwards2024hybrid,pujiono2024implementing}.
@@ -226,7 +264,7 @@ a apresentar evidências úteis ao gerador
 \subsection{Pipeline}
 \label{sec:rag:pipeline}
 \begin{enumerate}[label=\arabic*.]
-  \item \textbf{Ingestion} – extração de fontes estruturadas (bases SQL, CKAN)
+  \item \textbf{Ingestion} – extração de fontes estruturadas (bases SQL,Comprehensive Knowledge Archive Network (CKAN))
         e não estruturadas (PDF, HTML); limpeza, segmentação em parágrafos e
         criação de embeddings com modelos como \textit{all-MiniLM}.
         Objetos $\langle\text{ID},\,\text{embedding},\,\text{metadata}\rangle$
@@ -245,13 +283,8 @@ a apresentar evidências úteis ao gerador
 
 \subsection{Variantes}
 \begin{itemize}
-  \item \textbf{RAG-Sequence} – cada hipótese de documento gera uma resposta
-        completa; a probabilidade final marginaliza sobre o conjunto recuperado
-        \cite{lewis2020rag,edwards2024hybrid}.
-  \item \textbf{RAG-Token} – a distribuição é recalculada a cada token,
-        permitindo que diferentes documentos contribuam ponto a ponto; amplia a
-        cobertura factual, mas exige mecanismos de coerência global
-        \cite{zhang2025fine}.
+  \item \textbf{RAG-Sequence} – para cada um dos $k$ documentos recuperados, o modelo gera uma resposta completa de forma independente. Em seguida, calcula-se a probabilidade de cada resposta e faz a marginalização, ou seja, a combinação ponderada dessas probabilidades para produzir a resposta final. Esse método garante que cada documento tenha igual oportunidade de influenciar a resposta global, sendo indicado quando se deseja explorar várias interpretações completas antes da decisão final \cite{lewis2020rag,edwards2024hybrid}.
+  \item \textbf{RAG-Token} – em vez de gerar respostas inteiras por documento, o modelo reavalia a distribuição de probabilidade a cada novo token, permitindo que diferentes documentos contribuam de forma pontual ao longo da geração. Isso amplia a cobertura informativa e mistura evidências de várias fontes, mas requer mecanismos adicionais de coerência para evitar que o texto final fique fragmentado ou inconsistente \cite{zhang2025fine}.
 \end{itemize}
 
 \subsection{Desafios e limitações}
@@ -271,12 +304,14 @@ a apresentar evidências úteis ao gerador
         penalidades de repetição auxiliam \cite{zhang2025fine}.
 \end{itemize}
 
+\subsection{Conclusão}
+Esta seção apresentou o método RAG, que combina modelos de linguagem de grande porte com recuperação de documentos para reduzir alucinações e fundamentar respostas em evidências verificáveis. Descreveu-se o pipeline de ingestão, recuperação e treinamento conjunto, bem como variantes como RAG-Sequence e RAG-Token. Foram discutidos desafios relativos à latência, atualização em tempo real, qualidade da recuperação e coerência textual. Conclui-se que, apesar das limitações, o RAG representa avanço significativo para aplicações que exigem precisão e atualização dinâmica, sendo promissor para sistemas que trabalham com grandes acervos documentais, como o SEEU.
+
 % ------------------------------------------------------------
 \section{Programa das Nações Unidas para o Desenvolvimento (PNUD)}
 \label{sec:pnud}
 
-O Programa das Nações Unidas para o Desenvolvimento (PNUD) é a agência da
-Organização das Nações Unidas (ONU) responsável por promover o desenvolvimento
+O PNUD é a agência da Organização das Nações Unidas (ONU) responsável por promover o desenvolvimento
 humano sustentável e erradicar a pobreza em mais de 170 países e territórios
 \cite{undp2025sobre,undp2025onu}. Sediado em Nova York, o PNUD oferece suporte
 técnico e financeiro a políticas públicas voltadas às populações mais
@@ -310,7 +345,7 @@ fomentam o desenvolvimento sustentável e reduzem desigualdades
 \section{Parceria CNJ–PNUD: direitos humanos e acesso à justiça}
 \label{sec:cnj-pnud}
 
-Em 2025, o Conselho Nacional de Justiça (CNJ) e o PNUD firmaram acordo de
+Em 2025, o CNJ e o PNUD firmaram acordo de
 cooperação para fortalecer o Poder Judiciário na promoção de direitos humanos,
 sustentabilidade socioambiental e acesso à justiça por populações
 vulnerabilizadas \cite{undp2025pnudcnj}. O projeto complementa iniciativas como:
@@ -342,6 +377,9 @@ o cumprimento dos compromissos internacionais do Brasil relacionados aos ODS,
 promovendo uma sociedade mais justa e inclusiva
 \cite{undp2025pnudcnj}.
 
+\subsection{Conclusão}
+O PNUD configura-se como agente estratégico na promoção do desenvolvimento humano sustentável e na erradicação da pobreza, atuando em consonância com a Agenda 2030 e os Objetivos de Desenvolvimento Sustentável. A parceria firmada em 2025 entre o CNJ e o PNUD reforça esse compromisso, ao incorporar iniciativas de transformação digital, capacitação institucional e inclusão social no âmbito do Poder Judiciário brasileiro. Espera-se que tais ações ampliem o acesso efetivo à justiça para grupos vulnerabilizados e fortaleçam a governança democrática, contribuindo para o cumprimento das metas internacionais do Brasil e para a construção de uma sociedade mais equânime e participativa.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,10 +388,10 @@ promovendo uma sociedade mais justa e inclusiva
 
 \chapter{Tecnologias}
 \label{chap:tecnologias}
-
+Este capítulo apresenta as tecnologias empregadas: linguagens e bibliotecas de Machine Learning(ML)/NLP, indexação vetorial, modelos de linguagem, orquestração de pipeline e infraestrutura de deployment.  
 \section{Linguagem e Bibliotecas Principais}
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML (\cite{python2024});
+  \item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML (\cite{python2024reference});
   \item \textbf{Pandas} – manipulação de dados tabulares e pré-processamento de textos (\cite{pandas2024});
   \item \textbf{NumPy} – operações vetoriais e matrizes de alto desempenho.
 \end{itemize}
@@ -363,7 +401,7 @@ promovendo uma sociedade mais justa e inclusiva
 Mecanismo de busca distribuída com suporte nativo a buscas vetoriais via plugins; ótimo para cenários de alta disponibilidade e grandes volumes de dados (\cite{taipalus2024vector}).
 
 \subsection{FAISS}
-Biblioteca de similaridade aproximada desenvolvida pelo Facebook, altamente otimizada para bilhões de vetores, mas depende de um sistema auxiliar para metadados e persistência (\cite{facebookresearch2024faiss}).
+Biblioteca de similaridade aproximada desenvolvida pelo Facebook, altamente otimizada para bilhões de vetores, mas depende de um sistema auxiliar para metadados e persistência (\cite{facebook2024faiss}).
 
 \subsection{Milvus e Weaviate}
 Soluções especializadas de código-aberto com integração a grafos (Weaviate) e suporte a esquemas de indexação avançados (Milvus). Indicadas para aplicações críticas de IA.
@@ -373,7 +411,7 @@ Soluções especializadas de código-aberto com integração a grafos (Weaviate)
 Modelo open-source eficiente, customizável para domínios específicos, incluindo jurídico.
 
 \subsection{Hugging Face Transformers}
-Framework que fornece acesso a dezenas de modelos pré-treinados, tokenizadores e utilitários de pipeline (\cite{huggingface2024}).
+Framework que fornece acesso a dezenas de modelos pré-treinados, tokenizadores e utilitários de pipeline (\cite{huggingface2024transformers}).
 
 \section{Orquestração de Pipeline}
 \subsection{LangChain}
@@ -400,29 +438,29 @@ Microframework escolhido pela maturidade e simplicidade, expondo endpoints para 
 \section{Arquitetura da Pipeline}
 A pipeline combina quatro estágios principais: ingestão, pré‐processamento, indexação e geração. Cada estágio é containerizado e orquestrado via Kubernetes (Figura~\ref{fig:arquitetura_pipeline}).
 
-\section{Coleta de Dados}
+\subsection{Coleta de Dados}
 \begin{itemize}[label=\textbullet]
   \item Raspagem automática dos portais do CNJ usando Python e bibliotecas como \texttt{requests} e \texttt{BeautifulSoup};
   \item Agendamento via \emph{cron} ou Airflow para verificações diárias de novos documentos.
 \end{itemize}
 
-\section{Pré-processamento e Segmentação}
+\subsection{Pré-processamento e Segmentação}
 \begin{enumerate}[label=\arabic*.]
   \item Conversão de PDF para texto com \texttt{pdfplumber};
   \item Remoção de cabeçalhos, rodapés e caracteres especiais;
   \item Divisão em \emph{chunks} de 500--1000 tokens para otimizar a busca local.
 \end{enumerate}
 
-\section{Engenharia de Embeddings}
+\subsection{Engenharia de Embeddings}
 Escolha de modelo de embedding (BERTimbau ou OpenAI), parametrização de tamanho e normalização para garantir coerência semântica.
 
-\section{Indexação e Armazenamento}
+\subsection{Indexação e Armazenamento}
 \begin{itemize}[label=\textbullet]
   \item Indexação dos embeddings em OpenSearch/FAISS com metadados (origem, data, posição);
   \item Definição de métricas de similaridade (cosine similarity) e thresholds de corte.
 \end{itemize}
 
-\section{Orquestração e Consulta}
+\subsection{Orquestração e Consulta}
 Implementação em LangChain:
 \begin{itemize}[label=\textbullet]
   \item Conversão da consulta em embedding;
@@ -430,19 +468,19 @@ Implementação em LangChain:
   \item Geração da resposta pelo LLM, mesclando múltiplas fontes se necessário (\emph{RAG-Token}).
 \end{itemize}
 
-\section{Desenvolvimento do Chatbot e da API}
+\subsection{Desenvolvimento do Chatbot e da API}
 \begin{itemize}[label=\textbullet]
   \item Chatbot baseado em WebSocket para interação síncrona;
   \item Endpoints RESTful em Flask para consultas e feedback de usabilidade.
 \end{itemize}
 
-\section{Avaliação e Métricas}
+\subsection{Avaliação e Métricas}
 \begin{itemize}[label=\textbullet]
   \item Precisão, recall e F1-Score em um conjunto de questões de benchmark (fase de testes);
   \item Ensaios de usabilidade qualitativos com operadores do Direito para avaliar intuitividade e confiança.
 \end{itemize}
 
-\section{MLOps e Monitoramento}
+\subsection{MLOps e Monitoramento}
 \begin{itemize}[label=\textbullet]
   \item Pipelines de CI/CD para build e deploy automáticos;
   \item Monitoramento de latência e acurácia em produção, com alertas para queda de desempenho;
@@ -456,6 +494,402 @@ Implementação em LangChain:
   \label{fig:arquitetura_pipeline}
 \end{figure}
 
+% 4.2 Diagrama de Caso de Uso
+\section{Diagrama de Caso de Uso}
+\label{sec:diagrama-caso-uso}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{04-figuras/diagrama_em_branco.pdf}
+  \caption{Diagrama de Caso de Uso da Pipeline RAG para consulta ao SEEU}
+  \label{fig:diagrama-rag-seeu}
+\end{figure}
+
+\noindent
+O diagrama da Figura~\ref{fig:diagrama-rag-seeu} apresenta os atores e casos de uso principais da pipeline RAG para o SEEU:  
+\begin{itemize}
+  \item \textbf{Operador Judiciário}: inicia a consulta via “Receber Pergunta”.  
+  \item \textbf{Administrador}: configura parâmetros da pipeline em “Configurar Pipeline”.  
+  \item \textbf{Sistema}: atua como ator externo encarregado de disparar e orquestrar os processos de “Coletar Documentos Públicos”, “Pré-processar e segmentar texto”, “Gerar Embeddings e atualizar índice” e “Realizar Consulta Semântica (RAG)”.  
+  \item \textbf{Include} (setas obrigatórias): indicam os casos de uso que são sempre invocados no fluxo principal.  
+  \item \textbf{Extend} (setas opcionais): representam funcionalidades adicionais, como a “Avaliar Métricas e Monitorar Desempenho”, que estende o caso de uso “Exibir Resposta via chatbot/API REST”.  
+\end{itemize}  
+
+
+\subsection{Especificação de Casos de Uso}
+\label{sec:especificacao-casos-uso}
+No item anterior, foi apresentado o Diagrama de Caso de Uso do sistema. 
+A seguir serão detalhados cada um dos casos de uso, explicando as suas interações 
+com os atores:
+
+% UC-01
+\subsubsection{UC-01 – Receber Pergunta}
+\noindent Este caso de uso detalha como o Operador Judiciário submete uma pergunta à pipeline, abrangendo validação, armazenamento e confirmação de recebimento.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-01 – Receber Pergunta}
+  \label{tab:uc01}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-01 – Receber Pergunta \\ \hline
+    \textbf{Atores Principais}      & Operador Judiciário      \\ \hline
+    \textbf{Atores Secundários}     & —                        \\ \hline
+    \textbf{Resumo}                 & Registrar a pergunta do Operador Judiciário para iniciar o processo de consulta. \\ \hline
+    \textbf{Pré-Condições}          & Pipeline configurada pelo Administrador \\ \hline
+    \textbf{Pós-Condições}          & Pergunta armazenada e pronta para processamento \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic*., leftmargin=*]
+        \item Operador acessa a interface de consulta;
+        \item Informa o texto da pergunta;
+        \item Sistema valida e salva a pergunta;
+        \item Sistema confirma o recebimento.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Pergunta inválida: exibir erro e retornar ao passo 2;
+      \end{enumerate}
+      \begin{enumerate}[start=2, label=\arabic* a\,.]
+        \item Falha na persistência: exibir erro crítico e registrar log.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+
+% UC-02
+\subsubsection{UC-02 – Configurar Pipeline}
+\noindent Neste caso de uso, o Administrador configura parâmetros e módulos da pipeline RAG, garantindo que a coleta e indexação sejam executadas corretamente.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-02 – Configurar Pipeline}
+  \label{tab:uc02}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-02 – Configurar Pipeline \\ \hline
+    \textbf{Atores Principais}      & Administrador               \\ \hline
+    \textbf{Atores Secundários}     & Sistema                     \\ \hline
+    \textbf{Resumo}                 & Definir parâmetros e ativar módulos da pipeline RAG. \\ \hline
+    \textbf{Pré-Condições}          & Ambiente de implantação disponível; credenciais de Administrador. \\ \hline
+    \textbf{Pós-Condições}          & Pipeline pronta para execução de coleta, pré-processamento e indexação. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Administrador acessa painel de configuração;
+        \item Define parâmetros de coleta (fontes, periodicidade);
+        \item Seleciona opções de pré-processamento e indexação;
+        \item Salva ajustes e ativa pipeline;
+        \item Sistema confirma configuração bem-sucedida.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Parâmetros inválidos: sistema exibe erro e não salva; retorna ao passo 2;
+        \item Falha de autorização: sistema nega acesso e registra tentativa.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-03
+\subsubsection{UC-03 – Coletar Documentos Públicos}
+\noindent Automação da extração e armazenamento de documentos públicos do SEEU, garantindo disponibilidade dos arquivos para processamento.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-03 – Coletar Documentos Públicos}
+  \label{tab:uc03}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-03 – Coletar Documentos Públicos \\ \hline
+    \textbf{Atores Principais}      & Sistema                              \\ \hline
+    \textbf{Atores Secundários}     & Administrador                        \\ \hline
+    \textbf{Resumo}                 & Extrair automaticamente arquivos PDF oficiais do SEEU. \\ \hline
+    \textbf{Pré-Condições}          & Pipeline configurada; fontes de dados acessíveis. \\ \hline
+    \textbf{Pós-Condições}          & Documentos salvos no repositório local. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Sistema inicia processo de coleta;
+        \item Conecta-se aos portais do SEEU;
+        \item Baixa novos arquivos PDF;
+        \item Valida integridade e armazena no repositório.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Falha de rede: sistema registra erro e reprograma nova tentativa;
+        \item Documento corrompido: sistema descarta arquivo e alerta o Administrador.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-04
+\subsubsection{UC-04 – Pré-processar e Segmentar Texto}
+\noindent Conversão de PDFs em texto, limpeza e divisão em “chunks” de tamanho controlado, preparando os dados para vetorização.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-04 – Pré-processar e Segmentar Texto}
+  \label{tab:uc04}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-04 – Pré-processar e Segmentar Texto \\ \hline
+    \textbf{Atores Principais}      & Sistema                                  \\ \hline
+    \textbf{Atores Secundários}     & —                                        \\ \hline
+    \textbf{Resumo}                 & Converter PDFs em texto, limpar e dividir em chunks. \\ \hline
+    \textbf{Pré-Condições}          & Documentos PDF coletados disponíveis. \\ \hline
+    \textbf{Pós-Condições}          & Texto limpo segmentado em unidades de tamanho definido. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Sistema extrai texto de cada PDF (OCR se necessário);
+        \item Remove cabeçalhos, rodapés e formatação indesejada;
+        \item Segmenta texto em chunks de 500–1000 tokens;
+        \item Armazena chunks prontos para vetorização.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Falha na extração (OCR): exclui chunk e registra alerta;
+        \item Chunk fora do tamanho: ajusta limites e redivide automaticamente.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-05
+\subsubsection{UC-05 – Gerar Embeddings e Atualizar Índice}
+\noindent Geração de embeddings a partir dos chunks de texto e inserção no banco vetorial, mantendo o índice sempre atualizado.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-05 – Gerar Embeddings e Atualizar Índice}
+  \label{tab:uc05}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-05 – Gerar Embeddings e Atualizar Índice \\ \hline
+    \textbf{Atores Principais}      & Sistema                                      \\ \hline
+    \textbf{Atores Secundários}     & —                                            \\ \hline
+    \textbf{Resumo}                 & Criar embeddings a partir dos chunks e indexá-los no banco vetorial. \\ \hline
+    \textbf{Pré-Condições}          & Chunks de texto pré-processados disponíveis. \\ \hline
+    \textbf{Pós-Condições}          & Índice vetorial atualizado com novos embeddings. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Sistema seleciona chunks não indexados;
+        \item Calcula embeddings via modelo pré-treinado;
+        \item Envia embeddings com metadados ao banco vetorial;
+        \item Confirma inserção bem-sucedida no índice.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Erro de modelo: registra falha e reprocessa chunk específico;
+        \item Falha no banco: enfileira para nova tentativa e alerta Administrador.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-06
+\subsubsection{UC-06 – Realizar Consulta Semântica (RAG)}
+\noindent Vetorização da pergunta do Operador, recuperação dos documentos mais relevantes e geração de resposta via LLM, seguida de registro de logs.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-06 – Realizar Consulta Semântica (RAG)}
+  \label{tab:uc06}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-06 – Realizar Consulta Semântica (RAG) \\ \hline
+    \textbf{Atores Principais}      & Operador Judiciário                       \\ \hline
+    \textbf{Atores Secundários}     & Sistema                                   \\ \hline
+    \textbf{Resumo}                 & Vetorizar pergunta, recuperar documentos e gerar resposta via LLM. \\ \hline
+    \textbf{Pré-Condições}          & Índice vetorial disponível; pergunta recebida. \\ \hline
+    \textbf{Pós-Condições}          & Resposta gerada e pronta para exibição. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Operador submete pergunta armazenada;
+        \item Sistema vetoriza a pergunta;
+        \item Recupera top-k chunks semânticos do índice;
+        \item Concatena evidências ao prompt do LLM;
+        \item Gera e formata resposta natural;
+        \item Armazena log da consulta e resposta.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Índice indisponível: exibe mensagem de erro e sugere reintentar;
+        \item LLM sem resposta: exibe fallback com fonte oficial.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-07
+\subsubsection{UC-07 – Exibir Resposta via Chatbot/API REST}
+\noindent Formatação e envio da resposta ao Operador por meio de interface conversacional ou endpoint REST, com confirmação e registro de entrega.
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-07 – Exibir Resposta via Chatbot/API REST}
+  \label{tab:uc07}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-07 – Exibir Resposta via Chatbot/API REST \\ \hline
+    \textbf{Atores Principais}      & Operador Judiciário                          \\ \hline
+    \textbf{Atores Secundários}     & Sistema                                      \\ \hline
+    \textbf{Resumo}                 & Enviar resposta ao Operador por meio de interface conversacional ou API. \\ \hline
+    \textbf{Pré-Condições}          & Resposta gerada e disponível no sistema. \\ \hline
+    \textbf{Pós-Condições}          & Operador recebe e visualiza resposta; log de entrega registrado. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Sistema formata resposta para chatbot e JSON de API;
+        \item Envia mensagem pelo canal WebSocket ou endpoint REST;
+        \item Recebe confirmação de entrega;
+        \item Armazena status de entrega.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Falha no canal: tenta rota alternativa (API ↔ chatbot);
+        \item Erro de formatação: registra exceção e notifica Administrador.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% UC-08
+\subsubsection{UC-08 – Avaliar Métricas e Monitorar Desempenhos}
+\noindent Cálculo de métricas (precisão, recall, F1, latência) com base em logs de consulta, atualização do dashboard e acionamento de alertas quando necessário
+\begin{table}[H]
+  \centering
+  \caption{Especificação do Caso de Uso UC-08 – Avaliar Métricas e Monitorar Desempenhos}
+  \label{tab:uc08}
+  \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    \textbf{Nome do caso de uso}    & UC-08 – Avaliar Métricas e Monitorar Desempenhos \\ \hline
+    \textbf{Atores Principais}      & Sistema                                           \\ \hline
+    \textbf{Atores Secundários}     & Administrador                                     \\ \hline
+    \textbf{Resumo}                 & Calcular precisão, recall, F1 e acompanhar latência. \\ \hline
+    \textbf{Pré-Condições}          & Logs de consultas e respostas disponíveis. \\ \hline
+    \textbf{Pós-Condições}          & Dashboard de métricas atualizado; alertas acionados se limites ultrapassados. \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[leftmargin=*]
+        \item Sistema agrega dados de logs de consulta;
+        \item Calcula métricas (precisão, recall, F1, latência);
+        \item Atualiza painel de monitoramento;
+        \item Se métricas fora do padrão, gera alerta ao Administrador.
+      \end{enumerate}
+    } \\ \hline
+    \multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
+    \multicolumn{2}{|p{15cm}|}{%
+      \begin{enumerate}[label=\arabic* a\,.]
+        \item Dados incompletos: sinaliza alerta de qualidade de log e pausa processamento;
+        \item Falha no cálculo: registra erro e envia notificação emergencial.
+      \end{enumerate}
+    } \\ \hline
+  \end{tabular}
+\end{table}
+
+% 4.3 Diagrama de Classe
+\section{Diagrama de Classes}
+\label{sec:diagrama-de-classes}
+\noindent No item anterior, foram apresentadas as Descrições dos Casos de Uso 
+sistema. A seguir será apresentado o Diagrama de Classe contendo todos os 
+atributos, métodos e relacionamentos
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{04-figuras/diagrama_de_classe.png}
+  \caption{Diagrama de Caso de Uso da Pipeline RAG para consulta ao SEEU}
+  \label{fig:diagrama-rag-seeu}
+\end{figure}
+
+\noindent A Figura 3 apresenta o Diagrama de Classe, mostrando os atributos, 
+métodos e relacionamentos das classes no sistema 
+
+% Dicionário de Dados: PDFDocument
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da entidade \texttt{PDFDocument}}
+  \label{tab:dd_pdfdocument}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo} & \textbf{Tipo} & \textbf{Descrição} \\ \hline
+    \texttt{path}     & \texttt{String} & Caminho completo no sistema de arquivos onde o PDF foi salvo. \\ \hline
+    \texttt{content}  & \texttt{String} & Texto bruto extraído do PDF (após OCR, se aplicável). \\ \hline
+  \end{tabular}
+\end{table}
+
+% Dicionário de Dados: TextChunk
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da entidade \texttt{TextChunk}}
+  \label{tab:dd_textchunk}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo} & \textbf{Tipo} & \textbf{Descrição} \\ \hline
+    \texttt{id}    & \texttt{String} & Identificador único do fragmento de texto. \\ \hline
+    \texttt{text}  & \texttt{String} & Conteúdo textual do chunk, tipicamente 500–1000 tokens. \\ \hline
+  \end{tabular}
+\end{table}
+
+% Dicionário de Dados: Embedding
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da entidade \texttt{Embedding}}
+  \label{tab:dd_embedding}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo}     & \textbf{Tipo}            & \textbf{Descrição} \\ \hline
+    \texttt{vector}     & \texttt{List<float>}     & Lista de valores numéricos que compõem o embedding semântico. \\ \hline
+    \texttt{chunkId}    & \texttt{String}          & Chave estrangeira para o \texttt{TextChunk} de origem. \\ \hline
+  \end{tabular}
+\end{table}
+
+% Dicionário de Dados: Metadata
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da entidade \texttt{Metadata}}
+  \label{tab:dd_metadata}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo}       & \textbf{Tipo}   & \textbf{Descrição} \\ \hline
+    \texttt{chunkId}      & \texttt{String} & Referência ao fragmento de texto indexado. \\ \hline
+    \texttt{documentId}   & \texttt{String} & Identificador do documento PDF de origem. \\ \hline
+    \texttt{position}     & \texttt{int}    & Posição do chunk dentro do documento (ordem sequencial). \\ \hline
+  \end{tabular}
+\end{table}
+
+% Dicionário de Dados: QueryLog
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da entidade \texttt{QueryLog}}
+  \label{tab:dd_querylog}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo}       & \textbf{Tipo}         & \textbf{Descrição} \\ \hline
+    \texttt{queryText}    & \texttt{String}       & Texto original da pergunta submetida pelo operador. \\ \hline
+    \texttt{timestamp}    & \texttt{DateTime}     & Data e hora em que a consulta foi processada. \\ \hline
+    \texttt{responseText} & \texttt{String}       & Resposta gerada pela LLM após RAG. \\ \hline
+    \texttt{metrics}      & \texttt{Map<String,float>} & Mapa contendo valores de precisão, recall, F1 e latência para aquela consulta. \\ \hline
+  \end{tabular}
+\end{table}
+
+% 4.4 Protótipos
+\section{Protótipos}
+\label{sec:prototipos}
+\noindent Abaixo serão apresentados os protótipos e o funcionamento do sistema. Estes protótipos ilustram as principais telas e funcionalidades do sistema, demonstrando como os usuários podem interagir com o sistema.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPÍTULO 5 – RESULTADOS ESPERADOS
@@ -467,7 +901,7 @@ Implementação em LangChain:
 Este capítulo descreve, de forma detalhada, os resultados que se almeja alcançar com a execução do presente Trabalho de Conclusão de Curso (TCC). Tais resultados derivam dos objetivos estabelecidos no Capítulo~\ref{sec:objetivos} e da metodologia apresentada no Capítulo~\ref{chap:metodologia}, respeitando as normas da Associação Brasileira de Normas Técnicas -- ABNT (NBR 14724:2011) para trabalhos acadêmicos.
 
 \section{Implementação de uma pipeline RAG funcional}
-Espera-se disponibilizar uma pipeline de \emph{Retrieval-Augmented Generation} (RAG) plenamente operacional, capaz de integrar um modelo de linguagem de grande porte (LLM) a um índice vetorial que contenha os documentos públicos do Sistema Eletrônico de Execução Unificado (SEEU). A solução deverá oferecer uma interface conversacional (chatbot) em língua portuguesa, além de uma API REST para consumo externo, permitindo consultas em linguagem natural e retornando respostas fundamentadas nos documentos originais.
+Espera-se disponibilizar uma pipeline de RAG plenamente operacional, capaz de integrar um modelo de LLM a um índice vetorial que contenha os documentos públicos do SEEU. A solução deverá oferecer uma interface conversacional (chatbot) em língua portuguesa, além de uma API REST para consumo externo, permitindo consultas em linguagem natural e retornando respostas fundamentadas nos documentos originais.
 
 \section{Ganho de eficiência na recuperação de informações}
 A implementação proposta deverá reduzir o tempo médio despendido pelos operadores do Direito para localizar e consolidar informações no SEEU, quando comparado ao processo manual atualmente utilizado. Tal meta será verificada por meio de ensaios controlados que mensurem o tempo de resposta antes e depois da adoção da ferramenta. Objetiva-se uma redução de pelo menos 80\% no tempo de busca.

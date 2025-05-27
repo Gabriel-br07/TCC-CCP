@@ -1,6 +1,9 @@
 \documentclass[12pt,oneside,a4paper]{estilo}
 
 % --- Pacotes adicionais estritamente de conteúdo ---
+\usepackage{tabularx}
+\usepackage{float} 
+\usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage{booktabs}
@@ -16,10 +19,13 @@
 }
 
 % --- Se o estilo NÃO carregar abntex2cite ---
-\usepackage{abntex2cite}  
+\usepackage{abntex2cite}
 
 \begin{document}
 
+% ====================================================
+% Elementos pré-textuais
+% ====================================================
 \pretextual
 \include{01-elementos-pre-textuais/capa}
 \include{01-elementos-pre-textuais/folhaRosto}
@@ -29,8 +35,15 @@
 \include{01-elementos-pre-textuais/epigrafe}
 \include{01-elementos-pre-textuais/resumoPt}
 \include{01-elementos-pre-textuais/resumoEn}
+\include{01-elementos-pre-textuais/abreviaturas} 
+
+% ----- Sumário (limite até subseção) -----------------
+\setcounter{tocdepth}{2} % 0=cap, 1=sec, 2=subsec
 \sumario
 
+% ====================================================
+% Elementos textuais
+% ====================================================
 \textual
 \include{02-elementos-textuais/introducao}
 \include{02-elementos-textuais/fundamentacao}
@@ -38,7 +51,12 @@
 \include{02-elementos-textuais/metodologia}
 \include{02-elementos-textuais/resultados}
 
+% ====================================================
+% Elementos pós-textuais
+% ====================================================
 \postextual
+% Inclui "REFERÊNCIAS" no sumário com número de página
+\addcontentsline{toc}{chapter}{REFERÊNCIAS}
 \bibliography{referencias}
 
 \end{document}
