@@ -285,6 +285,7 @@ a apresentar evidências úteis ao gerador
 \begin{itemize}
   \item \textbf{RAG-Sequence} – para cada um dos $k$ documentos recuperados, o modelo gera uma resposta completa de forma independente. Em seguida, calcula-se a probabilidade de cada resposta e faz a marginalização, ou seja, a combinação ponderada dessas probabilidades para produzir a resposta final. Esse método garante que cada documento tenha igual oportunidade de influenciar a resposta global, sendo indicado quando se deseja explorar várias interpretações completas antes da decisão final \cite{lewis2020rag,edwards2024hybrid}.
   \item \textbf{RAG-Token} – em vez de gerar respostas inteiras por documento, o modelo reavalia a distribuição de probabilidade a cada novo token, permitindo que diferentes documentos contribuam de forma pontual ao longo da geração. Isso amplia a cobertura informativa e mistura evidências de várias fontes, mas requer mecanismos adicionais de coerência para evitar que o texto final fique fragmentado ou inconsistente \cite{zhang2025fine}.
+  \item \textbf{RAG-Multi-Hop} – permite responder perguntas complexas ao reunir informações de diversos documentos, mas suas múltiplas etapas de recuperação e reescrita de consultas por LLMs tornam o processo caro em termos computacionais e sujeito a alta latência. \cite{li2025treehopgeneratefilterquery}
 \end{itemize}
 
 \subsection{Desafios e limitações}
