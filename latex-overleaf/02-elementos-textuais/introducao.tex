@@ -388,24 +388,35 @@ O PNUD configura-se como agente estratégico na promoção do desenvolvimento hu
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Tecnologias}
+
 \label{chap:tecnologias}
 Este capítulo apresenta as tecnologias empregadas: linguagens e bibliotecas de Machine Learning(ML)/NLP, indexação vetorial, modelos de linguagem, orquestração de pipeline e infraestrutura de deployment.  
 \section{Linguagem e Bibliotecas Principais}
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML (\cite{python2024reference});
-  \item \textbf{Pandas} – manipulação de dados tabulares e pré-processamento de textos (\cite{pandas2024});
-  \item \textbf{NumPy} – operações vetoriais e matrizes de alto desempenho.
+
+\item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML  \cite{python2024reference};
+\item \textbf{Pandas} – manipulação de dados tabulares e pré-processamento de textos  \cite{pandas2024};
+\item \textbf{NumPy} – operações vetoriais e matrizes de alto desempenho \cite{numpy2025};
+\item \textbf{Scikit-learn} - para algoritmos para classificação, regressão, clustering e pré-processamento \cite{scikit-learn};
+
+
+
 \end{itemize}
 
 \section{Indexação e Recuperação Vetorial}
 \subsection{OpenSearch}
-Mecanismo de busca distribuída com suporte nativo a buscas vetoriais via plugins; ótimo para cenários de alta disponibilidade e grandes volumes de dados (\cite{taipalus2024vector}).
+O OpenSearch é um mecanismo de busca distribuído e de código aberto, baseado no Apache Lucene, feito para oferecer alta disponibilidade e escalabilidade no gerenciamento de grandes volumes de dados. Foi desenvolvido inicialmente pela AWS como um fork do Elasticsearch e atualmente mantido pela OpenSearch Software Foundation, ele tem suporte nativo a buscas vetoriais (k-NN) via plugins, essenciais para aplicações modernas como RAG e busca semântica. 
+A versão 3.0 (2025) introduziu otimizações como aceleração por GPU para indexação mais rápida e múltiplas linguagens de consulta. Ele oferece recursos avançados como pipelines de processamento de buscas e monitoramento em tempo real via Live Queries API. \cite{taipalus2024vector,opensearch2025}.
 
 \subsection{FAISS}
-Biblioteca de similaridade aproximada desenvolvida pelo Facebook, altamente otimizada para bilhões de vetores, mas depende de um sistema auxiliar para metadados e persistência (\cite{facebook2024faiss}).
+É uma biblioteca de código aberto desenvolvida pelo Facebook AI Research (FAIR) para busca de similaridade vetorial de alta performance em larga escala. Especializada em operações eficientes com bilhões de vetores. Utiliza técnicas avançadas como quantização de produto (PQ) e índices invertidos (IVF) para acelerar consultas k-NN em até 5x comparado a soluções convencionais. Sua arquitetura é otimizada para paralelismo em CPU/GPU e permite aplicações em tempo real como sistemas de recomendação, clustering de embeddings e RAG. O FAISS não gerencia metadados ou persistência nativamente, exigindo integração com sistemas externos como SQL databases ou caches distribuídos para cenários completos de produção \cite{facebook2024faiss}.
 
-\subsection{Milvus e Weaviate}
-Soluções especializadas de código-aberto com integração a grafos (Weaviate) e suporte a esquemas de indexação avançados (Milvus). Indicadas para aplicações críticas de IA.
+\subsection{Milvus}
+Milvus é um banco de dados vetorial de código aberto projetado para armazenamento massivo e busca de similaridade de alta performance em escala de bilhões a trilhões de vetores. Sua arquitetura modular e distribuída separa armazenamento, computação e coordenação e permite escalonamento horizontal independente para cenários de alta demanda, como RAG e sistemas de recomendação. Com suporte a múltiplos algoritmos de indexação (ex: HNSW, IVF, DiskANN) e operações híbridas (combinação de busca vetorial com filtros de metadados), o Milvus otimiza consultas complexas em aplicações críticas de IA, como detecção de anomalias e busca multimodal\cite{milvus2025}.
+
+\subsection{Weaviate}
+Weaviate é um banco de dados vetorial orientado a objetos que combina armazenamento de vetores com dados estruturados, e mais usado em buscas híbridas (semântica + keyword via BM25) e consultas GraphQL. Projetado para prototipagem rápida e integração nativa com modelos de machine learning (ex: BERT, ResNet), suporta dados multimodais (texto, imagem) e oferece escalabilidade via sharding e réplicas. Sua arquitetura simplificada prioriza facilidade de uso em aplicações como classificação de conteúdo, motores de recomendação e RAG, especialmente em ambientes cloud-native \cite{weaviate2025}.
+
 
 \section{Modelos de Linguagem}
 \subsection{LLama}
