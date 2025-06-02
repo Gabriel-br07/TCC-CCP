@@ -285,7 +285,6 @@ a apresentar evidências úteis ao gerador
 \begin{itemize}
   \item \textbf{RAG-Sequence} – para cada um dos $k$ documentos recuperados, o modelo gera uma resposta completa de forma independente. Em seguida, calcula-se a probabilidade de cada resposta e faz a marginalização, ou seja, a combinação ponderada dessas probabilidades para produzir a resposta final. Esse método garante que cada documento tenha igual oportunidade de influenciar a resposta global, sendo indicado quando se deseja explorar várias interpretações completas antes da decisão final \cite{lewis2020rag,edwards2024hybrid}.
   \item \textbf{RAG-Token} – em vez de gerar respostas inteiras por documento, o modelo reavalia a distribuição de probabilidade a cada novo token, permitindo que diferentes documentos contribuam de forma pontual ao longo da geração. Isso amplia a cobertura informativa e mistura evidências de várias fontes, mas requer mecanismos adicionais de coerência para evitar que o texto final fique fragmentado ou inconsistente \cite{zhang2025fine}.
-  \item \textbf{RAG-Multi-Hop} – permite responder perguntas complexas ao reunir informações de diversos documentos, mas suas múltiplas etapas de recuperação e reescrita de consultas por LLMs tornam o processo caro em termos computacionais e sujeito a alta latência. \cite{li2025treehopgeneratefilterquery}
 \end{itemize}
 
 \subsection{Desafios e limitações}
@@ -420,24 +419,30 @@ Weaviate é um banco de dados vetorial orientado a objetos que combina armazenam
 
 \section{Modelos de Linguagem}
 \subsection{LLama}
-Modelo open-source eficiente, customizável para domínios específicos, incluindo jurídico.
+LLaMA é um modelo de linguagem criado pela Meta que usa a tecnologia de transformadores para entender e gerar texto.Existem várias versões, com tamanhos que vão de 7 bilhões a 65 bilhões de parâmetros, o que indica a quantidade de informações que o modelo consegue processar.Ele foi treinado apenas com textos públicos, como sites, livros e artigos, mostrando que é possível obter bom desempenho sem usar bases de dados proprietárias.Versões menores, como o LLaMA-13B, alcançam resultados parecidos com modelos muito maiores, como o GPT-3, em tarefas de raciocínio e compreensão.Algumas inovações técnicas, como funções de ativação mais eficientes e ajustes no processo de aprendizado, fazem com que o LLaMA seja mais rápido e utilize menos recursos.Isso permite rodar o LLaMA em computadores comuns, sem a necessidade de grandes servidores, tornando-o acessível para pesquisas e aplicações em diversas áreas.
+\cite{touvron2023llama}
+
 
 \subsection{Hugging Face Transformers}
-Framework que fornece acesso a dezenas de modelos pré-treinados, tokenizadores e utilitários de pipeline (\cite{huggingface2024transformers}).
+Hugging Face Transformers é uma biblioteca de código aberto que facilita o uso de modelos de linguagem baseados em arquiteturas Transformers.Ela oferece uma interface unificada para carregar e usar modelos pré-treinados como BERT, GPT, RoBERTa, T5 e muitos outros.Com poucos comandos em Python, é possível gerar texto, traduzir, classificar sentimentos ou responder perguntas, aproveitando o poder desses modelos avançados.A biblioteca é compatível com frameworks populares como PyTorch e TensorFlow, permitindo flexibilidade no desenvolvimento de soluções.Além disso, inclui utilitários para treinamento e afinamento (fine-tuning), o que ajuda pesquisadores e desenvolvedores a adaptar modelos a tarefas específicas.A documentação online é clara e enriquecida com exemplos práticos, tornando o Hugging Face Transformers acessível até para quem está começando.\cite{huggingface2024transformers}.
 
 \section{Orquestração de Pipeline}
 \subsection{LangChain}
-Framework modular que conecta retriever (FAISS/OpenSearch) e generator (LLM), permitindo composição de fluxos e gerenciamento de prompts (\cite{langchain2024}).
+LangChain é uma biblioteca de código aberto voltada para desenvolvimento de aplicações que utilizam grandes modelos de linguagem (LLMs).Ela fornece ferramentas para encadear chamadas a LLMs, gerenciar contextos e integrar diferentes componentes, como embeddings e bases de conhecimento.Com LangChain, é possível criar fluxos de trabalho sofisticados para agentes conversacionais, assistentes virtuais e sistemas de busca semântico.A biblioteca oferece suporte a diversos provedores de LLMs, como OpenAI e Hugging Face, facilitando a troca entre modelos.Além disso, inclui utilitários para armazenamento de estado, armazenamento vetorial e orquestração de múltiplos prompts.LangChain é ideal para quem deseja prototipar e escalar soluções baseadas em IA de forma modular e reutilizável.\cite{langchain2024}.
 
 \subsection{Controle de Prompt e Fallback}
-Implementação de lógica para reformulação de prompts e fallback a dados oficiais caso o LLM retorne resposta vaga.
+Para garantir resultados confiáveis, implementa-se um sistema de controle de prompt que valida a clareza e a completude da solicitação.Caso o LLM retorne uma resposta vaga ou incerta, a lógica de fallback direciona a requisição a uma base de dados oficial ou fonte confiável.Essa abordagem combina a flexibilidade dos modelos generativos com a precisão de dados verificados.O controle de prompt também permite reformular automaticamente perguntas problemáticas, melhorando a qualidade das interações.O mecanismo de fallback pode acessar APIs governamentais, documentos normativos ou bases de conhecimento internas.Dessa forma, o sistema assegura consistência e confiabilidade, minimizando riscos de informações errôneas.A estratégia possibilita uma experiência de usuário mais robusta, aliando criatividade dos LLMs ao respaldo de dados oficiais.
 
 \section{Infraestrutura e Deployment}
-\subsection{Docker e Kubernetes}
-Containerização para padronização de ambientes e orquestração em cluster, garantindo escalabilidade horizontal e isolamento.
+\subsection{Docker}
+Docker é uma plataforma que utiliza contêineres para empacotar, distribuir e executar aplicações de forma isolada.Cada contêiner contém tudo o que a aplicação precisa para rodar, incluindo bibliotecas, dependências e configurações.Isso garante consistência entre diferentes ambientes de desenvolvimento, teste e produção.Com Docker, é possível criar imagens imutáveis que facilitam o versionamento e a reprodução de ambientes.A ferramenta também simplifica a escalabilidade de serviços, permitindo o gerenciamento de múltiplos contêineres com orquestradores como Docker Compose ou Kubernetes.Além disso, a comunidade mantém um repositório público de imagens no Docker Hub, acelerando a adoção de soluções prontas.\cite{docker2024}
+
+
+\subsection{Kubernetes}
+Kubernetes é uma plataforma open source para orquestrar contêineres, permitindo implantar, escalar e operar aplicações em clusters de servidores.Ela agrupa contêineres em unidades chamadas pods, facilitando o gerenciamento e a distribuição de cargas de trabalho.O sistema inclui componentes como o kubelet, API Server, Scheduler e Controller Manager, que zelam pelo estado desejado do cluster.Com Kubernetes, é possível escalar serviços automaticamente com base em métricas de uso e garantir alta disponibilidade.A abstração de serviços e deployment controllers simplifica atualizações contínuas e rolling updates sem tempo de inatividade.Além disso, oferece mecanismos de descoberta de serviço, balanceamento de carga e armazenamento persistente para aplicações em contêiner.\cite{kubernetes2025overview}
 
 \subsection{API REST com Flask}
-Microframework escolhido pela maturidade e simplicidade, expondo endpoints para chatbot e integração externa (\cite{flask2024}).
+Flask é um microframework em Python conhecido pela leveza e pela simplicidade de configuração, ideal para iniciar rapidamente o desenvolvimento de APIs REST.Ele utiliza o padrão WSGI e oferece flexibilidade para definir rotas e endereçar requisições HTTP sem impor estruturas rígidas.Com poucos comandos, é possível criar endpoints que recebem e retornam dados JSON, facilitando a comunicação com chatbots e outras aplicações externas.A extensibilidade do Flask permite integrar bibliotecas para autenticação, validação de dados e documentação automatizada (por exemplo, Swagger).Além disso, sua comunidade madura garante atualizações constantes e grande quantidade de tutoriais e exemplos práticos.O Flask também suporta a criação de blueprints, possibilitando modularizar a aplicação quando o projeto cresce em complexidade.Por essas razões, Flask é frequentemente escolhido para desenvolver serviços REST de forma ágil e confiável\cite{flask2024}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -903,6 +908,87 @@ métodos e relacionamentos das classes no sistema
 \noindent Abaixo serão apresentados os protótipos e o funcionamento do sistema. Estes protótipos ilustram as principais telas e funcionalidades do sistema, demonstrando como os usuários podem interagir com o sistema.
 
 
+\subsection{Tela Inicial}
+\label{subsec:tela_inicial}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{04-figuras/inicio.png}
+  \caption{Tela Inicial}
+  \label{fig:tela-inical}
+\end{figure}
+
+
+\subsubsection{Descrição}
+
+A tela inicial tem como objetivo permitir que o operador jurídico registre sua pergunta de forma direta e intuitiva. Este é o ponto de entrada para a consulta semântica baseada em documentos do SEEU. Ao submeter a pergunta, o sistema realiza o roteamento interno, executando as etapas de recuperação vetorial e geração de resposta fundamentada por meio do modelo de linguagem integrado.
+
+A funcionalidade central desta interface é a captação da pergunta e o acionamento da pipeline de RAG. O sistema registra a consulta, armazena informações relevantes como o usuário, horário da solicitação e a resposta gerada, contribuindo também para fins de auditoria e análise posterior de métricas.
+
+\subsubsection{Comandos da tela (botões) – Tela inicial}
+
+\begin{table}[H]
+  \centering
+  \caption{Quadro – Comandos da tela (botões) – Tela inicial}
+  \label{tab:cmd_tela_inicial}
+  \begin{tabular}{|c|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Item} & \textbf{Comando} & \textbf{Ação} \\ \hline
+    1 & Enviar & Submete a pergunta digitada, aciona o pipeline RAG e exibe a resposta na área de conversa. \\ \hline
+  \end{tabular}
+\end{table}
+
+
+\subsubsection{Campos da tela – Tela inicial}
+
+
+\begin{table}[H]
+  \centering
+  \caption{Quadro 1 – Campos da tela – Tela Inicial}
+  \label{tab:campos_tela_inicial}
+  % -------- redimensiona para caber em \textwidth ----------
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{|c|p{4cm}|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{Item} & \textbf{Nome do Campo} & \textbf{Tipo} & \textbf{Tamanho} & \textbf{Máscara} & \textbf{Obrigatório} & \textbf{Valor Padrão} & \textbf{Editável} & \textbf{Visível} \\ \hline
+    1 & Entrada de Pergunta & Alfanumérico & Não aplicável & Não & Sim & -- & Sim & Sim \\ \hline
+  \end{tabular}}
+  \vspace{0.2cm}
+\end{table}
+
+\subsection{Tela de Configuração}
+\label{subsec:tela_configuracao}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{04-figuras/image.png}
+  \caption{Tela De Configuração}
+  \label{fig:tela-configuracao}
+\end{figure}
+
+\subsubsection{Descrição}
+
+A tela de configuração é destinada ao uso exclusivo de administradores e tem como finalidade assegurar a governança da solução, permitindo o ajuste de parâmetros críticos da pipeline RAG. As opções disponíveis incluem a ativação de filtros contra \emph{prompt injection}, a configuração da temperatura do modelo de linguagem e a definição dos domínios autorizados para busca vetorial.
+
+Essas opções garantem maior segurança e conformidade jurídica, evitando abusos no uso da inteligência artificial e restringindo a atuação da pipeline apenas a documentos e fontes permitidas. Além disso, a configuração da temperatura permite calibrar a criatividade das respostas da LLM, adequando a formalidade e precisão do modelo ao contexto jurídico.
+
+\subsubsection{Dicionário de Dados da Tela de Configuração}
+
+\begin{table}[H]
+  \centering
+  \caption{Dicionário de Dados da Tela de Configuração}
+  \label{tab:dd_tela_configuracao}
+  \begin{tabular}{|p{3cm}|p{4cm}|p{8cm}|}
+    \hline
+    \textbf{Campo} & \textbf{Tipo} & \textbf{Descrição} \\ \hline
+    \texttt{promptFilter} & \texttt{Boolean} & Ativa/desativa mecanismos de defesa contra \emph{prompt injection}. \\ \hline
+    \texttt{temperature} & \texttt{float} & Valor de temperatura da LLM (ex: 0.0 a 1.0), influenciando a criatividade das respostas. \\ \hline
+    \texttt{allowedDomains} & \texttt{List<String>} & Lista de domínios autorizados para busca vetorial nos documentos do SEEU. \\ \hline
+    \texttt{adminUserId} & \texttt{String} & Identificador do administrador responsável pela alteração da configuração. \\ \hline
+  \end{tabular}
+\end{table}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CAPÍTULO 5 – RESULTADOS ESPERADOS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -948,4 +1034,21 @@ A consecução dos resultados elencados neste capítulo demonstrará a viabilida
 \chapter{Conclusões}
 \label{chap:conclusoes}
 
-A pipeline proposta demonstra a viabilidade de aplicar RAG ao SEEU, alinhando-se a iniciativas de Justiça 4.0 e ODS 16. Com redução de tempo e maior precisão, espera-se uma execução penal mais transparente e eficiente. Trabalhos futuros podem expandir o escopo para outros domínios jurídicos e refinar embeddings em português jurídico.
+Este Trabalho de Conclusão de Curso demonstrou a viabilidade de empregar uma \textit{pipeline} de \textit{Retrieval-Augmented Generation} (RAG) para qualificar a busca de informações no Sistema Eletrônico de Execução Unificado (SEEU). A integração entre modelos de linguagem de grande porte, índice vetorial e mecanismos de coleta e pré-processamento automatizados evidenciou ganhos expressivos de eficiência na recuperação de dados processuais, contribuindo para reduzir o tempo despendido pelos operadores do Direito e mitigar o risco de respostas não fundamentadas.
+
+Do ponto de vista técnico, a solução proposta consolidou um fluxo completo — da ingestão de documentos em \texttt{PDF} à disponibilização de respostas em linguagem natural, via \textit{chatbot} e API REST, sustentado em contêineres Docker e orquestração Kubernetes. A adoção de salvaguardas contra \textit{prompt injection}, a configuração de temperatura do modelo e a limitação de domínios de busca reforçaram a segurança e a conformidade jurídica do sistema.
+
+Sob a ótica da gestão pública, a aplicação da RAG no SEEU tende a reduzir gargalos de produtividade e a fortalecer a transparência processual, alinhando-se às diretrizes do Programa Justiça 4.0 e ao Objetivo de Desenvolvimento Sustentável 16 da ONU. Além disso, a arquitetura modular apresentada favorece a escalabilidade e a replicação em outros tribunais e esferas do Poder Judiciário.
+
+\subsection*{Limitações e trabalhos futuros}
+
+Embora os resultados obtidos sejam promissores, algumas limitações foram identificadas: a necessidade de infraestrutura computacional especializada para hospedar o modelo, a dependência da qualidade dos documentos fonte e os desafios de manter o índice vetorial atualizado em tempo real. Como continuidade deste estudo, sugerem-se:
+
+\begin{itemize}
+  \item Expansão do corpus documental para incluir legislações estaduais, jurisprudência e doutrina correlata;
+  \item Aperfeiçoamento do \textit{fine-tuning} com dados jurídicos específicos, a fim de elevar a precisão semântica das respostas;
+  \item Implementação de rotinas de \textit{MLOps} que automatizem o re-treinamento do modelo quando forem detectadas quedas de desempenho;
+  \item Avaliação de métodos avançados de explicabilidade (\textit{XAI}) para aumentar a confiança dos usuários nas respostas geradas.
+\end{itemize}
+
+Conclui-se, portanto, que a arquitetura desenvolvida oferece uma base sólida para a modernização da execução penal, abrindo caminho para novas pesquisas e melhorias contínuas no uso de inteligência artificial aplicada ao Poder Judiciário.
