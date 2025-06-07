@@ -7,53 +7,58 @@
 
 Em nível estadual, o Tribunal de Justiça da Bahia (TJ-BA) mantém cerca de
 24\,000 execuções penais ativas no Sistema Eletrônico de Execução Unificado
-(SEEU). Como a Lei de Execução Penal (LEP) impõe revisão trimestral e a
-Súmula 533 do Superior Tribunal de Justiça (STJ) confirma esse prazo, são
-necessários aproximadamente 8\,000 despachos por mês (267/dia)
-\cite{brasil1984lep,stj2015sumula533}. No Mutirão Processual Penal 2024 foram
-lançados 18\,600 atos em 60 dias, volume acima da meta da Portaria 304/2024 do
-Conselho Nacional de Justiça (CNJ), o que evidencia sobrecarga
-\cite{tjba2024mutirao,cnj2024portaria304}.
+(SEEU). A Lei de Execução Penal (LEP) exige revisões trimestrais, requisito
+confirmado pela Súmula 533 do Superior Tribunal de Justiça (STJ); isso
+representa, na prática, a análise de aproximadamente 8\,000 movimentações por
+mês (cerca de 267 por dia) \cite{brasil1984lep,stj2015sumula533}.
 
-Situação semelhante ocorreu no Tribunal de Justiça do Ceará (TJ-CE): a elaboração
-manual de 146 despachos consumiria mais de quatro horas, enquanto um robô
-executa cada um em 30 s \cite{tjce2023robos}.  Esses dados reforçam a
-pertinência da \emph{pipeline} de \emph{Retrieval-Augmented Generation} (RAG)
-proposta, capaz de automatizar a busca semântica e gerar minutas, recuperando
-produtividade sem prejudicar a qualidade nem as garantias processuais.
+Ainda que a digitalização dos processos reduza o manuseio físico dos autos, o
+volume de informações a consultar permanece elevado. No Mutirão Processual Penal
+de 2024, por exemplo, foram lançados 18\,600 atos em apenas 60 dias—número que
+ultrapassa a meta da Portaria 304/2024 do Conselho Nacional de Justiça (CNJ),
+evidenciando a sobrecarga de magistrados e servidores
+\cite{tjba2024mutirao,cnj2024portaria304}. Situação semelhante ocorreu no
+Tribunal de Justiça do Ceará (TJ-CE): elaborar manualmente 146 despachos
+levaria mais de quatro horas, enquanto um robô conclui cada ato em apenas 30 s
+\cite{tjce2023robos}.
 
-A digitalização dos serviços públicos tornou-se pilar da modernização judicial,
-impulsionada por parcerias entre organismos internacionais e o Judiciário.  O
-Programa das Nações Unidas para o Desenvolvimento (PNUD) e o CNJ, por exemplo,
-firmaram projetos que ampliam a transparência e o acesso à Justiça por meio de
-soluções digitais e governança inovadora \cite{undp2025pnudcnj}.
+Diante desse cenário, este trabalho propõe uma \emph{pipeline} de
+\emph{Retrieval-Augmented Generation} (RAG) orientada **exclusivamente** ao
+suporte informacional no SEEU. O objetivo não é “processar processos penais” nem
+acessar peças sigilosas (respeitando o art.~201 do CPP), mas:
 
-A experiência do \emph{e-Government} da Estônia mostra o impacto de
-infraestrutura digital robusta: 98 \% das declarações de imposto passam a ser
-enviadas on-line em poucos minutos, e o mesmo percentual de empresas é
-registrado eletronicamente, aumentando a rastreabilidade e reduzindo fraudes
-\cite{divald2021eformalization}. Guardadas as proporções, o SEEU enfrenta
-desafio semelhante — consolidar milhares de atos processuais dispersos e
-assegurar as revisões trimestrais obrigatórias. O caso estoniano indica que
-automação e padronização digitais podem gerar ganhos análogos de eficiência e
-transparência, reforçando o valor da \emph{pipeline} RAG proposta.
+\begin{itemize}
+  \item realizar busca semântica sobre a LEP, Constituição Federal e demais
+        normas públicas;
+  \item gerar resumos e alertas normativos que auxiliem a conferência de prazos
+        no SEEU;
+  \item sugerir referências jurisprudenciais e doutrinárias para que o usuário
+        redija suas próprias minutas, mantendo controle total sobre o texto
+        final.
+\end{itemize}
 
-Apesar dos avanços, a consulta manual a grandes acervos documentais ainda é
-demorada e sujeita a erros. Pesquisas mostram que bancos de dados vetoriais e
-\emph{embeddings} reduzem a latência e aumentam a precisão de recuperação
-\cite{taipalus2024vector,gao2023survey}. Técnicas RAG — que combinam
-Inteligência Artificial (IA) e \emph{Large Language Models} (LLMs) — despontam
-como solução para consultas em linguagem natural. Revisões recentes destacam o
-potencial dessa abordagem \cite{qwak2024integrating,pujiono2024implementing}.
+Ao concentrar-se em bases jurídicas públicas, a solução devolve tempo às
+equipes, eleva a precisão das pesquisas e preserva as garantias processuais.
+A iniciativa alinha-se às diretrizes de modernização do Judiciário, em
+parceria com organismos como o PNUD, que promovem transparência e inovação por
+meio de soluções digitais \cite{undp2025pnudcnj}.
 
-Este trabalho propõe construir uma \emph{pipeline} RAG para o SEEU,
-implementada em Python, orquestrada por LangChain, exposta por chatbot em Flask
-e empacotada em Docker para implantação consistente. Operadores do Direito
-poderão realizar buscas intuitivas e integrar a solução a sistemas externos por
-meio de uma Application Programming Interface (API) Representational State Transfer (REST).
+A experiência do \emph{e-Government} estoniano demonstra benefícios de
+infraestrutura digital robusta: 98 \% das declarações de imposto são enviadas
+on-line em minutos, elevando rastreabilidade e reduzindo fraudes
+\cite{divald2021eformalization}. De forma análoga, o SEEU busca consolidar
+milhares de atos dispersos e garantir revisões trimestrais obrigatórias; a
+\emph{pipeline} RAG proposta visa ganhos semelhantes de eficiência e
+transparência.
 
-
-
+Pesquisas recentes indicam que bancos vetoriais e \emph{embeddings} reduzem
+latência e aumentam precisão \cite{taipalus2024vector,gao2023survey}. Técnicas
+RAG, que combinam IA e \emph{Large Language Models} (LLMs), destacam-se como
+solução para consultas em linguagem natural \cite{qwak2024integrating,
+pujiono2024implementing}. Assim, este trabalho implementa a \emph{pipeline}
+RAG em Python, orquestrada por LangChain, exposta via chatbot em Flask e
+empacotada em Docker, oferecendo também uma API REST para integração com
+sistemas externos.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Seção 1.1 – Objetivos
@@ -78,7 +83,8 @@ transparência.
   \item Disponibilizar um chatbot integrado à \emph{pipeline};
   \item Conduzir testes de usabilidade e ajustar a experiência do usuário;
   \item Implementar uma API REST documentada;
-  \item Preparar o ambiente de \emph{deployment} com segurança e escalabilidade.
+  \item Preparar o ambiente de \emph{deployment} com segurança e
+        escalabilidade.
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,16 +94,38 @@ transparência.
 \section{Trabalhos Correlatos}
 \label{sec:trabalhos-correlatos}
 
-Esta seção discute estudos que aplicam RAG a contextos jurídicos ou regulatórios, evidenciando avanços e limitações relevantes para o SEEU.
+Esta seção discute estudos que aplicam RAG a contextos jurídicos ou
+regulatórios, evidenciando avanços e limitações relevantes para o SEEU.
 
-\textbf{Edwards (2024)} apresenta um \textit{pipeline} RAG que integra grafos de conhecimento — construídos por especialistas e por LLMs — a uma base vetorial, automatizando relatórios de acreditação AACSB. O roteamento de consultas, a decomposição em subconsultas e a síntese automática de respostas reduzem o esforço humano e aumentam a transparência; entretanto, a curadoria desses grafos ainda exige validação manual \cite{edwards2024hybrid}.  
-\emph{Relação com o SEEU}: o sistema proposto neste TCC adota roteamento e síntese similares, mas aplica regras jurídicas automáticas para validar o grafo, minimizando a intervenção humana.
+\citeonline{edwards2024hybrid} apresenta um \textit{pipeline} RAG que integra
+grafos de conhecimento — construídos por especialistas e por LLMs — a uma base
+vetorial, automatizando relatórios de acreditação Association to Advance
+Collegiate Schools of Business (AACSB). O roteamento de consultas, a
+decomposição em subconsultas e a síntese automática de respostas reduzem o
+esforço humano e aumentam a transparência; entretanto, a curadoria desses
+grafos ainda exige validação manual \cite{edwards2024hybrid}.\\
+\emph{Relação com o SEEU}: o sistema proposto neste TCC adota roteamento e
+síntese similares, mas aplica regras jurídicas automáticas para validar o
+grafo, minimizando a intervenção humana.
 
-\textbf{Pujiono, Agtyaputra e Ruldeviyani (2024)} implementam um chatbot que combina \textit{embeddings} da OpenAI, armazenamento vetorial no Pinecone e geração condicionada à recuperação, respondendo a perguntas sobre normas de agências públicas. O estudo comprova a utilidade do RAG na interpretação de regulamentos, porém não trata acervos processuais volumosos \cite{pujiono2024implementing}.  
-\emph{Relação com o SEEU}: o presente trabalho incorpora técnicas de indexação escalável e métricas de cobertura para manipular milhares de peças processuais e atender às revisões trimestrais obrigatórias.
+\citeonline{pujiono2024implementing} implementam um chatbot que combina
+\textit{embeddings} da OpenAI, armazenamento vetorial no Pinecone e geração
+condicionada à recuperação, respondendo a perguntas sobre normas de agências
+públicas. O estudo comprova a utilidade do RAG na interpretação de regulamentos,
+porém não trata acervos processuais volumosos \cite{pujiono2024implementing}.\\
+\emph{Relação com o SEEU}: o presente trabalho incorpora técnicas de indexação
+escalável e métricas de cobertura para manipular grande acervo de legislação e
+doutrina.
 
-\textbf{Aquino (2024)} descreve um fluxo RAG local para extrair informações estruturadas de documentos de licitação, utilizando \textit{embeddings} BERTimbau, Chroma como \textit{vector store} e LLMs \textit{open source}. O autor relata ganhos de precisão sobre técnicas tradicionais, mas alerta para o elevado custo computacional \cite{aquino2024extracting}.  
-\emph{Relação com o SEEU}: esta pesquisa adota estratégias de compressão e particionamento que reduzem o consumo de recursos, viabilizando a execução em infraestrutura de tribunal estadual sem comprometer a qualidade das respostas.
+\citeonline{aquino2024extracting} descreve um fluxo RAG local para extrair
+informações estruturadas de documentos de licitação, utilizando
+\textit{embeddings} BERTimbau, Chroma como \textit{vector store} e LLMs
+\textit{open source}. O autor relata ganhos de precisão sobre técnicas
+tradicionais, mas alerta para o elevado custo computacional
+\cite{aquino2024extracting}.\\
+\emph{Relação com o SEEU}: esta pesquisa adota estratégias de compressão e
+particionamento que reduzem o consumo de recursos, viabilizando a execução em
+infraestrutura de tribunal estadual sem comprometer a qualidade das respostas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Seção 1.3 – Solução Proposta
@@ -106,22 +134,30 @@ Esta seção discute estudos que aplicam RAG a contextos jurídicos ou regulató
 \section{Solução Proposta}
 \label{sub:solucao-proposta}
 
-A solução consiste em uma \textit{pipeline} RAG organizada nos seguintes módulos:
+A solução consiste em uma \textit{pipeline} RAG organizada nos seguintes
+módulos:
 
 \begin{itemize}[label=\textbullet]
-  \item \textbf{Coleta automática} de documentos oficiais (PDF) do SEEU;
-  \item \textbf{Pré-processamento} — limpeza,Optical Character Recognition (OCR) e segmentação em \emph{chunks};
-  \item \textbf{Vetorização} e indexação em base vetorial (Facebook AI Similarity Search (FAISS) ou OpenSearch);
+  \item \textbf{Extração e pré-processamento de dados relacionados ao SEEU} de
+        documentos oficiais (PDF), sítios web públicos com informações de
+        suporte, conversão de vídeos de treinamento para áudio e posterior
+        transcrição;
+  \item \textbf{Acesso a acervos legislativos}: recuperação bimestral da
+        legislação penal, Constituição Federal, Código de Processo Penal,
+        súmulas e resoluções em acervos oficiais;
+  \item \textbf{Pré-processamento} — limpeza e segmentação em \emph{chunks};
+  \item \textbf{Vetorização} e indexação em base vetorial ((Facebook AI Similarity Search (FAISS) ou
+        OpenSearch);
   \item \textbf{Orquestração} via LangChain, com fallback híbrido (keyword + semantic);
-  \item \textbf{Interface conversacional} (chatbot) e \textbf{API REST} documentada em OpenAPI;
+  \item \textbf{Interface conversacional} (chatbot) e \textbf{API REST}
+        documentada em OpenAPI;
   \item \textbf{Camada de validação jurídica} para reduzir alucinações;
   \item \textbf{Testes automatizados} de integração e regressão (precisão, recall, F1);
   \item \textbf{Monitoramento e métricas} (tempo de resposta, taxa de erro, taxa de alucinação);
-  \item \textbf{Deployment conteinerizado} (Docker/Kubernetes) com Continuous Integration / Continuous Deployment (CI/CD);
+  \item \textbf{Deployment conteinerizado} (Docker/Kubernetes) com CI/CD;
   \item \textbf{Documentação técnica completa} (código-fonte comentado, manuais, API);
   \item \textbf{Plano de mitigação de riscos} e atualização contínua de dependências.
 \end{itemize}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
