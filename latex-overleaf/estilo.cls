@@ -39,6 +39,7 @@
 \OnehalfSpacing
 
 \RequirePackage{caption}
+\usepackage{svg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % CONFIGURAÇÕES GERAIS
