@@ -1,0 +1,298 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Aquino 2024]{aquino2024extracting}
+\abntrefinfo{Aquino}{AQUINO}{2024}
+{AQUINO, I. V.~d.
+\textbf{Extracting Information from Brazilian Legal Documents with
+  Retrieval-Augmented Generation}.
+Disserta\c{c}\~{a}o (Trabalho de Conclusão de Curso (Bacharel em Ciências da
+  Computação)) --- Universidade Federal de Santa Catarina, Florianópolis,
+  Brazil, 2024. Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://repositorio.ufsc.br/handle/123456789/262519}.}
+
+\bibitem[Belarmino 2025]{belarmino2025aplicacao}
+\abntrefinfo{Belarmino}{BELARMINO}{2025}
+{BELARMINO, M. e.~a. Aplicação de large language models na análise e
+  síntese de documentos jurídicos: Uma revisão de literatura.
+\textbf{arXiv preprint}, abs/2504.00725v1, 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{http://arxiv.org/abs/2504.00725v1}.}
+
+\bibitem[{Brasil} 1984]{brasil1984lep}
+\abntrefinfo{{Brasil}}{{Brasil}}{1984}
+{{Brasil}. \textbf{{Lei n.º 7.210, de 11 de julho de 1984 (Lei de Execução
+  Penal)}}. 1984.
+Diário Oficial da União, 13 jul. 1984. Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.planalto.gov.br/ccivil\_03/leis/l7210.htm}.}
+
+\bibitem[{Conselho Nacional de Justiça} 2024]{cnj2024portaria304}
+\abntrefinfo{{Conselho Nacional de Justiça}}{{Conselho Nacional de
+  Justiça}}{2024}
+{{Conselho Nacional de Justiça}. \textbf{{Portaria n.º 304, de 14 de março
+  de 2024}}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://atos.cnj.jus.br/atos/detalhar/4659}.}
+
+\bibitem[Divald 2021]{divald2021eformalization}
+\abntrefinfo{Divald}{DIVALD}{2021}
+{DIVALD, S. \textbf{E-formalization case study: e-Estonia: a digital society
+  for the transition to formality}. Genebra: International Labour Office, 2021.
+  Acesso em: nov. 2025.
+ISBN 9789220342244. Dispon{\'\i}vel em:
+  \url{https://www.ilo.org/publications/e-estonia-digital-society-transition-formality}.}
+
+\bibitem[{Docker Documentation} 2024]{docker2024}
+\abntrefinfo{{Docker Documentation}}{{Docker Documentation}}{2024}
+{{Docker Documentation}. \textbf{Docker Overview}. 2024.
+  \url{https://docs.docker.com/get-started/docker-overview/}.
+Accessed: 2025-06-02.}
+
+\bibitem[Edwards 2024]{edwards2024hybrid}
+\abntrefinfo{Edwards}{EDWARDS}{2024}
+{EDWARDS, C. Hybrid context retrieval augmented generation pipeline:
+  Llm-augmented knowledge graphs and vector database for accreditation
+  reporting assistance.
+\textbf{ArXiv preprint}, abs/2405.15436v1, 2024.
+Dispon{\'\i}vel em: \url{https://arxiv.org/abs/2405.15436v1}.}
+
+\bibitem[{Facebook Research} 2024]{facebook2024faiss}
+\abntrefinfo{{Facebook Research}}{{Facebook Research}}{2024}
+{{Facebook Research}. \textbf{FAISS}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://github.com/facebookresearch/faiss}.}
+
+\bibitem[Gao 2023]{gao2023survey}
+\abntrefinfo{Gao}{GAO}{2023}
+{GAO, Y. e.~a. Retrieval-augmented generation for large language models: A
+  survey.
+\textbf{arXiv preprint}, arXiv:2312.10997, 2023.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://arxiv.org/abs/2312.10997}.}
+
+\bibitem[Harris et al. 2020]{numpy2025}
+\abntrefinfo{Harris et al.}{HARRIS et al.}{2020}
+{HARRIS, C.~R.; MILLMAN, K.~J.; WALT, S.~J. van~der; GOMMERS, R.; VIRTANEN, P.;
+  COURNAPEAU, D.; WIESER, E.; TAYLOR, J.; BERG, S.; SMITH, N.~J.; KERN, R.;
+  PICUS, M.; HOYER, S.; KERKWIJK, M.~H. van; BRETT, M.; HALDANE, A.; R{\'{I}}O,
+  J.~F. del; WIEBE, M.; PETERSON, P.; G{\'{E}}RARD-MARCHANT, P.; SHEPPARD, K.;
+  REDDY, T.; WECKESSER, W.; ABBASI, H.; GOHLKE, C.; OLIPHANT, T.~E. Array
+  programming with {NumPy}.
+\textbf{Nature}, Springer Science and Business Media {LLC}, v.~585, n.~7825, p.
+  357--362, set. 2020.
+Dispon{\'\i}vel em: \url{https://doi.org/10.1038/s41586-020-2649-2}.}
+
+\bibitem[{IBM} 2025]{ibm2025vector}
+\abntrefinfo{{IBM}}{{IBM}}{2025}
+{{IBM}. \textbf{IBM Vector Database}. 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://www.ibm.com/think/topics/vector-database}.}
+
+\bibitem[{Kubernetes Documentation} 2025]{kubernetes2025overview}
+\abntrefinfo{{Kubernetes Documentation}}{{Kubernetes Documentation}}{2025}
+{{Kubernetes Documentation}. \textbf{{Concepts Overview}}. 2025.
+  \url{https://kubernetes.io/docs/concepts/overview/}.
+Acesso em: 02 jun. 2025.}
+
+\bibitem[Lai 2023]{lai2023lawm}
+\abntrefinfo{Lai}{LAI}{2023}
+{LAI, J. e.~a. Large language models in law: A survey.
+\textbf{arXiv preprint 2312.03718v1}, 2023.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://arxiv.org/abs/2312.03718}.}
+
+\bibitem[{LangChain} 2024]{langchain2024}
+\abntrefinfo{{LangChain}}{{LangChain}}{2024}
+{{LangChain}. \textbf{LangChain}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://github.com/hwchase17/langchain}.}
+
+\bibitem[Lewis 2020]{lewis2020rag}
+\abntrefinfo{Lewis}{LEWIS}{2020}
+{LEWIS, P. e.~a. Retrieval{-}augmented generation for knowledge{-}intensive nlp
+  tasks. In:  \textbf{Advances in Neural Information Processing Systems}.
+  Vancouver, Canada: [s.n.], 2020. v.~33, p. 9459--9474. Acesso em: nov. 2025.
+  Dispon{\'\i}vel em:
+  \url{https://proceedings.neurips.cc/paper/2020/file/6b493230205f780e1bc26945df7481e5-Paper.pdf}.}
+
+\bibitem[Mageirakos et al. 2025]{mageirakos2025cracking}
+\abntrefinfo{Mageirakos et al.}{MAGEIRAKOS et al.}{2025}
+{MAGEIRAKOS, V.; WU, B.; ALONSO, G. Cracking vector search indexes.
+\textbf{arXiv preprint arXiv:2503.01823}, 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://arxiv.org/pdf/2503.01823}.}
+
+\bibitem[Naveeda 2024]{naveeda2024comprehensive}
+\abntrefinfo{Naveeda}{NAVEEDA}{2024}
+{NAVEEDA, H. e.~a. A comprehensive overview of large language models.
+\textbf{arXiv preprint arXiv:2307.06435v10}, 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{http://arxiv.org/abs/2307.06435v10}.}
+
+\bibitem[{Nuxt Team} 2024]{nuxt2024docs}
+\abntrefinfo{{Nuxt Team}}{{Nuxt Team}}{2024}
+{{Nuxt Team}. \textbf{Introduction -- Get Started with Nuxt}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://nuxt.com/docs}.}
+
+\bibitem[{Oracle} 2025]{oracle2025vector}
+\abntrefinfo{{Oracle}}{{Oracle}}{2025}
+{{Oracle}. \textbf{Oracle Vector Database}. 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://www.oracle.com/br/database/vector-database/}.}
+
+\bibitem[Pedregosa 2011]{scikit-learn}
+\abntrefinfo{Pedregosa}{PEDREGOSA}{2011}
+{PEDREGOSA, F. e.~a. Scikit-learn: Machine learning in {P}ython.
+\textbf{Journal of Machine Learning Research}, v.~12, p. 2825--2830, 2011.}
+
+\bibitem[Pujiono et al. 2024]{pujiono2024implementing}
+\abntrefinfo{Pujiono et al.}{PUJIONO et al.}{2024}
+{PUJIONO, I.; AGTYAPUTRA, I.~M.; RULDEVIYANI, Y. Implementing
+  retrieval-augmented generation and vector databases for chatbots in public
+  services agencies context.
+\textbf{5572-Article Text}, 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://ejournal.nusamandiri.ac.id/index.php/jitk/article/view/5572}.}
+
+\bibitem[{Python Software Foundation} 2024]{python2024reference}
+\abntrefinfo{{Python Software Foundation}}{{Python Software Foundation}}{2024}
+{{Python Software Foundation}. \textbf{Python Language Reference}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://www.python.org}.}
+
+\bibitem[{Qwak} 2024]{qwak2024integrating}
+\abntrefinfo{{Qwak}}{{Qwak}}{2024}
+{{Qwak}. \textbf{Integrating Vector Databases with LLMs: A Hands-On Guide}.
+  2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.qwak.com/post/utilizing-llms-with-embedding-stores}.}
+
+\bibitem[Ramírez 2024]{fastapi2024docs}
+\abntrefinfo{Ramírez}{RAMíREZ}{2024}
+{RAMíREZ, S. \textbf{FastAPI}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://fastapi.tiangolo.com/}.}
+
+\bibitem[Salemi e Zamani 2024]{salemi2024hallucination}
+\abntrefinfo{Salemi e Zamani}{SALEMI; ZAMANI}{2024}
+{SALEMI, A.; ZAMANI, H. Evaluating retrieval quality in retrieval-augmented
+  generation. In:  \textbf{Proceedings of the 47th International ACM SIGIR
+  Conference on Research and Development in Information Retrieval (SIGIR~'24)}.
+  Washington, DC, USA: [s.n.], 2024. p.~1--6. Dispon{\'\i}vel em:
+  \url{https://doi.org/10.1145/3626772.3657957}.}
+
+\bibitem[Shi 2025]{scalable2025overload}
+\abntrefinfo{Shi}{SHI}{2025}
+{SHI, Y. e.~a. Scalable overload-aware graph-based index construction for
+  10-billion-scale vector similarity search. In:  \textbf{Companion Proceedings
+  of the ACM on Web Conference 2025}. [s.n.], 2025. p. 1303--1307. Acesso em:
+  nov. 2025. Dispon{\'\i}vel em: \url{https://arxiv.org/html/2502.20695v1}.}
+
+\bibitem[{Superior Tribunal de Justiça} 2015]{stj2015sumula533}
+\abntrefinfo{{Superior Tribunal de Justiça}}{{Superior Tribunal de
+  Justiça}}{2015}
+{{Superior Tribunal de Justiça}. \textbf{{Súmula 533}}. 2015.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.stj.jus.br/sites/portalp/Paginas/stj/sumula-533}.}
+
+\bibitem[Taipalus 2024]{taipalus2024vector}
+\abntrefinfo{Taipalus}{TAIPALUS}{2024}
+{TAIPALUS, T. Vector database management systems: Fundamental concepts,
+  use-cases, and current challenges.
+\textbf{Cognitive Systems Research}, 2024.
+ISSN 1389-0417.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.sciencedirect.com/science/article/pii/S1389041724000093}.}
+
+\bibitem[{The Pandas Development Team} 2024]{pandas2024}
+\abntrefinfo{{The Pandas Development Team}}{{The Pandas Development
+  Team}}{2024}
+{{The Pandas Development Team}. \textbf{Pandas}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://pandas.pydata.org}.}
+
+\bibitem[{Tribunal de Justiça da Bahia} 2024]{tjba2024mutirao}
+\abntrefinfo{{Tribunal de Justiça da Bahia}}{{Tribunal de Justiça da
+  Bahia}}{2024}
+{{Tribunal de Justiça da Bahia}. \textbf{{Mutirão Processual Penal do TJ-BA
+  contabiliza mais de 18{,}6 mil atos processuais no SEEU}}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.tjba.jus.br/portal/mutirao-processual-penal-do-tjba-contabiliza-mais-de-186-mil-atos-processuais-no-seeu}.}
+
+\bibitem[{Tribunal de Justiça do Ceará} 2023]{tjce2023robos}
+\abntrefinfo{{Tribunal de Justiça do Ceará}}{{Tribunal de Justiça do
+  Ceará}}{2023}
+{{Tribunal de Justiça do Ceará}. \textbf{{Novos robôs realizam 146 despachos
+  em 1 h 15 min}}. 2023.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.tjce.jus.br/noticias/novos-robos-realizam-146-despachos-em-1h15min/}.}
+
+\bibitem[{UNDP} 2024]{undp2025pnudcnj}
+\abntrefinfo{{UNDP}}{{UNDP}}{2024}
+{{UNDP}. \textbf{PNUD e CNJ assinam projeto focado em direitos humanos e acesso
+  à Justiça}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://www.undp.org/pt/brazil/news/pnud-e-cnj-assinam-projeto-focado-em-direitos-humanos-e-acesso-justica}.}
+
+\bibitem[{UNDP} 2025]{undp2025onu}
+\abntrefinfo{{UNDP}}{{UNDP}}{2025a}
+{{UNDP}. \textbf{O PNUD e a ONU}. 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://www.undp.org/pt/brazil/o-pnud-e-onu}.}
+
+\bibitem[{UNDP} 2025]{undp2025sobre}
+\abntrefinfo{{UNDP}}{{UNDP}}{2025b}
+{{UNDP}. \textbf{Sobre o PNUD}. 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://www.undp.org/pt/brazil/sobre-o-pnud}.}
+
+\bibitem[Vaswani 2017]{vaswani2017attention}
+\abntrefinfo{Vaswani}{VASWANI}{2017}
+{VASWANI, A. e.~a. Attention is all you need. In:  \textbf{Advances in Neural
+  Information Processing Systems}. [s.n.], 2017. Acesso em: nov. 2025.
+  Dispon{\'\i}vel em: \url{https://arxiv.org/pdf/1706.03762.pdf}.}
+
+\bibitem[{Vue.js Team} 2024]{vue2024docs}
+\abntrefinfo{{Vue.js Team}}{{Vue.js Team}}{2024}
+{{Vue.js Team}. \textbf{Introduction -- Vue.js}. 2024.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://vuejs.org/guide/introduction}.}
+
+\bibitem[{Wikipedia} 2025]{wikipedia2025pnud}
+\abntrefinfo{{Wikipedia}}{{Wikipedia}}{2025}
+{{Wikipedia}. \textbf{Programa das Nações Unidas para o Desenvolvimento}.
+  2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em:
+  \url{https://pt.wikipedia.org/wiki/Programa\_das\_Na\%C3\%A7\%C3\%B5es\_Unidas\_para\_o\_Desenvolvimento}.}
+
+\bibitem[Yue 2023]{yue2023disclawllm}
+\abntrefinfo{Yue}{YUE}{2023}
+{YUE, S. e.~a. Disc-lawllm: Fine-tuning large language models for intelligent
+  legal services.
+\textbf{arXiv preprint}, 2023.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://github.com/FudanDISC/DISC-LawLLM}.}
+
+\bibitem[Zhang 2025]{zhang2025fine}
+\abntrefinfo{Zhang}{ZHANG}{2025}
+{ZHANG, Z. e.~a. Fine-grained retrieval-augmented generation for visual
+  question answering.
+\textbf{arXiv preprint arXiv:2502.20964}, 2025.
+Acesso em: nov. 2025.
+Dispon{\'\i}vel em: \url{https://arxiv.org/pdf/2502.20964}.}
+
+\end{thebibliography}
