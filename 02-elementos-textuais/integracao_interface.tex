@@ -1,0 +1,45 @@
+% -----------------------------------------------------------------------------
+% Integração da Interface com a Pipeline RAG e o SEEU
+% -----------------------------------------------------------------------------
+\section{Integração da Interface com a \textit{Pipeline} RAG}
+\label{sec:integ_interface_rag}
+
+Esta seção descreve como a interface de usuário, a API REST, os módulos de indexação vetorial (DBVECTOR) e os modelos de linguagem se integram para formar um sistema coeso e funcional. A integração garante que as consultas dos operadores do Direito sejam processadas de forma eficiente, com recuperação semântica precisa e geração de respostas fundamentadas em fontes verificáveis.
+
+\begin{figure}[H]
+  \centering
+  \IfFileExists{04-figuras/sequencia.pdf}{%
+    \includegraphics[width=0.9\textwidth]{04-figuras/sequencia.pdf}
+  }{%
+    \fbox{Imagem `sequencia.pdf' ausente em `04-figuras/'}
+  }
+  \caption{Fluxo de integração entre interface, API, serviços de indexação, banco vetorial e modelo de linguagem. Fonte: elaborado pelos autores.}
+  \label{fig:fluxo_integracao}
+\end{figure}
+
+A Figura~\ref{fig:fluxo_integracao} apresenta o fluxo de integração entre o usuário da interface \textit{web}, a API da aplicação, o serviço de indexação vetorial, o banco de dados vetorial e o modelo de linguagem responsável pela geração das respostas em linguagem natural. Nesse diagrama evidenciam-se as trocas de mensagens desde o envio do \textit{prompt} inicial até a devolução da resposta final, acompanhada dos trechos e referências utilizados, incluindo o tratamento de situações em que o sistema identifica falta de informações e solicita esclarecimentos adicionais ao usuário.
+
+Do ponto de vista arquitetural, essa integração complementa a visão geral da \textit{pipeline} RAG apresentada anteriormente (Figura~\ref{fig:arquitetura_pipeline}), na qual os módulos de coleta, pré-processamento, engenharia de \textit{embeddings}, indexação e orquestração foram descritos de forma isolada. A interface de usuário e a API atuam como porta de entrada para o operador judiciário, encapsulando a complexidade da busca vetorial e da geração de respostas, e expondo a \textit{pipeline} de forma unificada e orientada a casos de uso.
+
+\subsection{Fluxo de Execução}
+
+O fluxo inicia-se quando o operador judiciário insere uma pergunta na interface \textit{web}. A aplicação \textit{frontend} normaliza o texto, organiza o histórico da conversa e envia o \textit{prompt} inicial para a API RAG, que desempenha o papel de orquestrador da requisição. A partir desse \textit{prompt}, a API consulta o serviço de \textit{clusters} e indexação, responsável por disponibilizar metadados de clusterização e rótulos associados aos índices vetoriais previamente construídos a partir de documentos do SEEU e de fontes normativas correlatas. Esses metadados retornam à API e são combinados ao \textit{prompt} original para formar o contexto que será submetido ao modelo de linguagem na etapa de refinamento da consulta.
+
+Em seguida, a API solicita ao modelo de linguagem a geração de uma string de busca otimizada a partir do prompt do usuário e dos metadados de clusterização. Caso o modelo detecte informações insuficientes para formular uma consulta precisa, ele devolve uma mensagem indicando a falta de dados, acompanhada de perguntas de esclarecimento. A API repassa essas perguntas à interface, que as exibe ao operador; as respostas fornecidas pelo usuário retornam à API, são incorporadas ao contexto e um novo pedido de geração é feito, até que se obtenha uma string de busca canônica adequada para consulta no índice vetorial.
+
+Uma vez definida a \textit{string} de busca canônica, a API a envia ao serviço de \textit{clusters} e indexação, que executa a busca vetorial no banco de \textit{embeddings}, aplicando filtros e parâmetros de similaridade como \textit{top-k} e \textit{thresholds} configurados. O serviço retorna o conjunto de documentos mais relevantes com metadados (identificadores, títulos, trechos e origem). Esses resultados são consolidados em um objeto de resposta intermediária, que alimenta a etapa final de geração.
+
+Na composição da resposta, a API envia ao modelo de linguagem o histórico da conversa, o prompt refinado e os trechos recuperados. O modelo gera uma resposta em linguagem natural ancorada nas fontes, retornando tanto o texto quanto a lista de documentos utilizados com seus trechos e referências. A interface apresenta esse pacote ao usuário como mensagem principal seguida de citações clicáveis, preservando o vínculo com os documentos do SEEU e demais bases normativas.
+
+\subsection{Contrato de Dados e Telemetria}
+Do ponto de vista de contrato de dados, a integração é realizada por chamadas HTTP ao \textit{endpoint} da API RAG, que recebe um \textit{payload} contendo o \textit{prompt}, o histórico da sessão, filtros e parâmetros de recuperação, e responde com um objeto estruturado contendo: o texto gerado, pontuação de confiança, metadados das fontes e eventuais sinais de alerta (por exemplo, baixa cobertura documental). A interface interpreta esse objeto, atualiza estados internos (\texttt{loading}, \texttt{error}, \texttt{results}) e renderiza tanto o texto do modelo quanto os metadados das evidências.
+
+Além do fluxo principal, a integração contempla telemetria e \textit{logs} que reportam latência, falhas de comunicação e cobertura documental. A interface pode exibir mensagens ao usuário sobre a necessidade de refinamento da consulta e, em ambiente de desenvolvimento, painéis auxiliares com informações de diagnóstico sobre a recuperação vetorial e o comportamento da \textit{pipeline}.
+
+\subsection{Proposta de Integração com o SEEU}
+A arquitetura proposta não contempla integração direta com os sistemas internos do SEEU, mas sim uma abordagem baseada em dados públicos relacionados ao sistema. Os módulos de extração automatizada (\textit{scrapers}) e processos de coleta descritos anteriormente geram arquivos JSON Lines com documentos públicos --- tais como manuais, orientações técnicas e normativos --- disponibilizados em portais oficiais do CNJ relacionados ao SEEU. Esses documentos são pré-processados, segmentados e transformados em \textit{embeddings}, que ficam armazenados no banco vetorial (DBVECTOR) e referenciados pelos serviços de indexação consultados pela API.
+
+Dessa forma, cada resposta produzida pela \textit{pipeline} mantém um elo rastreável com os documentos públicos relacionados ao SEEU e com a base normativa que os sustenta, reforçando transparência e auditabilidade. Em futuras implementações, essa arquitetura poderia evoluir para integração direta com APIs oficiais do SEEU, caso disponibilizadas, permitindo acesso a dados processuais específicos respeitando-se os requisitos de segurança e privacidade estabelecidos pelo CNJ.
+
+\subsection{Considerações Finais}
+Ao concentrar a complexidade técnica em um único ponto de entrada (API RAG) e manter contratos claros entre frontend, serviços de indexação e modelos de linguagem, a solução melhora a manutenibilidade, facilita a substituição de componentes (por exemplo, outro Vector DB ou modelo) e atende às diretrizes de modernização da execução penal por meio de uma camada de apresentação simples e auditável.
