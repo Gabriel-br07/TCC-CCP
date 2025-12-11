@@ -23,6 +23,10 @@ Reallocating 'name_of_file' (item size: 1) to 44 items.
 A level-1 auxiliary file: ./01-elementos-pre-textuais/listaSiglas.aux
 Reallocating 'name_of_file' (item size: 1) to 39 items.
 A level-1 auxiliary file: ./02-elementos-textuais/introducao.aux
+Reallocating 'name_of_file' (item size: 1) to 40 items.
+A level-1 auxiliary file: ./02-elementos-textuais/metodologia.aux
+Reallocating 'name_of_file' (item size: 1) to 44 items.
+A level-1 auxiliary file: ./02-elementos-textuais/desenvolvimento.aux
 Reallocating 'name_of_file' (item size: 1) to 44 items.
 A level-1 auxiliary file: ./03-elementos-pos-textuais/referencias.aux
 Reallocating 'name_of_file' (item size: 1) to 12 items.
@@ -51,7 +55,7 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 +---------------------------------------------------------+
 You've used 43 entries,
             6714 wiz_defined-function locations,
-            1414 strings with 16651 characters,
+            1416 strings with 16733 characters,
 and the built_in function-call counts, 62479 in all, are:
 = -- 7603
 > -- 787
