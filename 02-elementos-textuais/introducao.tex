@@ -394,20 +394,76 @@ Este capítulo apresenta as tecnologias empregadas: linguagens e bibliotecas de 
 \item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML  \cite{python2024reference};
 \item \textbf{Pandas} – manipulação de dados tabulares e pré-processamento de textos  \cite{pandas2024};
 \item \textbf{NumPy} – operações vetoriais e matrizes de alto desempenho \cite{numpy2025};
-\item \textbf{Scikit-learn} - para algoritmos para classificação, regressão, clustering e pré-processamento \cite{scikit-learn};
+  % Scikit-learn removed as requested
 
 
 
 \end{itemize}
 
-\section{Indexação e Recuperação Vetorial}
-\subsection{FAISS}
+\section*{Indexação e Recuperação Vetorial}
+\section{FAISS}
 FAISS (Facebook AI Similarity Search) é uma biblioteca de código aberto desenvolvida pelo Facebook AI Research (FAIR) para busca de similaridade vetorial de alta performance em larga escala. Especializada em operações eficientes com bilhões de vetores, utiliza técnicas avançadas como quantização de produto (PQ) e índices invertidos (IVF) para acelerar consultas k-NN em até 5x comparado a soluções convencionais. Sua arquitetura é otimizada para paralelismo em CPU/GPU e permite aplicações em tempo real como sistemas de recomendação, clustering de embeddings e RAG. O FAISS foi escolhido para este projeto por sua eficiência, maturidade e ampla adoção na comunidade acadêmica e industrial. Embora não gerencie metadados ou persistência nativamente, sua integração com sistemas externos como arquivos Parquet e bancos SQL permite implementar cenários completos de produção \cite{facebook2024faiss,taipalus2024vector}.
 
 
-\section{Modelos de Linguagem}
-\subsection{OpenAI GPT}
-Para este projeto, foi selecionado o modelo de linguagem da OpenAI (GPT) como LLM principal da \textit{pipeline} RAG. Os modelos GPT (Generative Pre-trained Transformer) são baseados na arquitetura Transformer \cite{vaswani2017attention} e são treinados em vastos corpora textuais, permitindo geração de texto coerente e contextualizado em linguagem natural. A escolha da OpenAI justifica-se pela sua API estável, documentação robusta, ampla adoção em ambientes de produção e capacidade comprovada de gerar respostas de alta qualidade quando integrada a sistemas de recuperação de informações. A integração com a OpenAI API permite que a \textit{pipeline} RAG envie o contexto recuperado (documentos relevantes) junto ao \textit{prompt} do usuário, resultando em respostas fundamentadas em fontes verificadas e com menor taxa de alucinação.
+\section{Modelos de Linguagem (LLMs)}
+
+Modelos de Linguagem de Grande Porte (\textit{Large Language Models} -- LLMs) são redes neurais profundas treinadas em vastos corpora textuais com o objetivo de aprender representações estatísticas da linguagem natural e gerar texto coerente, contextualizado e semanticamente relevante \cite{vaswani2017attention,naveeda2024comprehensive}. Esses modelos, baseados predominantemente na arquitetura \textit{Transformer}, utilizam mecanismos de atenção para capturar dependências de longo alcance entre palavras e construir representações contextuais dinâmicas. O treinamento ocorre em duas fases principais: (i) pré-treinamento em grandes volumes de texto não rotulado, no qual o modelo aprende padrões linguísticos, semânticos e até mesmo conhecimentos factuais implícitos; e (ii) ajuste fino (\textit{fine-tuning}) ou adaptação contextual por meio de técnicas como \textit{instruction tuning} e aprendizado por reforço a partir de \textit{feedback} humano (RLHF), tornando-o capaz de seguir instruções e responder a perguntas de forma alinhada às expectativas dos usuários.
+
+No contexto deste projeto, a \textit{pipeline} RAG desenvolvida utiliza a API da OpenAI como provedor principal de capacidades generativas. A escolha da OpenAI justifica-se por diversos fatores técnicos e operacionais: (i) estabilidade e maturidade da API, com disponibilidade comercial, suporte técnico e atualizações frequentes; (ii) documentação abrangente e exemplos de integração que facilitam o desenvolvimento e a depuração; (iii) ampla adoção em ambientes de produção, o que resulta em vasto ecossistema de ferramentas, bibliotecas e boas práticas consolidadas; (iv) capacidade comprovada de gerar respostas de alta qualidade quando condicionadas a contextos recuperados, reduzindo significativamente a taxa de alucinação; e (v) oferta de múltiplos modelos com diferentes compromissos entre custo, latência e qualidade, permitindo otimização conforme requisitos do projeto.
+
+A API da OpenAI disponibiliza atualmente uma família diversificada de modelos, cada qual com características específicas:
+
+\begin{description}
+  \item[GPT-4 e GPT-4 Turbo:] modelos de maior capacidade da OpenAI, com suporte a contextos estendidos (até 128\,000 tokens em certas versões) e desempenho superior em raciocínio complexo, análise de documentos extensos e tarefas que exigem compreensão profunda. São recomendados para aplicações críticas que demandam respostas precisas e nuances contextuais refinadas, embora apresentem maior custo por token e latência ligeiramente superior.
+  
+  \item[GPT-4o (Optimized):] variante otimizada do GPT-4, projetada para equilibrar desempenho e eficiência. Oferece latência reduzida e custo intermediário, mantendo qualidade próxima ao GPT-4 padrão. Essa versão é adequada para cenários de produção nos quais a relação custo-benefício é crítica.
+  
+  \item[GPT-4o mini:] versão compacta e otimizada do GPT-4o, desenvolvida para cenários que exigem alta velocidade de resposta e custo reduzido. Embora apresente capacidades ligeiramente inferiores em tarefas de raciocínio complexo quando comparado ao GPT-4o, o GPT-4o mini oferece desempenho superior ao GPT-3.5 Turbo em diversas aplicações, mantendo latência extremamente baixa e custo acessível. É especialmente adequado para sistemas conversacionais em tempo real, prototipagem ágil e aplicações de larga escala com restrições orçamentárias.
+  
+  \item[GPT-3.5 Turbo:] modelo mais acessível em termos de custo e latência, mantendo capacidade satisfatória para grande parte das tarefas de geração de texto e resposta a perguntas. Apesar de inferior ao GPT-4 em raciocínio complexo e compreensão contextual profunda, o GPT-3.5 Turbo constitui opção viável para prototipagem rápida e aplicações com restrições orçamentárias.
+  
+  \item[Modelos de \textit{Embedding}:] a OpenAI disponibiliza modelos especializados na geração de vetores de \textit{embeddings} (como \texttt{text-embedding-ada-002} e \texttt{text-embedding-3-small/large}), que convertem textos em representações vetoriais densas de alta dimensionalidade. Esses vetores são fundamentais para a etapa de recuperação da \textit{pipeline} RAG, permitindo buscas semânticas eficientes em bases vetoriais como FAISS.
+\end{description}
+
+No \textit{pipeline} RAG proposto, a integração com a OpenAI opera da seguinte forma: (i) a consulta do usuário é vetorizada utilizando modelos de \textit{embedding}, permitindo busca por similaridade semântica no índice vetorial; (ii) os documentos mais relevantes são recuperados e concatenados ao \textit{prompt} enviado ao modelo generativo (GPT-4, GPT-4o ou GPT-3.5 Turbo); (iii) o LLM recebe esse contexto enriquecido e gera uma resposta fundamentada nas fontes recuperadas, reduzindo significativamente a probabilidade de alucinação; e (iv) mecanismos de controle de \textit{prompt} e validação de saída garantem que as respostas sejam coerentes, precisas e auditáveis. Dessa forma, a arquitetura combina a capacidade generativa dos LLMs com a precisão factual fornecida pela recuperação de documentos, resultando em sistema robusto e confiável para aplicações jurídicas.
+
+\subsection{Alternativas à OpenAI}
+
+Embora a OpenAI constitua solução robusta e amplamente adotada, existem alternativas proprietárias e de código aberto que podem ser consideradas em função de requisitos específicos relacionados a custo, privacidade, controle sobre a infraestrutura e flexibilidade de personalização. Esta subseção apresenta as principais alternativas disponíveis no mercado e na comunidade científica, comparando-as com a solução adotada.
+
+\subsubsection*{Google Gemini}
+
+A família Gemini, desenvolvida pelo Google DeepMind, representa a evolução dos esforços do Google em modelos de linguagem de larga escala. Os modelos Gemini estão disponíveis em múltiplas versões: Gemini Nano (otimizado para dispositivos móveis e \textit{edge computing}), Gemini Pro (voltado para aplicações gerais de alta qualidade) e Gemini Ultra (modelo de maior capacidade, competindo diretamente com GPT-4). A API do Gemini oferece integração nativa com o ecossistema Google Cloud, facilitando implantações em infraestrutura já existente nessa plataforma. Além disso, os modelos Gemini destacam-se pela capacidade multimodal nativa, processando simultaneamente texto, imagens, áudio e vídeo em um único modelo unificado. Em termos de custo, os preços são competitivos com os da OpenAI, embora variem conforme o volume de tokens e o nível de serviço contratado. A documentação técnica é robusta, mas o ecossistema de ferramentas e exemplos ainda é menos maduro quando comparado ao da OpenAI.
+
+\subsubsection*{Anthropic Claude}
+
+A Anthropic, fundada por ex-integrantes da OpenAI, desenvolveu a família Claude de modelos de linguagem, com foco explícito em segurança, interpretabilidade e alinhamento (\textit{Constitutional AI}). Os modelos Claude estão disponíveis em diferentes versões: Claude 3 Haiku (modelo rápido e econômico), Claude 3 Sonnet (balanceamento entre custo e desempenho) e Claude 3 Opus (máxima capacidade). A Anthropic destaca-se pela transparência em questões de alinhamento e pela capacidade dos modelos Claude de manter conversas longas com alta coerência contextual, suportando janelas de contexto de até 200\,000 tokens em certas configurações. A integração via API é similar à da OpenAI, facilitando a substituição ou experimentação comparativa. Em termos de custo, os modelos Claude apresentam preços competitivos, especialmente nas versões Haiku e Sonnet. A privacidade e as políticas de uso de dados são consideradas mais restritivas, aspecto relevante para aplicações em setores regulados.
+
+\subsubsection*{Meta LLaMA}
+
+A série LLaMA (\textit{Large Language Model Meta AI}), desenvolvida pela Meta, representa importante contribuição ao ecossistema de modelos abertos. A versão LLaMA 3 (e superiores, conforme atualizações futuras) é disponibilizada sob licenças permissivas que permitem uso comercial e adaptação. Os modelos LLaMA são oferecidos em múltiplas escalas (7B, 13B, 70B parâmetros, entre outras), permitindo escolha adequada conforme capacidade computacional disponível. Por serem de código aberto, os modelos LLaMA podem ser implantados localmente ou em infraestrutura própria, eliminando dependências de APIs externas e garantindo controle total sobre privacidade e processamento de dados. Essa característica é especialmente valiosa em contextos jurídicos e governamentais, nos quais a soberania dos dados é requisito crítico. Contudo, a implantação local exige infraestrutura computacional significativa (GPUs de alto desempenho) e expertise técnica para \textit{fine-tuning}, ajuste de hiperparâmetros e manutenção operacional.
+
+\subsubsection*{Modelos Distribuídos via HuggingFace}
+
+A plataforma HuggingFace consolidou-se como repositório central para modelos de linguagem de código aberto, hospedando milhares de modelos pré-treinados e ajustados para tarefas específicas. Entre os modelos de destaque disponíveis estão: Mistral (série de modelos franceses de alta qualidade e eficiência), Falcon (desenvolvido pela Technology Innovation Institute dos Emirados Árabes Unidos), MPT (MosaicML Pretrained Transformer), e diversos modelos baseados em arquiteturas \textit{Transformer} e variantes. A HuggingFace oferece bibliotecas robustas (\texttt{transformers}, \texttt{datasets}, \texttt{accelerate}) que facilitam a carga, o \textit{fine-tuning} e a inferência de modelos tanto localmente quanto em servidores próprios. Além disso, a plataforma disponibiliza serviços gerenciados (HuggingFace Inference Endpoints) que permitem implantar modelos em nuvem com escalabilidade automática, combinando flexibilidade de código aberto com conveniência operacional de APIs gerenciadas.
+
+\subsubsection*{Análise Comparativa}
+
+A escolha entre OpenAI e suas alternativas depende de múltiplos fatores:
+
+\begin{itemize}
+  \item \textbf{Custo:} modelos abertos (LLaMA, HuggingFace) eliminam custos de API, mas exigem investimento em infraestrutura e operação. APIs proprietárias (OpenAI, Google, Anthropic) oferecem precificação por uso, facilitando controle de custos em fases iniciais, mas podem tornar-se onerosas em escala.
+  
+  \item \textbf{Privacidade e soberania de dados:} soluções auto-hospedadas garantem controle total sobre dados sensíveis, aspecto crítico em contextos jurídicos. APIs externas, por outro lado, implicam envio de dados a terceiros, exigindo análise cuidadosa de termos de serviço e conformidade regulatória.
+  
+  \item \textbf{Flexibilidade e personalização:} modelos abertos permitem \textit{fine-tuning} completo e adaptação a domínios específicos, enquanto APIs proprietárias oferecem personalização limitada (geralmente via \textit{prompt engineering} ou \textit{few-shot learning}).
+  
+  \item \textbf{Facilidade de integração:} APIs gerenciadas (OpenAI, Google, Anthropic) oferecem documentação madura, SDKs e suporte técnico, acelerando desenvolvimento. Modelos abertos exigem maior esforço de integração e manutenção.
+  
+  \item \textbf{Disponibilidade de modelos de \textit{embedding}:} todas as alternativas oferecem soluções de \textit{embedding}, embora com diferentes níveis de qualidade e integração. A OpenAI e o Google destacam-se pela qualidade comprovada e pela facilidade de uso.
+\end{itemize}
+
+Para este projeto, a OpenAI foi selecionada considerando o estágio de prototipagem, a necessidade de resultados rápidos e a disponibilidade de recursos. Contudo, a arquitetura modular baseada em LangChain facilita a substituição futura do provedor de LLM, permitindo experimentação com alternativas conforme evolução dos requisitos e disponibilidade de infraestrutura.
 
 \section{Ferramentas de Extração e Coleta de Dados}
 \subsection{Playwright}
