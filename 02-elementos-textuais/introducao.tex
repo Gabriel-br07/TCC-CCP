@@ -129,6 +129,10 @@ A solução proposta consiste em uma arquitetura de \textit{pipeline} RAG conceb
 
 
 % ============================================================
+% Ajusta profundidade do sumário para ocultar o 3º nível (subsubsections)
+% Instrui a impressão do sumário para mostrar apenas até o 2º nível
+% (seções) ao processar o arquivo `.toc`.
+\addtocontents{toc}{\protect\changetocdepth{1}}
 \chapter{Fundamentação Teórica e Revisão de Literatura}
 \label{chap:fundamentacao_literatura}
 
@@ -377,6 +381,9 @@ O PNUD configura-se como agente estratégico na promoção do desenvolvimento hu
 %       ser movido para arquivo separado).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Restaura inclusão do 3º nível no sumário para capítulos seguintes
+% Restaura a profundidade de impressão do sumário para capítulos seguintes
+\addtocontents{toc}{\protect\changetocdepth{3}}
 \chapter{Tecnologias}
 
 \label{chap:tecnologias}
