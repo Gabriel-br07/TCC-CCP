@@ -395,7 +395,7 @@ Este capítulo apresenta o conjunto de tecnologias, ferramentas e frameworks emp
 \item \textbf{Python} – linguagem base, com extensas bibliotecas para NLP e ML  \cite{python2024reference};
 \item \textbf{Pandas} – manipulação de dados tabulares e pré-processamento de textos  \cite{pandas2024};
 \item \textbf{NumPy} – operações vetoriais e matrizes de alto desempenho \cite{numpy2025};
-  % Scikit-learn removed as requested
+\item \textbf{FastAPI} – framework web em Python para construção de APIs REST, baseado em \textit{type hints} e ASGI; oferece validação por \texttt{Pydantic}, documentação automática (Swagger/OpenAPI e ReDoc), suporte assíncrono e boa performance para serviços de baixa latência \cite{fastapi2024docs}.
 \end{itemize}
 
 \section{Indexação e Recuperação Vetorial}
@@ -531,9 +531,6 @@ A separação entre a interface pública (porta 3000) e o serviço interno de in
 Essa abordagem alinha-se com boas práticas de segurança para aplicações \textit{web} que consomem serviços internos, recomendadas tanto em diretrizes de desenvolvimento seguro quanto em padrões de arquitetura de microsserviços \cite{owasp2024}. Embora o protótipo atual execute ambos os componentes (interface e DBVECTOR) em um único servidor, a arquitetura foi concebida de modo a permitir evolução futura para ambientes distribuídos, nos quais o serviço de indexação vetorial poderia ser implantado em servidor dedicado, protegido por \textit{Virtual Private Network} (VPN) ou segmentação de rede interna, sem necessidade de alterações substanciais na lógica da aplicação.
 
 Dessa forma, o ambiente de execução baseado em Linux, aliado ao controle de acesso via UFW e à arquitetura SSR da interface, proporciona base técnica sólida para operação segura e eficiente do protótipo, ao mesmo tempo em que preserva flexibilidade para expansão e adaptação a cenários de maior escala ou requisitos institucionais específicos.
-
-\subsection{FastAPI como Framework da API REST}
-FastAPI é um \textit{framework} web moderno e de alta performance para construção de APIs em Python, baseado em anotações de tipo (\textit{type hints}) e no padrão ASGI \cite{fastapi2024docs}. Conforme sua documentação oficial, o FastAPI foi projetado para ser rápido tanto em desempenho de execução quanto em velocidade de desenvolvimento  oferecendo validação automática baseada em esquemas Python, geração automática de documentação interativa e suporte nativo a operações assíncronas. Neste projeto, o FastAPI foi escolhido como \textit{framework} principal para implementação da API REST que expõe a \textit{pipeline} RAG. Suas principais vantagens incluem: (i) validação automática de dados de entrada e saída com base em \textit{schemas} Pydantic, reduzindo erros e aumentando a robustez do código; (ii) documentação interativa automática (Swagger/OpenAPI e ReDoc), facilitando testes e integração; (iii) suporte nativo a operações assíncronas, permitindo maior concorrência e eficiência no tratamento de requisições; e (iv) desempenho comparável a \textit{frameworks} como Node.js e Go, aspecto relevante para aplicações que demandam baixa latência. O FastAPI foi utilizado para implementar os \textit{endpoints} de consulta, recuperação de metadados de \textit{clusters}, geração de respostas e integração com o modelo de linguagem da OpenAI, garantindo escalabilidade e manutenção simplificada do código.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
