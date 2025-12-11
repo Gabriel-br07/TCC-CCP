@@ -1,9 +1,0 @@
-\babel@toc {brazil}{}\relax 
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Arquitetura geral da \textit {pipeline} RAG. Fonte: elaborado pelos autores.}}{48}{figure.caption.9}%
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Tela inicial da interface (exemplo). Fonte: elaborado pelos autores.}}{60}{figure.caption.10}%
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Tela de autenticação do sistema. Fonte: elaborado pelos autores.}}{72}{figure.caption.11}%
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Tela inicial do chat após autenticação. Fonte: elaborado pelos autores.}}{73}{figure.caption.13}%
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Tela de resposta com modo RAG ativo. Fonte: elaborado pelos autores.}}{74}{figure.caption.15}%
-\contentsline {figure}{\numberline {7.6}{\ignorespaces Tela de resposta no modo Chat simples. Fonte: elaborado pelos autores.}}{76}{figure.caption.17}%
-\contentsline {figure}{\numberline {7.7}{\ignorespaces Fluxo de integração entre interface, API, serviços de indexação, banco vetorial e modelo de linguagem. Fonte: elaborado pelos autores.}}{78}{figure.caption.20}%
-\contentsline {figure}{\numberline {7.8}{\ignorespaces Diagrama de Caso de Uso da \textit {Pipeline} RAG para consulta ao SEEU. Fonte: elaborado pelos autores.}}{82}{figure.caption.21}%
