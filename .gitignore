@@ -24,7 +24,6 @@
 
 # Arquivos de saída (PDF, DVI, PS)
 *.pdf
-!main.pdf
 *.dvi
 *.ps
 
