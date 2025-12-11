@@ -26,9 +26,5 @@ all:
 # Remove arquivos temporários
 clean:
 	@echo "Limpando arquivos temporarios..."
-	@find . -type f -iname "*.aux" -delete
-	@find . -type f -iname "*.log" -delete
-	@find . -type f -iname "*.fdb_latexmk" -delete
-	@find . -type f -iname "*.*~" -delete
-	@rm -f *.pdf *.bak *.ps *.l* *.idx *.bbl *.brf *.glo *.dvi *.toc *.blg *.ilg *.ind *.out *.wsp *.fls *.synctex*
+	@powershell -NoProfile -Command "Get-ChildItem -Path . -Recurse -Include '*.aux','*.log','*.fdb_latexmk','*~','*.pdf','*.bak','*.ps','*.l*','*.idx','*.bbl','*.brf','*.glo','*.dvi','*.toc','*.blg','*.ilg','*.ind','*.out','*.wsp','*.fls','*.synctex*' -File -ErrorAction SilentlyContinue | Where-Object { $$_.FullName -notmatch '04-figuras' } | Remove-Item -Force -ErrorAction SilentlyContinue"
 	@echo "Terminado."
