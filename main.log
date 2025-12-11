@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.19)  28 NOV 2025 22:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.19)  10 DEC 2025 23:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1717,7 +1717,8 @@ ovacao.aux)
 (01-elementos-pre-textuais/resumoEn.aux)
 (01-elementos-pre-textuais/listaFiguras.aux)
 (01-elementos-pre-textuais/listaSiglas.aux)
-(02-elementos-textuais/introducao.aux)
+(02-elementos-textuais/introducao.aux) (02-elementos-textuais/metodologia.aux)
+(02-elementos-textuais/desenvolvimento.aux)
 (03-elementos-pos-textuais/referencias.aux))
 \openout1 = `main.aux'.
 
@@ -2034,8 +2035,8 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 
 
-] [13])
-[14]
+] [13]
+[14]) [15]
 \openout2 = `./02-elementos-textuais/introducao.aux'.
 
  (02-elementos-textuais/introducao.tex
@@ -2070,7 +2071,7 @@ ips/lm/lm-mathsy.enc}] [24{C:/Users/bielf/AppData/Local/Programs/MiKTeX/fonts/e
 nc/dvips/lm/lm-rm.enc}] [25] [26]
 Cap\'{\i }tulo 3.
 
-Overfull \hbox (23.71466pt too wide) in paragraph at lines 388--389
+Overfull \hbox (23.71466pt too wide) in paragraph at lines 390--391
 []\T1/lmr/bx/n/12 (-20) Scikit-learn \T1/lmr/m/n/12 (-20) - para al-go-rit-mos 
 para clas-si-fi-ca-ção, re-gres-são, clus-te-ring e pré-processamento
  []
@@ -2081,95 +2082,108 @@ para clas-si-fi-ca-ção, re-gres-são, clus-te-ring e pré-processamento
 Cap\'{\i }tulo 4.
 [33
 
-]
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 4
-79.
+] [34]
+Cap\'{\i }tulo 5.
+[35
 
-(C:\Users\bielf\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\ts1zi4.fd
-File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 12.0pt on input line 479.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `zi4' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+] [36] [37] [38] [39]) [40]
+\openout2 = `./02-elementos-textuais/metodologia.aux'.
 
-Overfull \hbox (20.50977pt too wide) in paragraph at lines 502--504
-[]\T1/lmr/m/n/12 (-20) Cada do-cu-mento em for-mato JSONL é sub-me-tido ao mó-d
-ulo de chun-king (\T1/zi4/m/n/12 chunking.py\T1/lmr/m/n/12 (-20) ),
- []
+ (02-elementos-textuais/metodologia.tex
+Cap\'{\i }tulo 6.
+[41
 
-[34{C:/Users/bielf/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4
--ts1.enc}] [35] [36]
-<04-figuras/arquitetura_pipeline.png, id=701, 2875.74374pt x 3854.4pt>
+
+
+
+] [42] [43] [44]) [45] [46]
+\openout2 = `./02-elementos-textuais/desenvolvimento.aux'.
+
+ (02-elementos-textuais/desenvolvimento.tex
+Cap\'{\i }tulo 7.
+<04-figuras/arquitetura_pipeline.png, id=786, 2875.74374pt x 3854.4pt>
 File: 04-figuras/arquitetura_pipeline.png Graphic file (type png)
 <use 04-figuras/arquitetura_pipeline.png>
 Package pdftex.def Info: 04-figuras/arquitetura_pipeline.png  used on input lin
-e 594.
+e 27.
 (pdftex.def)             Requested size: 386.96027pt x 518.61597pt.
- [37] [38 <./04-figuras/arquitetura_pipeline.png>]
-<04-figuras/casoDeUso.pdf, id=716, 1055.945pt x 443.6575pt>
-File: 04-figuras/casoDeUso.pdf Graphic file (type pdf)
-<use 04-figuras/casoDeUso.pdf>
-Package pdftex.def Info: 04-figuras/casoDeUso.pdf  used on input line 613.
-(pdftex.def)             Requested size: 341.43307pt x 143.44908pt.
- [39 <./04-figuras/casoDeUso.pdf>] [40] [41] [42] [43]
-<04-figuras/inicio(2).png, id=790, 1444.64719pt x 714.41907pt>
-File: 04-figuras/inicio(2).png Graphic file (type png)
-<use 04-figuras/inicio(2).png>
-Package pdftex.def Info: 04-figuras/inicio(2).png  used on input line 948.
-(pdftex.def)             Requested size: 341.43307pt x 168.8478pt.
- [44] [45 <./04-figuras/inicio(2).png>] (02-elementos-textuais/dbvector.tex [46
-] [47]
+[47
+
+
+
+
+] [48 <./04-figuras/arquitetura_pipeline.png>]
+(02-elementos-textuais/dbvector.tex [49] [50] [51]
 Overfull \hbox (6.82796pt too wide) in paragraph at lines 45--46
 []\T1/lmr/m/n/12 (-20) o con-junto de re-sul-ta-dos é or-de-nado e, se ne-ces-s
 á-rio, sub-me-tido a um pós-processamento
  []
 
-[48] [49]) (02-elementos-textuais/scraper.tex [50] [51] [52] [53] [54] [55]
-<04-figuras/inicio.png, id=875, 1444.64719pt x 713.66624pt>
+[52] [53]) [54] (02-elementos-textuais/scraper.tex [55] [56] [57] [58] [59]
+<04-figuras/inicio.png, id=866, 1444.64719pt x 712.91344pt>
 File: 04-figuras/inicio.png Graphic file (type png)
 <use 04-figuras/inicio.png>
 Package pdftex.def Info: 04-figuras/inicio.png  used on input line 116.
-(pdftex.def)             Requested size: 295.90588pt x 146.17184pt.
+(pdftex.def)             Requested size: 295.90588pt x 146.01765pt.
 
-[56 <./04-figuras/inicio.png>] [57] [58] [59] [60] [61] [62] [63] [64] [65])
+[60 <./04-figuras/inicio.png>] [61] [62] [63] [64] [65] [66] [67] [68] [69]
+[70]) [71]
+<04-figuras/auth.png, id=933, 1444.64719pt x 713.66624pt>
+File: 04-figuras/auth.png Graphic file (type png)
+<use 04-figuras/auth.png>
+Package pdftex.def Info: 04-figuras/auth.png  used on input line 125.
+(pdftex.def)             Requested size: 295.90588pt x 146.17184pt.
+ [72 <./04-figuras/auth.png>]
+File: 04-figuras/inicio.png Graphic file (type png)
+<use 04-figuras/inicio.png>
+Package pdftex.def Info: 04-figuras/inicio.png  used on input line 162.
+(pdftex.def)             Requested size: 341.43307pt x 168.49196pt.
+ [73]
+<04-figuras/resposta_rag.png, id=947, 1444.64719pt x 714.41907pt>
+File: 04-figuras/resposta_rag.png Graphic file (type png)
+<use 04-figuras/resposta_rag.png>
+Package pdftex.def Info: 04-figuras/resposta_rag.png  used on input line 201.
+(pdftex.def)             Requested size: 341.43307pt x 168.8478pt.
+ [74 <./04-figuras/resposta_rag.png>]
+<04-figuras/resposta_simples.png, id=956, 1444.64719pt x 713.66624pt>
+File: 04-figuras/resposta_simples.png Graphic file (type png)
+<use 04-figuras/resposta_simples.png>
+Package pdftex.def Info: 04-figuras/resposta_simples.png  used on input line 23
+8.
+(pdftex.def)             Requested size: 341.43307pt x 168.66988pt.
+ [75] [76 <./04-figuras/resposta_simples.png>]
 (02-elementos-textuais/integracao_interface.tex
-<04-figuras/sequencia.pdf, id=933, 1125.07828pt x 783.67781pt>
+<04-figuras/sequencia.pdf, id=972, 1125.07828pt x 783.67781pt>
 File: 04-figuras/sequencia.pdf Graphic file (type pdf)
 <use 04-figuras/sequencia.pdf>
 Package pdftex.def Info: 04-figuras/sequencia.pdf  used on input line 15.
 (pdftex.def)             Requested size: 409.71692pt x 285.3883pt.
- [66] [67 <./04-figuras/sequencia.pdf>] [68]) [69]
-Cap\'{\i }tulo 5.
-[70
-
-] [71]
-Cap\'{\i }tulo 6.
-[72
-
-] [73] [74] [75] [76]) [77]
+ [77] [78 <./04-figuras/sequencia.pdf>] [79] [80]) [81]
+<04-figuras/casoDeUso.pdf, id=1046, 1055.945pt x 443.6575pt>
+File: 04-figuras/casoDeUso.pdf Graphic file (type pdf)
+<use 04-figuras/casoDeUso.pdf>
+Package pdftex.def Info: 04-figuras/casoDeUso.pdf  used on input line 308.
+(pdftex.def)             Requested size: 341.43307pt x 143.44908pt.
+ [82 <./04-figuras/casoDeUso.pdf>] [83] [84] [85]
+[86]) [87] [88]
 \openout2 = `./03-elementos-pos-textuais/referencias.aux'.
 
- (03-elementos-pos-textuais/referencias.tex
-(main.bbl (main.brf)
+ (03-elementos-pos-textuais/referencias.tex (main.bbl (main.brf)
 \tf@brf=\write6
 \openout6 = `main.brf'.
 
-
 bibitemlist
-[78
+[89
 
 
 
 
-] [79]
+] [90]
 Underfull \hbox (badness 10000) in paragraph at lines 232--232
  
  []
 
-)) [80]
+)) [91]
 \tf@lof=\write7
 \openout7 = `main.lof'.
 
@@ -2186,39 +2200,41 @@ Underfull \hbox (badness 10000) in paragraph at lines 232--232
 (01-elementos-pre-textuais/resumoEn.aux)
 (01-elementos-pre-textuais/listaFiguras.aux)
 (01-elementos-pre-textuais/listaSiglas.aux)
-(02-elementos-textuais/introducao.aux)
+(02-elementos-textuais/introducao.aux) (02-elementos-textuais/metodologia.aux)
+(02-elementos-textuais/desenvolvimento.aux)
 (03-elementos-pos-textuais/referencias.aux))
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `main.brf' has not changed.
-(rerunfilecheck)             Checksum: E7F24CDC3496CF6E1035725F89C6E9CB;5527.
+(rerunfilecheck)             Checksum: CA08A4A0602F13F97EC1B33EB881596D;5637.
  ) 
 Here is how much of TeX's memory you used:
- 38541 strings out of 467871
- 703464 string characters out of 5418375
- 1186428 words of memory out of 5000000
- 65948 multiletter control sequences out of 15000+600000
- 729094 words of font info for 265 fonts, out of 8000000 for 9000
+ 38686 strings out of 467871
+ 705656 string characters out of 5418375
+ 1190640 words of memory out of 5000000
+ 66030 multiletter control sequences out of 15000+600000
+ 732507 words of font info for 272 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 113i,18n,121p,1735b,875s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 113i,18n,121p,1735b,906s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/bielf/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/
 Inconsolata-zi4b.pfb><C:/Users/bielf/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/bielf/AppData/Local/Programs/
 MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/bielf/AppData/Local/Programs/
 MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/bielf/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/bielf/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/bielf/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/bielf/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/bielf/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/bielf/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/bielf/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/bielf/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on main.pdf (81 pages, 1327094 bytes).
+MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/bielf/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/bielf/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/bielf/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/bielf/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/bielf/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/bielf/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/lm/lmri10.pfb><C:/Users/bielf/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/lm/lmri12.pfb><C:/Users/bielf/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/lm/lmsy10.pfb>
+Output written on main.pdf (93 pages, 1537910 bytes).
 PDF statistics:
- 1672 PDF objects out of 1728 (max. 8388607)
- 398 named destinations out of 1000 (max. 500000)
- 55926 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1840 PDF objects out of 2073 (max. 8388607)
+ 437 named destinations out of 1000 (max. 500000)
+ 57616 words of extra memory for PDF output out of 61914 (max. 10000000)
 

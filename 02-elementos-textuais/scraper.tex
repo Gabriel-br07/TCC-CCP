@@ -125,7 +125,8 @@ Esta seção descreve a interface de usuário (IU) da aplicação de Recuperaç�
 O projeto da IU contempla os seguintes requisitos funcionais e não funcionais, compatíveis com o escopo do trabalho:
 \begin{itemize}
   \item capacidade de receber consultas por meio de um campo de entrada textual;
-  \item seleção de modo de operação (por exemplo, RAG ou \textit{chat} puro) e de modelo; 
+  \item seleção explícita entre dois modos de operação distintos: \textbf{modo Chat simples} e \textbf{modo RAG (Busca Vetorial)}. No modo Chat simples, a consulta é enviada diretamente ao modelo de linguagem sem recuperação de documentos do banco vetorial, gerando respostas com base exclusivamente no conhecimento pré-treinado do modelo e no histórico da conversa. No modo RAG, a consulta aciona o fluxo completo de recuperação aumentada: o sistema busca documentos relevantes no módulo DBVECTOR, contextualiza o modelo de linguagem com os trechos encontrados e gera resposta fundamentada nas fontes recuperadas. A alternância entre esses modos é realizada por meio de controles visuais explícitos --- tipicamente botões ou seletores claramente identificados na interface --- permitindo ao operador escolher a estratégia mais adequada a cada tipo de consulta. Essa dualidade proporciona flexibilidade: consultas exploratórias ou genéricas podem ser feitas no modo Chat, enquanto consultas que exigem fundamentação normativa ou jurisprudencial utilizam o modo RAG;
+  \item seleção de modelo de linguagem disponível, permitindo ao usuário escolher entre diferentes versões ou configurações quando aplicável; 
   \item exibição ordenada da resposta gerada, com indicação explícita das fontes consultadas e dos trechos citados;
   \item indicadores de confiança/qualidade da resposta e metadados de cobertura;
   \item mecanismos de inspeção e diagnóstico (\textit{logs}) disponíveis em ambiente de desenvolvimento;
@@ -133,14 +134,19 @@ O projeto da IU contempla os seguintes requisitos funcionais e não funcionais, 
 \end{itemize}
 
 \subsection{Arquitetura e implementação}
-Por coerência com o restante do projeto, a implementação adotou uma arquitetura de front-end baseada em componentes, separando apresentação, orquestração e serviços. A camada de apresentação foi desenvolvida a partir de um template compatível com Nuxt/Vue (adaptado ao propósito deste trabalho) e implementada em TypeScript para prover contratos de dados mais explícitos.
+Por coerência com o restante do projeto, a implementação adotou uma arquitetura de \textit{frontend} baseada em componentes, separando apresentação, orquestração e serviços. A camada de apresentação foi desenvolvida utilizando o \textit{framework} Nuxt.js (baseado em Vue.js), adaptado ao propósito deste trabalho, e implementada em TypeScript para prover contratos de dados mais explícitos e facilitar a manutenção.
+
+Uma característica arquitetural relevante é o padrão de consumo de APIs adotado: a interface não acessa diretamente os \textit{endpoints} do \textit{backend} RAG a partir do navegador do usuário (\textit{client-side}), mas sim por intermédio de uma camada intermediária executada no servidor da aplicação Nuxt (\textit{server-side}). Essa abordagem confere maior controle sobre a segurança --- evitando exposição de chaves de API ou credenciais ao navegador ---, facilita a implementação de políticas de \textit{rate limiting} e permite tratar erros de comunicação de forma centralizada antes que os dados cheguem ao cliente final.
+
+As respostas geradas pelo modelo de linguagem podem ser retornadas em formato estruturado que inclui marcações de Markdown, permitindo que a interface renderize o conteúdo de forma formatada --- com destaques, listas, títulos e citações --- proporcionando experiência de leitura mais agradável e facilitando a identificação visual de seções relevantes.
 
 Os principais elementos arquiteturais são: 
 \begin{itemize}
-  \item componente de página principal, responsável pela orquestração do fluxo de interação;
-  \item componentes de apresentação (\textit{prompt}, painel de resultados, lista de fontes e elementos de utilidade);
-  \item unidades de lógica reutilizáveis (\textit{composables} ou \textit{hooks}) que encapsulam chamadas a serviços, gerenciamento de estado e tratamento de erros;
-  \item adaptadores para comunicação com a camada de serviços (API de backend) que fornecem respostas geradas, documentos recuperados e metadados.
+  \item componente de página principal, responsável pela orquestração do fluxo de interação e alternância entre os modos Chat e RAG;
+  \item componentes de apresentação (campo de \textit{prompt}, painel de resultados com renderização Markdown, lista de fontes consultadas e elementos de utilidade como botões de ação e indicadores de estado);
+  \item unidades de lógica reutilizáveis (\textit{composables} ou \textit{hooks}) que encapsulam chamadas a serviços, gerenciamento de estado reativo, tratamento de erros e mecanismos de \textit{logging} para fins de diagnóstico;
+  \item adaptadores de comunicação que consomem os \textit{endpoints} do \textit{backend} RAG via camada \textit{server-side}, fornecendo respostas geradas, documentos recuperados e metadados de execução ao componente de apresentação;
+  \item mecanismos de tratamento de erros que interceptam falhas de rede ou de processamento, exibindo mensagens amigáveis ao usuário e registrando informações detalhadas em \textit{logs} de diagnóstico (disponíveis apenas em ambiente de desenvolvimento).
 \end{itemize}
 
 \subsection{Fluxos de interação}
@@ -153,7 +159,7 @@ O fluxo básico de interação é composto pelas etapas a seguir:
   \item o usuário pode inspecionar documentos, copiar trechos, ou formular consultas de seguimento (\textit{follow-up}).
 \end{enumerate}
 
-Para preservar a usabilidade, a interface expõe feedbacks visuais de carregamento e tratamento de erros, bem como controles para cancelamento de requisições quando suportado pelo backend.
+Para preservar a usabilidade e atender às especificidades da consulta jurídica, a interface expõe \textit{feedbacks} visuais claros em todas as etapas: indicadores de carregamento durante o processamento da consulta, mensagens de erro descritivas quando ocorrem falhas de comunicação ou de processamento, e controles para cancelamento de requisições quando suportado pelo \textit{backend}. A experiência do usuário (UX) é projetada para tornar a fundamentação das respostas evidente: após a geração da resposta no modo RAG, o texto principal é apresentado em destaque, seguido de uma lista de documentos consultados que inclui títulos, trechos citados e links clicáveis para as fontes originais (quando disponíveis). Essa apresentação dual --- resposta sintetizada acompanhada de evidências rastreatáveis --- visa assegurar transparência e permitir que o operador jurídico valide as informações antes de incorporá-las em suas decisões.
 
 \subsection{Estados, comunicação e contratos de dados}
 A IU emprega estados reativos (por exemplo, \texttt{input}, \texttt{loading}, \texttt{response}, \texttt{sources}) para orientar a renderização. A comunicação com a camada de serviços é assíncrona e baseada em contratos JSON tipados, contendo, no mínimo, os campos: texto da resposta, array de fontes (cada qual com título, URL, trecho e pontuação de relevância) e indicadores de qualidade.

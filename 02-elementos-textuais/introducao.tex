@@ -372,7 +372,9 @@ O PNUD configura-se como agente estratégico na promoção do desenvolvimento hu
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CAPÍTULO 3 – TECNOLOGIAS (revisado)
+% CAPÍTULO 3 – TECNOLOGIAS
+% NOTE: Mantido como Cap. 3 após reorganização (antes do Cap. 4 - Metodologia
+%       ser movido para arquivo separado).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Tecnologias}
@@ -409,613 +411,53 @@ Complementarmente, a análise estrutural dos documentos HTML e XML obtidos reque
 
 \section{Orquestração de Pipeline}
 \subsection{LangChain}
-A orquestração eficiente de múltiplos componentes de um sistema RAG --- incluindo modelos de linguagem, bases de conhecimento e mecanismos de recuperação --- constitui desafio arquitetural significativo. Para enfrentá-lo, este projeto adotou LangChain, biblioteca de código aberto especializada no desenvolvimento de aplicações baseadas em LLMs \cite{langchain2024}. Por meio dessa ferramenta, torna-se possível encadear chamadas a modelos de linguagem, gerenciar contextos conversacionais e integrar diferentes componentes --- tais como \textit{embeddings} e bases de conhecimento vetoriais --- de maneira coesa e reprodutível.
+A orquestração eficiente de múltiplos componentes de um sistema RAG incluindo modelos de linguagem, bases de conhecimento e mecanismos de recuperação constitui desafio arquitetural significativo. Para enfrentá-lo, este projeto adotou LangChain, biblioteca de código aberto especializada no desenvolvimento de aplicações baseadas em LLMs \cite{langchain2024}. Por meio dessa ferramenta, torna-se possível encadear chamadas a modelos de linguagem, gerenciar contextos conversacionais e integrar diferentes componentes --- tais como \textit{embeddings} e bases de conhecimento vetoriais --- de maneira coesa e reprodutível.
 
 Além disso, a biblioteca oferece suporte a diversos provedores de LLMs, como OpenAI e Hugging Face, facilitando a comparação entre modelos e a substituição de componentes sem alterações estruturais na arquitetura. Essa modularidade revela-se especialmente útil em ambientes de pesquisa, nos quais diferentes configurações precisam ser testadas e avaliadas. Ademais, LangChain inclui utilitários para armazenamento de estado, integração com armazenamento vetorial e orquestração de múltiplos \textit{prompts}, permitindo criar fluxos de trabalho sofisticados para agentes conversacionais, assistentes virtuais e sistemas de busca semântica. Desse modo, a escolha do LangChain alinha-se aos objetivos de prototipagem rápida e escalabilidade futura da solução proposta.
 
 \subsection{Controle de Prompt e Fallback}
 Em sistemas baseados em modelos generativos, a confiabilidade das respostas depende fundamentalmente da qualidade e clareza das solicitações. Por conseguinte, foi implementado um mecanismo de controle de \textit{prompt} que valida a completude da requisição antes de enviá-la ao LLM. Caso o modelo retorne uma resposta vaga ou incerta, a lógica de \textit{fallback} direciona a consulta a fontes de dados oficiais ou bases de conhecimento verificadas, combinando a flexibilidade dos modelos generativos com a precisão de dados estruturados.
 
-Ademais, o controle de \textit{prompt} permite reformular automaticamente perguntas problemáticas, melhorando a qualidade das interações e reduzindo a taxa de respostas inadequadas. O mecanismo de \textit{fallback}, por sua vez, pode acessar APIs governamentais, documentos normativos ou bases de conhecimento internas sempre que a recuperação vetorial não fornecer conteúdo suficiente. Essa estratégia híbrida assegura consistência e confiabilidade, minimizando riscos de informações errôneas --- aspecto crucial em aplicações jurídicas, nas quais a acurácia das informações é imperativa. Portanto, a arquitetura proposta alia a capacidade generativa dos LLMs ao respaldo factual de fontes oficiais, resultando em experiência de usuário mais robusta e confiável.
+Ademais, o controle de \textit{prompt} permite reformular automaticamente perguntas problemáticas, melhorando a qualidade das interações e reduzindo a taxa de respostas inadequadas. O mecanismo de \textit{fallback}, por sua vez, pode acessar APIs governamentais, documentos normativos ou bases de conhecimento internas sempre que a recuperação vetorial não fornecer conteúdo suficiente. Essa estratégia híbrida assegura consistência e confiabilidade, minimizando riscos de informações errôneas aspecto crucial em aplicações jurídicas, nas quais a acurácia das informações é imperativa. Portanto, a arquitetura proposta alia a capacidade generativa dos LLMs ao respaldo factual de fontes oficiais, resultando em experiência de usuário mais robusta e confiável.
 
 \section{Tecnologias de Interface e Frontend}
 \subsection{Nuxt.js}
 A construção de interfaces web modernas e interativas requer \textit{frameworks} que equilibrem produtividade de desenvolvimento, desempenho em tempo de execução e manutenibilidade de código. Nesse contexto, Nuxt.js foi selecionado como base para a interface de usuário do protótipo de \textit{chatbot} desenvolvido. Conforme a documentação oficial \cite{nuxt2024docs}, o Nuxt é um \textit{framework} de código aberto construído sobre Vue.js, orientado para criação de aplicações web \textit{full-stack} com suporte a renderização do lado do servidor (SSR), geração de sites estáticos (SSG) e modo SPA (\textit{Single Page Application}). Além disso, oferece roteamento automático, gerenciamento de estado integrado e facilidade de integração com APIs REST. Sua arquitetura modular e suporte nativo a TypeScript permitem desenvolvimento ágil e escalável de componentes de apresentação, características que se mostraram adequadas aos requisitos de prototipagem rápida do projeto. A escolha do Nuxt justifica-se, portanto, pela combinação de recursos avançados, maturidade do ecossistema e facilidade de integração com os demais componentes da arquitetura proposta.
 
 \subsection{Vue.js}
-No cerne do Nuxt.js encontra-se Vue.js, \textit{framework} JavaScript progressivo para construção de interfaces de usuário baseadas em componentes reativos \cite{vue2024docs}. Segundo a documentação oficial, o Vue adota um modelo declarativo baseado em componentes que permite construir interfaces complexas a partir de unidades reutilizáveis e auto-contidas. Essa arquitetura componentizada facilita a criação de interfaces dinâmicas e interativas, nas quais cada elemento da interface --- tal como o campo de entrada de consultas, o painel de exibição de respostas, a listagem de fontes citadas e os controles auxiliares --- é encapsulado em um componente independente e reutilizável. A reatividade nativa do Vue.js, baseada em um sistema de reatividade refinado, garante que qualquer alteração no estado da aplicação seja refletida instantaneamente na interface, proporcionando experiência de usuário fluida e responsiva. Tal característica mostra-se especialmente relevante em sistemas conversacionais, nos quais a percepção de imediatez e interatividade influencia diretamente a aceitação pelos usuários. Por conseguinte, a combinação de Vue.js como base e Nuxt.js como camada de abstração proporciona fundamento sólido para o desenvolvimento da interface do protótipo.
+No cerne do Nuxt.js encontra-se Vue.js, \textit{framework} JavaScript progressivo para construção de interfaces de usuário baseadas em componentes reativos \cite{vue2024docs}. Segundo a documentação oficial, o Vue adota um modelo declarativo baseado em componentes que permite construir interfaces complexas a partir de unidades reutilizáveis e auto-contidas. Essa arquitetura componentizada facilita a criação de interfaces dinâmicas e interativas, nas quais cada elemento da interface tal como o campo de entrada de consultas, o painel de exibição de respostas, a listagem de fontes citadas e os controles auxiliares é encapsulado em um componente independente e reutilizável. A reatividade nativa do Vue.js, baseada em um sistema de reatividade refinado, garante que qualquer alteração no estado da aplicação seja refletida instantaneamente na interface, proporcionando experiência de usuário fluida e responsiva. Tal característica mostra-se especialmente relevante em sistemas conversacionais, nos quais a percepção de imediatez e interatividade influencia diretamente a aceitação pelos usuários. Por conseguinte, a combinação de Vue.js como base e Nuxt.js como camada de abstração proporciona fundamento sólido para o desenvolvimento da interface do protótipo.
 
 \section{Infraestrutura e Deployment}
 \subsection{Docker}
-A reprodução consistente de ambientes computacionais constitui requisito fundamental para pesquisas em Ciência da Computação e Engenharia de Software. Nesse sentido, Docker --- plataforma de conteinerização amplamente adotada --- foi selecionado para empacotar e distribuir os componentes da \textit{pipeline} RAG desenvolvida \cite{docker2024}. Cada contêiner encapsula a aplicação juntamente com suas bibliotecas, dependências e configurações, garantindo consistência entre diferentes ambientes de desenvolvimento, teste e eventual produção.
+A reprodução consistente de ambientes computacionais constitui requisito fundamental para pesquisas em Ciência da Computação e Engenharia de Software. Nesse sentido, Docker plataforma de conteinerização amplamente adotada foi selecionado para empacotar e distribuir os componentes da \textit{pipeline} RAG desenvolvida \cite{docker2024}. Cada contêiner encapsula a aplicação juntamente com suas bibliotecas, dependências e configurações, garantindo consistência entre diferentes ambientes de desenvolvimento, teste e eventual produção.
 
 Além da reprodução, o Docker facilita o versionamento por meio de imagens imutáveis, permitindo rastrear alterações e reverter para versões anteriores quando necessário. A ferramenta também simplifica a escalabilidade de serviços, integrando-se a orquestradores como Docker Compose ou Kubernetes para gerenciar múltiplos contêineres. Ademais, a existência de um repositório público de imagens (Docker Hub) acelera o desenvolvimento ao disponibilizar soluções prontas. Dessa forma, a conteinerização com Docker não apenas atende aos requisitos de reprodução científica, mas também prepara o projeto para futuras implantações em ambientes de produção.
 
 \subsection{Kubernetes}
 Embora a conteinerização resolva questões de reprodução, a orquestração de múltiplos contêineres em escala requer plataformas especializadas. Kubernetes, sistema de código aberto amplamente utilizado para orquestração de contêineres, foi considerado na arquitetura proposta como caminho de evolução futura do projeto \cite{kubernetes2025overview}. Esse sistema permite implantar, escalar e operar aplicações em \textit{clusters} de servidores, agrupando contêineres em unidades denominadas \textit{pods} e facilitando o gerenciamento de cargas de trabalho.
 
-Os componentes principais do Kubernetes --- incluindo \textit{kubelet}, \textit{API Server}, \textit{Scheduler} e \textit{Controller Manager} --- zelam pelo estado desejado do \textit{cluster}, permitindo escalar serviços automaticamente com base em métricas de uso e garantir alta disponibilidade. Por meio da abstração de serviços e \textit{deployment controllers}, torna-se possível realizar atualizações contínuas e \textit{rolling updates} sem interrupção de serviço. Além disso, a plataforma oferece mecanismos de descoberta de serviço, balanceamento de carga e armazenamento persistente, características essenciais para aplicações em produção. Assim, embora o protótipo atual utilize Docker de forma isolada, a arquitetura foi concebida de modo a facilitar migração futura para ambientes orquestrados por Kubernetes.
+Os componentes principais do Kubernetes incluindo \textit{kubelet}, \textit{API Server}, \textit{Scheduler} e \textit{Controller Manager} zelam pelo estado desejado do \textit{cluster}, permitindo escalar serviços automaticamente com base em métricas de uso e garantir alta disponibilidade. Por meio da abstração de serviços e \textit{deployment controllers}, torna-se possível realizar atualizações contínuas e \textit{rolling updates} sem interrupção de serviço. Além disso, a plataforma oferece mecanismos de descoberta de serviço, balanceamento de carga e armazenamento persistente, características essenciais para aplicações em produção. Assim, embora o protótipo atual utilize Docker de forma isolada, a arquitetura foi concebida de modo a facilitar migração futura para ambientes orquestrados por Kubernetes.
 
 \subsection{FastAPI como Framework da API REST}
-FastAPI é um \textit{framework} web moderno e de alta performance para construção de APIs em Python, baseado em anotações de tipo (\textit{type hints}) e no padrão ASGI \cite{fastapi2024docs}. Conforme sua documentação oficial, o FastAPI foi projetado para ser rápido --- tanto em desempenho de execução quanto em velocidade de desenvolvimento --- oferecendo validação automática baseada em esquemas Python, geração automática de documentação interativa e suporte nativo a operações assíncronas. Neste projeto, o FastAPI foi escolhido como \textit{framework} principal para implementação da API REST que expõe a \textit{pipeline} RAG. Suas principais vantagens incluem: (i) validação automática de dados de entrada e saída com base em \textit{schemas} Pydantic, reduzindo erros e aumentando a robustez do código; (ii) documentação interativa automática (Swagger/OpenAPI e ReDoc), facilitando testes e integração; (iii) suporte nativo a operações assíncronas, permitindo maior concorrência e eficiência no tratamento de requisições; e (iv) desempenho comparável a \textit{frameworks} como Node.js e Go, aspecto relevante para aplicações que demandam baixa latência. O FastAPI foi utilizado para implementar os \textit{endpoints} de consulta, recuperação de metadados de \textit{clusters}, geração de respostas e integração com o modelo de linguagem da OpenAI, garantindo escalabilidade e manutenção simplificada do código.
+FastAPI é um \textit{framework} web moderno e de alta performance para construção de APIs em Python, baseado em anotações de tipo (\textit{type hints}) e no padrão ASGI \cite{fastapi2024docs}. Conforme sua documentação oficial, o FastAPI foi projetado para ser rápido tanto em desempenho de execução quanto em velocidade de desenvolvimento  oferecendo validação automática baseada em esquemas Python, geração automática de documentação interativa e suporte nativo a operações assíncronas. Neste projeto, o FastAPI foi escolhido como \textit{framework} principal para implementação da API REST que expõe a \textit{pipeline} RAG. Suas principais vantagens incluem: (i) validação automática de dados de entrada e saída com base em \textit{schemas} Pydantic, reduzindo erros e aumentando a robustez do código; (ii) documentação interativa automática (Swagger/OpenAPI e ReDoc), facilitando testes e integração; (iii) suporte nativo a operações assíncronas, permitindo maior concorrência e eficiência no tratamento de requisições; e (iv) desempenho comparável a \textit{frameworks} como Node.js e Go, aspecto relevante para aplicações que demandam baixa latência. O FastAPI foi utilizado para implementar os \textit{endpoints} de consulta, recuperação de metadados de \textit{clusters}, geração de respostas e integração com o modelo de linguagem da OpenAI, garantindo escalabilidade e manutenção simplificada do código.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CAPÍTULO 4 – METODOLOGIA (revisado)
+% NOTE: Os capítulos 3 (Metodologia) e 4 (Desenvolvimento) foram
+%       movidos para arquivos separados: metodologia.tex e desenvolvimento.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{Metodologia}
-\label{chap:metodologia}
-
-Este capítulo apresenta a metodologia empregada para o desenvolvimento da \textit{pipeline} RAG proposta, detalhando sua arquitetura conceitual e de implementação, os processos de coleta e tratamento de dados, a indexação vetorial, a orquestração dos componentes e a interface de usuário desenvolvida em ambiente de prototipação. A abordagem metodológica adotada combina revisão bibliográfica, desenvolvimento experimental de protótipo e proposição de arquitetura escalável para futuras implementações em ambiente de produção.
-
-\section{Arquitetura da \textit{Pipeline}}
-A arquitetura da \textit{pipeline} RAG proposta e desenvolvida neste trabalho organiza-se em quatro estágios principais: ingestão de dados, pré-processamento e segmentação textual, indexação vetorial e geração de respostas. Cada estágio foi concebido de forma modular, permitindo flexibilidade na escolha de tecnologias e facilitando manutenção e escalabilidade em futuras implementações. A arquitetura geral, ilustrada na Figura~\ref{fig:arquitetura_pipeline}, demonstra o fluxo de dados desde a coleta até a geração de respostas fundamentadas em fontes oficiais.
-
-\subsection{Coleta Automatizada de Dados (Fontes e Scrapers)}
-\label{subsec:coleta_dados}
-
-A coleta de dados é realizada por meio de módulos de extração automatizada (scrapers) desenvolvidos em Python, utilizando Playwright para automação de navegador e BeautifulSoup para parsing de HTML. Os dados são coletados das seguintes fontes oficiais:
-
-\begin{itemize}[label=\textbullet]
-  \item \textbf{Supremo Tribunal Federal (STF)}: extração de acórdãos, decisões monocráticas e despachos organizados por artigo do Código Penal, com metadados como relator, partes, legislação citada e texto integral;
-  \item \textbf{Superior Tribunal de Justiça (STJ)}: coleta de súmulas, decisões e jurisprudência temática relacionada à execução penal e direito processual penal;
-  \item \textbf{Tribunal Regional Federal da 4ª Região (TRF4)}: extração de decisões regionais com metadados estruturados (número do processo, tipo de documento, datas, relator);
-  \item \textbf{Sistema Eletrônico de Execução Unificado (SEEU) -- Documentação de suporte}: coleta de manuais, orientações técnicas, portarias e instruções normativas publicadas nos portais oficiais do CNJ relacionados ao SEEU.
-\end{itemize}
-
-Os scrapers implementam mecanismos de resiliência como políticas de \textit{retry} com \textit{backoff} exponencial, tratamento de erros de rede, validação de completude dos dados extraídos e registro estruturado de logs. A saída de cada scraper é padronizada em formato JSON Lines (JSONL), com um documento por linha, facilitando processamento incremental e auditoria. O agendamento das coletas é realizado via \textit{cron jobs} ou Airflow, permitindo atualizações periódicas da base de conhecimento.
-
-\subsection{Estrutura e Esquema de Saída em JSON Lines}
-\label{subsec:json_schema}
-
-Os documentos extraídos pelos scrapers são armazenados em arquivos JSON Lines (\texttt{.jsonl}), nos quais cada linha representa um documento completo em formato JSON. Essa estrutura facilita processamento incremental, append de novos documentos e compatibilidade com ferramentas de processamento distribuído.
-
-O esquema de saída adotado segue a seguinte estrutura:
-
-\begin{verbatim}
-{
-  "id": "único identificador (hash ou UUID)",
-  "cluster_name": "identificador temático (ex: 'STF_Art_121')",
-  "title": "título ou ementa resumida",
-  "content": "texto integral da decisão ou documento",
-  "url": "URL de origem no portal oficial",
-  "metadata": {
-    "relator": "nome do relator (quando aplicável)",
-    "data_julgamento": "data em formato ISO 8601",
-    "legislacao_citada": ["lista de artigos citados"],
-    "tipo_documento": "acórdão | decisão | portaria | manual",
-    "tribunal": "STF | STJ | TRF4 | CNJ",
-    "artigo_cp": "artigo do Código Penal associado (se aplicável)"
-  }
-}
-\end{verbatim}
-
-Esse esquema padronizado permite que todos os documentos, independentemente da fonte, sejam processados pelo mesmo pipeline de vetorização e indexação, garantindo uniformidade na recuperação semântica. Os metadados enriquecem as consultas, possibilitando filtragem por tribunal, tipo de documento ou artigo legal durante a fase de recuperação.
-
-\subsection{Engenharia de \textit{Embeddings} e Indexação Vetorial}
-\label{subsec:engenharia_embeddings}
-
-A engenharia de \textit{embeddings} constitui etapa crítica da \textit{pipeline} RAG, responsável por transformar textos em representações vetoriais densas que capturam relações semânticas. O processo é composto pelas seguintes etapas:
-
-\subsubsection{Entrada e Pré-processamento}
-Cada documento em formato JSONL é submetido ao módulo de chunking (\texttt{chunking.py}), que divide o texto em segmentos menores para otimizar a recuperação. A estratégia de divisão segue a hierarquia:
-\begin{enumerate}
-  \item Divisão por parágrafos (delimitador \texttt{\textbackslash n\textbackslash n});
-  \item Se os parágrafos forem muito longos, divisão por sentenças;
-  \item Como \textit{fallback}, aplicação de janela deslizante por caracteres com sobreposição configurável.
-\end{enumerate}
-
-Cada \textit{chunk} recebe metadados adicionais: \texttt{original\_id}, \texttt{chunk\_index}, \texttt{char\_start}, \texttt{char\_end}, \texttt{is\_chunk} e um identificador único no formato \texttt{<doc\_id>\_chunk\_<i>}. Os parâmetros \texttt{CHUNK\_SIZE} (tamanho máximo em caracteres) e \texttt{CHUNK\_OVERLAP} (sobreposição entre chunks adjacentes) são configuráveis e controlados em \texttt{config.py}.
-
-\subsubsection{Configuração e Carregamento do Modelo}
-O modelo de \textit{embeddings} utilizado é baseado na biblioteca \texttt{sentence-transformers}. O carregamento é realizado como singleton por meio da função \texttt{load\_model()}, evitando recargas repetidas durante execução. Os parâmetros principais incluem:
-\begin{itemize}
-  \item \texttt{EMBEDDING\_MODEL}: identificador do modelo (ex.: \texttt{all-MiniLM-L6-v2});
-  \item \texttt{EMBEDDING\_DIM}: dimensão dos vetores gerados;
-  \item \texttt{NORMALIZE\_EMBEDDINGS}: flag para normalização L2 dos vetores.
-\end{itemize}
-
-\subsubsection{Geração de Embeddings}
-A função central \texttt{encode\_texts(texts: List[str])} recebe uma lista de textos e retorna uma matriz de \textit{embeddings} com forma \texttt{(N, dim)} e tipo \texttt{np.float32}, garantindo compatibilidade com FAISS. Quando \texttt{NORMALIZE\_EMBEDDINGS} está ativado, os vetores são normalizados para norma unitária, permitindo que o produto interno corresponda à similaridade de cosseno.
-
-\subsubsection{Indexação com FAISS}
-Durante a indexação, são coletados os textos dos documentos processados e gerados os respectivos vetores. Se o índice FAISS não existir, é criado um \texttt{IndexFlatIP(dimension)} (produto interno) envolvido por \texttt{IndexIDMap2} para mapear IDs customizados. Os IDs internos são calculados por hash do identificador do documento: \texttt{hash(doc\_id) \% (2**31 - 1)}. Os vetores são adicionados ao índice com \texttt{add\_with\_ids(vectors, ids)}.
-
-\subsubsection{Busca e Recuperação}
-Durante uma consulta, o texto da \textit{query} é convertido em vetor de \textit{embedding} (garantido como matriz 2D) e submetido ao índice FAISS com \texttt{\_index.search(query\_vector, k)}, retornando os \textit{k} vetores mais próximos. Como o índice utiliza produto interno e os vetores estão normalizados, a busca equivale à similaridade de cosseno. Os IDs internos retornados são mapeados de volta aos metadados originais dos documentos, permitindo recuperação do texto completo e informações contextuais.
-
-\subsubsection{Persistência de Dados}
-O índice FAISS é salvo em disco como \texttt{index.faiss} no caminho configurado. Os metadados (mapeamento de ID interno para campos do documento) são salvos em formato Parquet (\texttt{metadata.parquet}) para compatibilidade com PyArrow e eficiência de leitura.
-
-\subsubsection{GPU e Fallback}
-A lógica de \texttt{maybe\_to\_gpu} permite mover o índice para GPU se \texttt{USE\_FAISS\_GPU} estiver habilitado e FAISS com suporte GPU estiver disponível. Em caso de falha, o sistema reverte automaticamente para CPU, garantindo funcionamento em ambientes sem aceleração gráfica.
-
-\subsubsection{Regras Operacionais}
-\begin{itemize}
-  \item Todos os vetores são armazenados como \texttt{float32} com dimensão obtida do modelo;
-  \item O chunking com sobreposição preserva contexto nas bordas dos segmentos, melhorando recuperação;
-  \item IDs por hash são eficientes, mas apresentam pequeno risco de colisões (mitigável com hash criptográfico explícito);
-  \item Metadados do modelo (nome, versão, dimensão) devem ser salvos junto aos dados para facilitar auditoria e reindexação.
-\end{itemize}
-
-Este processo garante que a \textit{pipeline} RAG disponha de um índice vetorial eficiente, escalável e rastreável, fundamental para a qualidade das respostas geradas pelo sistema.
-
-\subsection{Indexação e Armazenamento}
-\begin{itemize}[label=\textbullet]
-  \item Indexação dos \textit{embeddings} em OpenSearch ou FAISS, com metadados (origem, data, posição no documento);
-  \item Definição de métricas de similaridade (\textit{cosine similarity}) e \textit{thresholds} de corte.
-\end{itemize}
-
-\subsection{Orquestração e Consulta}
-Implementação utilizando LangChain:
-\begin{itemize}[label=\textbullet]
-  \item Conversão da consulta em \textit{embedding};
-  \item Recuperação dos \textit{top-k chunks} mais relevantes;
-  \item Geração da resposta pelo LLM, mesclando múltiplas fontes quando necessário (abordagem RAG-Token).
-\end{itemize}
-
-\subsection{Desenvolvimento do \textit{Chatbot} e da API}
-\begin{itemize}[label=\textbullet]
-  \item \textit{Chatbot} baseado em WebSocket para interação síncrona;
-  \item \textit{Endpoints} RESTful em Flask para consultas e coleta de \textit{feedback} de usabilidade.
-\end{itemize}
-
-\subsection{Proposta de Avaliação e Métricas}
-A arquitetura desenvolvida contempla mecanismos que permitirão, em futuras implementações, realizar:
-\begin{itemize}[label=\textbullet]
-  \item Cálculo de métricas de recuperação (precisão, \textit{recall} e F\textsubscript{1}) em conjuntos de questões de \textit{benchmark} previamente definidos;
-  \item Ensaios de usabilidade qualitativos com operadores do Direito, avaliando intuitividade, confiança e adequação ao fluxo de trabalho real.
-\end{itemize}
-
-\noindent
-Tais avaliações, embora não realizadas no escopo deste trabalho, constituem etapa essencial para validação em ambiente de produção e são recomendadas como trabalhos futuros.
-
-\subsection{Diretrizes para MLOps e Monitoramento}
-A arquitetura proposta inclui diretrizes para implementação futura de:
-\begin{itemize}[label=\textbullet]
-  \item \textit{Pipelines} de CI/CD para \textit{build} e \textit{deploy} automáticos;
-  \item Monitoramento de latência e acurácia, com alertas para degradação de desempenho;
-  \item Mecanismo de \textit{feedback loop} para re-treinamento periódico com dados de uso real.
-\end{itemize}
-
-\noindent
-Tais componentes são fundamentais para operação em ambiente de produção e foram considerados na concepção arquitetural, embora sua implementação completa seja proposta para trabalhos futuros.
-
-\noindent
-A Figura~\ref{fig:arquitetura_pipeline} apresenta a arquitetura geral da \textit{pipeline} RAG, sintetizando os componentes descritos nas subseções anteriores e evidenciando o fluxo de dados desde a coleta até a geração de respostas.
-
-\begin{figure}[!htbp]
-  \centering
-  \IfFileExists{04-figuras/arquitetura_pipeline.png}{%
-    \includegraphics[width=0.85\textwidth]{04-figuras/arquitetura_pipeline.png}
-  }{%
-    \fbox{Figura ausente: `arquitetura\_pipeline.png'}
-  }
-  \caption{Arquitetura geral da \textit{pipeline} RAG. Fonte: elaborado pelos autores.}
-  \label{fig:arquitetura_pipeline}
-\end{figure}
-
-% 4.2 Diagrama de Caso de Uso
-\section{Diagrama de Caso de Uso}
-\label{sec:diagrama-caso-uso}
-
-Os diagramas de casos de uso são representações visuais que descrevem as interações entre os usuários (atores) e o sistema, identificando as funcionalidades oferecidas e os relacionamentos entre elas. Segundo \citeonline{edwards2024hybrid}, diagramas de casos de uso auxiliam na especificação de requisitos funcionais, facilitando a comunicação entre as partes interessadas e servindo como base para o desenvolvimento e a validação do sistema. No contexto deste trabalho, o diagrama de casos de uso ilustra como operadores judiciários, administradores e componentes externos interagem com a \textit{pipeline} RAG, evidenciando os principais fluxos de consulta, configuração, coleta de dados, processamento e recuperação de informações.
-
-Conforme apresentado na Figura~\ref{fig:diagrama-rag-seeu}, o sistema organiza os casos de uso em torno de quatro atores principais: Operador Judiciário, Administrador, Sistema (ator externo que dispara processos automatizados) e os módulos internos que compõem a \textit{pipeline}.
-
-\begin{figure}[!htbp]
-  \centering
-  \IfFileExists{04-figuras/casoDeUso.pdf}{%
-    \includegraphics[width=0.75\textwidth,keepaspectratio]{04-figuras/casoDeUso.pdf}
-  }{%
-    \fbox{Figura ausente: `casoDeUso.pdf'}
-  }
-  \caption{Diagrama de Caso de Uso da \textit{Pipeline} RAG para consulta ao SEEU. Fonte: elaborado pelos autores.}
-  \label{fig:diagrama-rag-seeu}
-\end{figure}
-
-\noindent
-O diagrama da Figura~\ref{fig:diagrama-rag-seeu} apresenta os atores e casos de uso principais da pipeline RAG para o SEEU:  
-\begin{itemize}
-  \item \textbf{Operador Judiciário}: inicia a consulta via “Receber Pergunta”.  
-  \item \textbf{Administrador}: configura parâmetros da pipeline em “Configurar Pipeline”.  
-  \item \textbf{Sistema}: atua como ator externo encarregado de disparar e orquestrar os processos de “Coletar Documentos Públicos”, “Pré-processar e segmentar texto”, “Gerar Embeddings e atualizar índice” e “Realizar Consulta Semântica (RAG)”.  
-  \item \textbf{Include} (setas obrigatórias): indicam os casos de uso que são sempre invocados no fluxo principal.  
-  \item \textbf{Extend} (setas opcionais): representam funcionalidades adicionais, como a “Avaliar Métricas e Monitorar Desempenho”, que estende o caso de uso “Exibir Resposta via chatbot/API REST”.  
-\end{itemize}  
-
-\noindent
-A organização dos casos de uso em relacionamentos de inclusão ({\textit{include}}) e extensão ({\textit{extend}}) permite identificar dependências obrigatórias e funcionalidades complementares. Os casos de uso de inclusão garantem que operações fundamentais, como a consulta semântica e a atualização da base de conhecimento, sejam sempre executadas quando acionadas por casos de uso superiores. Já as extensões representam comportamentos opcionais que agregam valor ao sistema sem impactar o fluxo principal, como a coleta de métricas de desempenho e a geração de \textit{logs} para auditoria. Essa estrutura modular facilita a manutenção, a evolução do sistema e a rastreabilidade dos requisitos ao longo do ciclo de desenvolvimento.
-
-\section{Especificação de Casos de Uso}
-\label{sec:especificacao-casos-uso}
-No item anterior, foi apresentado o Diagrama de Caso de Uso do sistema. 
-A seguir serão detalhados cada um dos casos de uso, explicando as suas interações 
-com os atores:
-
-%----------------------------------------------------------------------
-% UC-01 – Enviar Pergunta
-%----------------------------------------------------------------------
-\subsubsection{UC-01 – Enviar Pergunta}
-
-\noindent
-O \textit{Operador Judiciário} envia sua dúvida à interface de chatbot
-para iniciar a consulta semântica.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-01 – Enviar Pergunta}
-\label{tab:uc01}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome do caso de uso} & UC-01 – Enviar Pergunta \\ \hline
-\textbf{Ator Principal}      & Operador Judiciário \\ \hline
-\textbf{Resumo}              & Registrar e validar a pergunta do usuário. \\ \hline
-\textbf{Pré-Condições}       & Interface de chatbot online. \\ \hline
-\textbf{Pós-Condições}       & Pergunta armazenada e evento emitido para \emph{UC-07}. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*.,leftmargin=*]
-  \item Operador acessa a interface.
-  \item Digita a pergunta e clica em \textit{Enviar}.
-  \item Sistema valida formato/tamanho.
-  \item Sistema grava a pergunta e confirma recebimento.
-\end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*a.,leftmargin=*]
-  \item[3a.] Pergunta inválida $\rightarrow$ sistema exibe erro e retorna ao passo 2.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-
-% UC-02
-\subsubsection{UC-02 – Configurar Pipeline}
-\noindent
-O \textit{Administrador} define parâmetros e módulos da pipeline RAG.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-02 – Configurar Pipeline}
-\label{tab:uc02}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome do caso de uso}     & UC-02 – Configurar Pipeline \\ \hline
-\textbf{Ator Principal}          & Administrador \\ \hline
-\textbf{Resumo}                  & Ajustar fontes de coleta, periodicidade e parâmetros de indexação. \\ \hline
-\textbf{Pré-Condições}           & Credenciais válidas de administrador. \\ \hline
-\textbf{Pós-Condições}           & Parâmetros persistidos e \emph{UC-03 – Atualizar Base de Conhecimento} apto a ser agendado. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-  \begin{enumerate}[leftmargin=*]
-    \item Administrador acessa o painel de configuração.
-    \item Define fontes, cronograma e opções de pré-processamento e indexação.
-    \item Salva alterações; sistema valida e aplica as configurações.
-  \end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-  \begin{enumerate}[label=\arabic*a.,leftmargin=*]
-    \item[2a.] Valor inválido $\to$ sistema rejeita, exibe mensagem e retorna ao passo 2.
-  \end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-% UC-03
-\subsubsection{UC-03 – Atualizar Base de Conhecimento}
-\noindent
-Caso de uso de alto nível que executa todo o \textit{ETL} para manter o
-índice vetorial sempre atualizado.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-03 – Atualizar Base de Conhecimento}
-\label{tab:uc03}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome do caso de uso}     & UC-03 – Atualizar Base de Conhecimento \\ \hline
-\textbf{Ator Principal}          & Administrador \\ \hline
-\textbf{Relações}                & {\small «include» UC-04, UC-05 e UC-06} \\ \hline
-\textbf{Resumo}                  & Orquestrar a coleta, pré-processamento e (re)indexação dos dados. \\ \hline
-\textbf{Pré-Condições}           & Parâmetros de pipeline configurados (UC-02). \\ \hline
-\textbf{Pós-Condições}           & Índice vetorial contém todo o conteúdo recém-coletado. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-  \begin{enumerate}[leftmargin=*]
-    \item Administrador dispara atualização ou CronJob executa no agendamento.
-    \item Sistema aciona \emph{UC-04 – Coletar Documentos Públicos}.
-    \item Sistema aciona \emph{UC-05 – Pré-processar e Segmentar Texto}.
-    \item Sistema aciona \emph{UC-06 – Gerar Embeddings e Atualizar Índice}.
-    \item Resultado agregado é registrado e notificado ao Administrador.
-  \end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-%----------------------------------------------------------------------
-% UC-04 – Coletar Documentos Públicos
-%----------------------------------------------------------------------
-\subsubsection{UC-04 – Coletar Documentos Públicos}
-
-\noindent
-Extrai automaticamente documentos dos portais SEEU/CNJ.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-04 – Coletar Documentos Públicos}
-\label{tab:uc04}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-04 – Coletar Documentos Públicos \\ \hline
-\textbf{Ator Principal} & Sistema (Crawler) \\ \hline
-\textbf{Resumo}      & Baixar PDFs/HTML/JSON dos portais e armazenar cópias brutas. \\ \hline
-\textbf{Pré-Condições} & Fontes externas acessíveis. \\ \hline
-\textbf{Pós-Condições} & Documentos brutos salvos para pré-processamento. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Crawler inicia sessão nos portais.
-  \item Pesquisa conteúdos novos.
-  \item Faz download dos arquivos.
-  \item Verifica integridade e armazena em repositório bruto.
-\end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*a.,leftmargin=*]
-  \item Falha de rede $\rightarrow$ reprograma tentativa e registra log.
-  \item Documento corrompido $\rightarrow$ descarta e alerta administrador.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-%----------------------------------------------------------------------
-% UC-05 – Pré-processar e Segmentar Texto
-%----------------------------------------------------------------------
-\subsubsection{UC-05 – Pré-processar e Segmentar Texto}
-
-\noindent
-Converte PDFs em texto limpo e divide em \textit{chunks}.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-05 – Pré-processar e Segmentar Texto}
-\label{tab:uc05}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-05 – Pré-processar e Segmentar Texto \\ \hline
-\textbf{Ator Principal} & Sistema (Pre-Processor) \\ \hline
-\textbf{Resumo}      & Extrair texto, limpar ruídos e segmentar em \textit{chunks}. \\ \hline
-\textbf{Pré-Condições} & Documentos brutos disponíveis. \\ \hline
-\textbf{Pós-Condições} & \textit{Chunks} prontos para vetorização. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Extrai texto de cada PDF/HTML.
-  \item Remove cabeçalhos, rodapés e formatação.
-  \item Separa texto em \textit{chunks} de 500–1000 tokens.
-  \item Armazena \textit{chunks} para o Embedding Service.
-\end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*a.,leftmargin=*]
-  \item Falha na extração $\rightarrow$ registra alerta; prossegue com próximos arquivos.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-%----------------------------------------------------------------------
-% UC-06 – Gerar Embeddings e Atualizar Índice
-%----------------------------------------------------------------------
-\subsubsection{UC-06 – Gerar Embeddings e Atualizar Índice}
-
-\noindent
-Converte \textit{chunks} em vetores e atualiza o índice vetorial.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-06 – Gerar Embeddings e Atualizar Índice}
-\label{tab:uc06}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-06 – Gerar Embeddings e Atualizar Índice \\ \hline
-\textbf{Ator Principal} & Sistema (Embedding Service) \\ \hline
-\textbf{Resumo}      & Gerar embeddings e fazer \emph{upsert} no Vector DB. \\ \hline
-\textbf{Pré-Condições} & \textit{Chunks} pré-processados disponíveis. \\ \hline
-\textbf{Pós-Condições} & Índice vetorial atualizado. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Seleciona \textit{chunks} não indexados.
-  \item Calcula embedding com modelo pré-treinado.
-  \item Envia vetor + metadados ao Vector DB.
-  \item Recebe confirmação (\textit{ACK}).
-\end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*a.,leftmargin=*]
-  \item Falha no modelo $\rightarrow$ reprocessa \textit{chunk}; registra erro.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-
-%----------------------------------------------------------------------
-% UC-07 – Realizar Consulta Semântica (RAG)
-%----------------------------------------------------------------------
-\subsubsection{UC-07 – Realizar Consulta Semântica (RAG)}
-
-\noindent
-Executa a recuperação de contexto e geração de resposta via LLM.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-07 – Realizar Consulta Semântica (RAG)}
-\label{tab:uc07}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-07 – Realizar Consulta Semântica (RAG) \\ \hline
-\textbf{Ator Principal} & Sistema (RAG Engine) \\ \hline
-\textbf{Resumo}      & Vetorizar a pergunta, recuperar top-\emph{k} documentos e gerar resposta. \\ \hline
-\textbf{Pré-Condições} & Pergunta armazenada (UC-01) e índice vetorial online. \\ \hline
-\textbf{Pós-Condições} & Resposta gerada e log gravado. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Converte pergunta em vetor.
-  \item Recupera top-\emph{k} \textit{chunks} relevantes.
-  \item Cria \emph{prompt} com contexto + pergunta.
-  \item Chama LLM e obtém resposta.
-  \item Formata resposta e grava log.
-\end{enumerate}} \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Alternativo}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[label=\arabic*a.,leftmargin=*]
-  \item Índice indisponível $\rightarrow$ retorna erro para UC-08.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-%----------------------------------------------------------------------
-% UC-08 – Exibir Resposta ao Usuário
-%----------------------------------------------------------------------
-\subsubsection{UC-08 – Exibir Resposta ao Usuário}
-
-\noindent
-Entrega a resposta ao Operador e registra entrega.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-08 – Exibir Resposta ao Usuário}
-\label{tab:uc08}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-08 – Exibir Resposta ao Usuário \\ \hline
-\textbf{Ator Principal} & Operador Judiciário \\ \hline
-\textbf{Relações}    & {\small «extend» UC-09 – Avaliar Métricas} \\ \hline
-\textbf{Resumo}      & Formatar e entregar a resposta via WebSocket ou REST. \\ \hline
-\textbf{Pré-Condições} & Resposta gerada no UC-07. \\ \hline
-\textbf{Pós-Condições} & Resposta entregue e log de entrega salvo. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Sistema formata resposta (HTML/JSON).
-  \item Envia pelo canal apropriado.
-  \item Recebe \textit{ACK} e registra status.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-%----------------------------------------------------------------------
-% UC-09 – Avaliar Métricas e Monitorar Desempenho
-%----------------------------------------------------------------------
-\subsubsection{UC-09 – Avaliar Métricas e Monitorar Desempenho}
-
-\noindent
-Calcula métricas (precisão, recall, latência) e dispara alertas.
-
-\begin{table}[H]
-\centering
-\caption{Especificação do Caso de Uso UC-09 – Avaliar Métricas e Monitorar Desempenho}
-\label{tab:uc09}
-\begin{tabular}{|p{4cm}|p{11cm}|}
-\hline
-\textbf{Nome}        & UC-09 – Avaliar Métricas e Monitorar Desempenho \\ \hline
-\textbf{Ator Principal} & Sistema (Metrics Service) \\ \hline
-\textbf{Ator Secundário} & Administrador \\ \hline
-\textbf{Resumo}      & Agregar logs, calcular métricas e atualizar dashboards. \\ \hline
-\textbf{Pré-Condições} & Logs de UC-07 e UC-08 disponíveis. \\ \hline
-\textbf{Pós-Condições} & Painel atualizado; alertas enviados se limites excedidos. \\ \hline
-\multicolumn{2}{|l|}{\textbf{Fluxo Principal}} \\ \hline
-\multicolumn{2}{|p{15cm}|}{%
-\begin{enumerate}[leftmargin=*]
-  \item Coleta dados de log/telemetria.
-  \item Calcula precisão, recall, F1 e latência.
-  \item Atualiza Painel Grafana/Prometheus.
-  \item Se métrica fora do SLA, dispara alerta ao Administrador.
-\end{enumerate}} \\ \hline
-\end{tabular}
-\end{table}
-
-
-\subsubsection{Descrição}
-
-\begin{figure}[H]
-  \centering
-  \IfFileExists{04-figuras/inicio(2).png}{%
-    \includegraphics[width=0.75\textwidth]{04-figuras/inicio(2).png}
-  }{%
-    \fbox{Imagem `inicio(2).png' ausente em `04-figuras/'}
-  }
-  \caption{Tela inicial da aplicação (Home). Fonte: elaborado pelos autores.}
-  \label{fig:interface_home}
-\end{figure}
-
-Conforme ilustrado na Figura~\ref{fig:interface_home}, a tela inicial tem como objetivo permitir que o operador jurídico registre sua pergunta de forma direta e intuitiva. Este é o ponto de entrada para a consulta semântica baseada em documentos do SEEU. Ao submeter a pergunta, o sistema realiza o roteamento interno, executando as etapas de recuperação vetorial e geração de resposta fundamentada por meio do modelo de linguagem integrado.
-
-A funcionalidade central desta interface é a captação da pergunta e o acionamento da pipeline de RAG. O sistema registra a consulta, armazena informações relevantes como o usuário, horário da solicitação e a resposta gerada, contribuindo também para fins de auditoria e análise posterior de métricas.
-
-\subsubsection{Comandos da tela (botões) – Tela inicial}
-
-\begin{table}[H]
-  \centering
-  \caption{Quadro – Comandos da tela (botões) – Tela inicial}
-  \label{tab:cmd_tela_inicial}
-  \begin{tabular}{|c|p{4.5cm}|p{9cm}|}
-    \hline
-    \textbf{Item} & \textbf{Comando} & \textbf{Ação} \\ \hline
-    1 & RAG (Busca Vetorial) & Alterna o modo de busca para RAG, permitindo consultas com recuperação de documentos indexados. \\ \hline
-    2 & Chat Simples & Alterna o modo de busca para Chat simples, sem recuperação de documentos. \\ \hline
-    3 & Botão Enviar & Submete a pergunta digitada pelo usuário, validando se o campo não está vazio e executando a busca no modo selecionado (RAG ou Chat). \\ \hline
-    4 & Copiar & Copia o texto da resposta exibida para a área de transferência do sistema. \\ \hline
-    5 & Cards de Resultados & Exibe as citações e documentos recuperados, permitindo visualizar as fontes utilizadas na geração da resposta. \\ \hline
-  \end{tabular}
-\end{table}
-\vspace*{-0.5cm}
-{\raggedright \fonte{Elaborado pelos autores.}}
-
-
-\subsubsection{Campos da tela – Tela inicial}
-
-\begin{table}[H]
-  \centering
-  \caption{Quadro – Campos da tela – Tela Inicial}
-  \label{tab:campos_tela_inicial}
-  \footnotesize
-  \setlength{\tabcolsep}{3pt}
-  \begin{tabularx}{\textwidth}{|c|>{\raggedright\arraybackslash}X|c|c|c|c|>{\raggedright\arraybackslash}p{2.2cm}|c|c|}
-    \hline
-    \textbf{Item} & \textbf{Nome do Campo} & \textbf{Tipo} & \makecell{\textbf{Tama-}\\\textbf{nho}} & \makecell{\textbf{Más-}\\\textbf{cara}} & \makecell{\textbf{Obri-}\\\textbf{gatório}} & \makecell[l]{\textbf{Valor}\\\textbf{Padrão}} & \makecell{\textbf{Edi-}\\\textbf{tável}} & \makecell{\textbf{Visí-}\\\textbf{vel}} \\ \hline
-    1 & Campo de entrada de pergunta & Alfanumérico & N/A & Não & Sim & Vazio & Sim & Sim \\ \hline
-    2 & Seleção de Modelo de Linguagem & Seleção & N/A & Não & Não & Conforme configuração & Sim & Sim \\ \hline
-  \end{tabularx}
-\end{table}
-\vspace*{-0.5cm}
-{\raggedright \fonte{Elaborado pelos autores.}}
-
-\subsubsection{Observações (Tela inicial)}
-
-O campo de entrada de texto permite ao usuário inserir sua pergunta em linguagem natural. O tamanho máximo do texto não é definido explicitamente na interface, sendo indicado como ``N/A'' (não aplicável) na Tabela~\ref{tab:campos_tela_inicial}. A validação de obrigatoriedade é realizada no momento do envio, impedindo o envio de consultas vazias.
-
-A seleção do modelo de linguagem permite ao usuário escolher entre diferentes modelos disponíveis no sistema. O valor padrão é definido pela configuração do sistema e pode variar conforme a instalação. A lista de modelos é carregada dinamicamente a partir da configuração centralizada da aplicação.
-
-  % Inserção da seção do DBVECTOR (Módulo de Indexação Vetorial)
-  \input{./02-elementos-textuais/dbvector}
-  % Inserção das seções de scrapers e integração (serão numeradas como 4.4, 4.5, ...)
-  \input{./02-elementos-textuais/scraper}
-  % Inserção da seção de integração interface - API - RAG
-  \input{./02-elementos-textuais/integracao_interface}
-
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  % CAPÍTULO 5 – RESULTADOS ESPERADOS
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NOTE: Os cap�tulos 3 (Metodologia) e 4 (Desenvolvimento) foram
+%       movidos para arquivos separados: metodologia.tex e desenvolvimento.tex
+%       Estes arquivos s�o inclu�dos no main.tex na ordem correta.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Resultados Esperados}
 \label{chap:resultados}
 
-Este capítulo descreve, de forma detalhada, os resultados que se almeja alcançar com a execução do presente Trabalho de Conclusão de Curso (TCC). Tais resultados derivam dos objetivos estabelecidos no Capítulo~\ref{sec:objetivos} e da metodologia apresentada no Capítulo~\ref{chap:metodologia}, respeitando as normas da Associação Brasileira de Normas Técnicas -- ABNT (NBR 14724:2011) para trabalhos acadêmicos.
+Este capítulo descreve, de forma detalhada, os resultados que se almejou alcançar com a execução do presente Trabalho de Conclusão de Curso (TCC). Tais resultados derivam dos objetivos estabelecidos no Capítulo~\ref{sec:objetivos} e da metodologia apresentada no Capítulo~\ref{chap:metodologia}, respeitando as normas da Associação Brasileira de Normas Técnicas -- ABNT (NBR 14724:2011) para trabalhos acadêmicos.
 
 \section{Proposta de arquitetura de \textit{pipeline} RAG funcional}
-Em alinhamento ao objetivo geral e aos objetivos específicos 1 a 4 (coleta, organização, vetorização e conexão ao LLM), o trabalho propõe e desenvolve, em ambiente de prototipação, uma arquitetura de \textit{pipeline} RAG capaz de integrar um modelo de LLM a um índice vetorial contendo documentos públicos relacionados ao SEEU, legislação penal, súmulas e doutrinas correlatas. O protótipo desenvolvido oferece interface conversacional (\textit{chatbot}) em língua portuguesa e API REST documentada em ambiente de desenvolvimento, permitindo consultas em linguagem natural com respostas fundamentadas nas fontes originais. Espera-se que essa arquitetura proposta sirva de base conceitual e técnica para futuras implementações em ambiente de produção, correspondendo aos objetivos específicos 5, 6 e 7 (disponibilização do protótipo de \textit{chatbot}, implementação da API REST documentada e preparação do ambiente de empacotamento).
+Em alinhamento ao objetivo geral e aos objetivos específicos 1 a 4 (coleta, organização, vetorização e conexão ao LLM), o trabalho propôs e desenvolveu, em ambiente de prototipação, uma arquitetura de \textit{pipeline} RAG capaz de integrar um modelo de LLM a um índice vetorial contendo documentos públicos relacionados ao SEEU, legislação penal, súmulas e doutrinas correlatas. O protótipo desenvolvido oferece interface conversacional (\textit{chatbot}) em língua portuguesa e API REST documentada em ambiente de desenvolvimento, permitindo consultas em linguagem natural com respostas fundamentadas nas fontes originais. Espera-se que essa arquitetura proposta sirva de base conceitual e técnica para futuras implementações em ambiente de produção, correspondendo aos objetivos específicos 5, 6 e 7 (disponibilização do protótipo de \textit{chatbot}, implementação da API REST documentada e preparação do ambiente de empacotamento).
 
 \section{Potencial ganho de eficiência na recuperação de informações}
 A arquitetura proposta visa proporcionar redução no tempo médio despendido pelos operadores do Direito para localizar e consolidar informações relacionadas ao SEEU, quando comparado ao processo manual atualmente utilizado. Embora testes formais de eficiência e usabilidade com usuários finais não tenham sido realizados no escopo deste trabalho, a fundamentação teórica e a arquitetura desenvolvida sugerem que futuras implementações, acompanhadas de ensaios controlados, poderão mensurar ganhos quantitativos de tempo de resposta, empregando métricas de precisão, \textit{recall} e F\textsubscript{1}. Tais avaliações constituem etapa essencial para validação em ambiente de produção e representam oportunidade para trabalhos futuros.

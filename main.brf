@@ -78,4 +78,6 @@
 \backcite {docker2024}{{31}{3.7.1}{subsection.3.7.1}}
 \backcite {kubernetes2025overview}{{31}{3.7.2}{subsection.3.7.2}}
 \backcite {fastapi2024docs}{{32}{3.7.3}{subsection.3.7.3}}
-\backcite {edwards2024hybrid}{{39}{4.2}{section.4.2}}
+\backcite {edwards2024hybrid}{{41}{6.1}{section.6.1}}
+\backcite {edwards2024hybrid}{{43}{6.3}{section.6.3}}
+\backcite {edwards2024hybrid}{{82}{7.13}{section.7.13}}
