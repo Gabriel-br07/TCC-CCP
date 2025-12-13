@@ -2,6 +2,12 @@
 % Documento: Preâmbulo
 %
 \usepackage{lmodern}
+\usepackage{letltxmacro}
+\usepackage{adjustbox}
+\LetLtxMacro{\OldIncludegraphics}{\includegraphics}
+\renewcommand{\includegraphics}[2][]{%
+	\adjustbox{max width=\textwidth,max height=0.9\textheight,keepaspectratio}{\OldIncludegraphics[#1]{#2}}%
+}
 \renewcommand{\familydefault}{\rmdefault}
 \renewcommand{\lstlistingname}{Código}
 

@@ -102,92 +102,14 @@ O coletor do TRF4 amplia e aprimora a cobertura documental do projeto, contribui
 De modo geral, o scraper do TRF4 segue os mesmos princípios de organização, padronização e rastreabilidade adotados nos demais coletores, garantindo coerência metodológica no conjunto da solução.
 
 % -----------------------------------------------------------------------------
-% Interface de Usuário da Aplicação RAG (versão ABNT)
+% NOTA IMPORTANTE: A seção "Interface de Usuário da Aplicação" foi REMOVIDA
+% deste arquivo pois estava duplicada. A seção correta está definida em
+% desenvolvimento.tex (Seção 7.4), onde pertence estruturalmente no contexto
+% do capítulo de Desenvolvimento da Solução.
+% 
+% Esta remoção corrige a incoerência estrutural que gerava seções duplicadas
+% e numeração inconsistente no documento final.
 % -----------------------------------------------------------------------------
-\section{Interface de Usuário da Aplicação}
-\label{sec:interface}
-
-\begin{figure}[H]
-  \centering
-  \IfFileExists{04-figuras/inicio.png}{%
-    \includegraphics[width=0.65\textwidth]{04-figuras/inicio.png}
-  }{%
-    \fbox{Imagem `inicio' ausente em `04-figuras/'}
-  }
-  \caption{Tela inicial da interface (exemplo). Fonte: elaborado pelos autores.}
-  \label{fig:interface_inicio}
-\end{figure}
-
-\subsection{Objetivo}
-Esta seção descreve a interface de usuário (IU) da aplicação de Recuperação Aumentada por Geração (RAG). A IU tem por finalidade proporcionar um ambiente unificado para: (i) submissão de consultas em linguagem natural; (ii) apresentação das respostas geradas pelos modelos de linguagem; e (iii) exposição das fontes recuperadas e metadados associados, assegurando rastreabilidade e auditoria dos resultados.
-
-\subsection{Escopo e requisitos principais}
-O projeto da IU contempla os seguintes requisitos funcionais e não funcionais, compatíveis com o escopo do trabalho:
-\begin{itemize}
-  \item capacidade de receber consultas por meio de um campo de entrada textual;
-  \item seleção explícita entre dois modos de operação distintos: \textbf{modo Chat simples} e \textbf{modo RAG (Busca Vetorial)}. No modo Chat simples, a consulta é enviada diretamente ao modelo de linguagem sem recuperação de documentos do banco vetorial, gerando respostas com base exclusivamente no conhecimento pré-treinado do modelo e no histórico da conversa. No modo RAG, a consulta aciona o fluxo completo de recuperação aumentada: o sistema busca documentos relevantes no módulo DBVECTOR, contextualiza o modelo de linguagem com os trechos encontrados e gera resposta fundamentada nas fontes recuperadas. A alternância entre esses modos é realizada por meio de controles visuais explícitos --- tipicamente botões ou seletores claramente identificados na interface --- permitindo ao operador escolher a estratégia mais adequada a cada tipo de consulta. Essa dualidade proporciona flexibilidade: consultas exploratórias ou genéricas podem ser feitas no modo Chat, enquanto consultas que exigem fundamentação normativa ou jurisprudencial utilizam o modo RAG;
-  \item seleção de modelo de linguagem disponível, permitindo ao usuário escolher entre diferentes versões ou configurações quando aplicável; 
-  \item exibição ordenada da resposta gerada, com indicação explícita das fontes consultadas e dos trechos citados;
-  \item indicadores de confiança/qualidade da resposta e metadados de cobertura;
-  \item mecanismos de inspeção e diagnóstico (\textit{logs}) disponíveis em ambiente de desenvolvimento;
-  \item desempenho interativo compatível com aplicação de demonstração acadêmica (latências reduzidas e feedback de carregamento).
-\end{itemize}
-
-\subsection{Arquitetura e implementação}
-Por coerência com o restante do projeto, a implementação adotou uma arquitetura de \textit{frontend} baseada em componentes, separando apresentação, orquestração e serviços. A camada de apresentação foi desenvolvida utilizando o \textit{framework} Nuxt.js (baseado em Vue.js), adaptado ao propósito deste trabalho, e implementada em TypeScript para prover contratos de dados mais explícitos e facilitar a manutenção.
-
-Uma característica arquitetural relevante é o padrão de consumo de APIs adotado: a interface não acessa diretamente os \textit{endpoints} do \textit{backend} RAG a partir do navegador do usuário (\textit{client-side}), mas sim por intermédio de uma camada intermediária executada no servidor da aplicação Nuxt (\textit{server-side}). Essa abordagem confere maior controle sobre a segurança --- evitando exposição de chaves de API ou credenciais ao navegador ---, facilita a implementação de políticas de \textit{rate limiting} e permite tratar erros de comunicação de forma centralizada antes que os dados cheguem ao cliente final.
-
-As respostas geradas pelo modelo de linguagem podem ser retornadas em formato estruturado que inclui marcações de Markdown, permitindo que a interface renderize o conteúdo de forma formatada --- com destaques, listas, títulos e citações --- proporcionando experiência de leitura mais agradável e facilitando a identificação visual de seções relevantes.
-
-Os principais elementos arquiteturais são: 
-\begin{itemize}
-  \item componente de página principal, responsável pela orquestração do fluxo de interação e alternância entre os modos Chat e RAG;
-  \item componentes de apresentação (campo de \textit{prompt}, painel de resultados com renderização Markdown, lista de fontes consultadas e elementos de utilidade como botões de ação e indicadores de estado);
-  \item unidades de lógica reutilizáveis (\textit{composables} ou \textit{hooks}) que encapsulam chamadas a serviços, gerenciamento de estado reativo, tratamento de erros e mecanismos de \textit{logging} para fins de diagnóstico;
-  \item adaptadores de comunicação que consomem os \textit{endpoints} do \textit{backend} RAG via camada \textit{server-side}, fornecendo respostas geradas, documentos recuperados e metadados de execução ao componente de apresentação;
-  \item mecanismos de tratamento de erros que interceptam falhas de rede ou de processamento, exibindo mensagens amigáveis ao usuário e registrando informações detalhadas em \textit{logs} de diagnóstico (disponíveis apenas em ambiente de desenvolvimento).
-\end{itemize}
-
-\subsection{Fluxos de interação}
-O fluxo básico de interação é composto pelas etapas a seguir:
-\begin{enumerate}
-  \item o usuário insere a consulta textual e seleciona, opcionalmente, parâmetros de execução;
-  \item a IU valida a entrada mínima (ex.: não vazia, tamanho máximo) e transita para estado de carregamento;
-  \item a chamada é enviada à camada de serviços, que executa o pipeline (recuperação, rankeamento e geração);
-  \item a IU recebe a resposta e os metadados, renderizando o texto gerado e a listagem de fontes com trechos citados e links de origem;
-  \item o usuário pode inspecionar documentos, copiar trechos, ou formular consultas de seguimento (\textit{follow-up}).
-\end{enumerate}
-
-Para preservar a usabilidade e atender às especificidades da consulta jurídica, a interface expõe \textit{feedbacks} visuais claros em todas as etapas: indicadores de carregamento durante o processamento da consulta, mensagens de erro descritivas quando ocorrem falhas de comunicação ou de processamento, e controles para cancelamento de requisições quando suportado pelo \textit{backend}. A experiência do usuário (UX) é projetada para tornar a fundamentação das respostas evidente: após a geração da resposta no modo RAG, o texto principal é apresentado em destaque, seguido de uma lista de documentos consultados que inclui títulos, trechos citados e links clicáveis para as fontes originais (quando disponíveis). Essa apresentação dual --- resposta sintetizada acompanhada de evidências rastreatáveis --- visa assegurar transparência e permitir que o operador jurídico valide as informações antes de incorporá-las em suas decisões.
-
-\subsection{Estados, comunicação e contratos de dados}
-A IU emprega estados reativos (por exemplo, \texttt{input}, \texttt{loading}, \texttt{response}, \texttt{sources}) para orientar a renderização. A comunicação com a camada de serviços é assíncrona e baseada em contratos JSON tipados, contendo, no mínimo, os campos: texto da resposta, array de fontes (cada qual com título, URL, trecho e pontuação de relevância) e indicadores de qualidade.
-
-Os contratos adotados asseguram interoperabilidade entre a IU e os pipelines de extração (por exemplo, os arquivos JSON Lines gerados pelos scrapers descritos neste capítulo), permitindo mapear referências e evidências a partir dos metadados armazenados.
-
-\subsection{Componentes principais}
-Os componentes de IU priorizam clareza informacional e rastreabilidade; destacam-se:
-\begin{itemize}
-  \item \textbf{Componente de entrada (Prompt)}: captura a consulta e parâmetros, com validação e sugestões rápidas;
-  \item \textbf{Painel de resposta}: apresenta o texto gerado e permite a expansão de citações e visualização das fontes;
-  \item \textbf{Lista de fontes}: exibe documentos recuperados, com metadados (cluster, título, URL, trecho) e botão para acessar a origem;
-  \item \textbf{Controles auxiliares}: copiar resposta, iniciar \textit{follow-up}, alternar modo (RAG/\textit{chat}) e abrir painéis de diagnóstico (quando aplicável).
-\end{itemize}
-
-\subsection{Decisões de projeto e boas práticas}
-Foram adotadas decisões técnicas e de usabilidade alinhadas às exigências do trabalho acadêmico e às boas práticas de engenharia de software:
-\begin{itemize}
-  \item separação clara entre apresentação e orquestração de fluxos, favorecendo testabilidade e manutenção;
-  \item contratos tipados entre front-end e serviços para reduzir ambiguidades e facilitar validação;
-  \item habilitação de modos restritos de diagnóstico apenas em ambiente de desenvolvimento, preservando privacidade e segurança em produção;
-  \item registro de eventos e métricas de interação para fins de avaliação de usabilidade e de desempenho.
-\end{itemize}
-
-\subsection{Limitações e considerações finais}
-A interface constitui uma camada de apresentação dependente da disponibilidade e do comportamento da camada de serviços (pipelines de busca e modelos de linguagem). Alterações nos contratos, na latência ou na disponibilidade dos serviços podem exigir ajustes na IU. Ademais, a adoção de um template genérico impôs adaptações para o contexto jurídico que podem ser refinadas em trabalhos posteriores.
-
-Em conformidade com a transparência requerida pelo projeto, a IU enfatiza a rastreabilidade das respostas, vinculando cada trecho citado às fontes originais geradas pelos scrapers descritos neste capítulo.
 
 \section{Coleta de Dados -- Scraper SEEU (Sistema Eletrônico de Execução Unificado)}
 \label{sec:seeu_scraper}

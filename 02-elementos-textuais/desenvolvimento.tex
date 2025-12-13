@@ -13,6 +13,10 @@
 
 Este capítulo descreve o desenvolvimento técnico da solução proposta, detalhando a arquitetura da \textit{pipeline} RAG implementada, os módulos de coleta de dados, o sistema de indexação vetorial (DBVECTOR), a interface de usuário e a integração entre os componentes. A solução foi desenvolvida como protótipo funcional, demonstrando a viabilidade técnica da abordagem proposta e servindo como base para futuras implementações em ambiente de produção.
 
+\paragraph{Observação sobre UC-09 e painel de administrador}
+\noindent
+O \textbf{UC-09 – Avaliar Métricas e Monitorar Desempenho}, embora especificado na modelagem de requisitos como caso de uso desejável, não foi implementado no protótipo entregue. Em particular, o painel de administração (dashboard para visualização de métricas e gestão de alertas) não foi desenvolvido. Durante a implementação priorizou-se a entrega dos fluxos essenciais de coleta, indexação e recuperação (UC-01 a UC-08) e a instrumentação mínima de logs para permitir, em trabalhos futuros, a integração com soluções de monitoramento (por exemplo, Grafana/Prometheus). A implementação do UC-09 e do painel administrativo foi, portanto, deixada como recomendação de trabalho futuro, com indicação das dependências técnicas necessárias para sua realização.
+
 \section{Arquitetura Geral da Pipeline RAG}
 \label{sec:arquitetura_pipeline}
 
@@ -20,8 +24,8 @@ A arquitetura da \textit{pipeline} RAG proposta e desenvolvida neste trabalho or
 
 \begin{figure}[!htbp]
   \centering
-  \IfFileExists{04-figuras/arquitetura_pipeline.png}{%
-    \includegraphics[width=0.85\textwidth]{04-figuras/arquitetura_pipeline.png}
+    \IfFileExists{04-figuras/arquitetura_pipeline.png}{%
+    \includegraphics[width=\textwidth]{04-figuras/arquitetura_pipeline.png}
   }{%
     \fbox{Figura ausente: `arquitetura\_pipeline.png'}
   }
@@ -119,7 +123,7 @@ A interface é composta por quatro telas principais, descritas a seguir:
 \begin{figure}[H]
   \centering
   \IfFileExists{04-figuras/auth.png}{%
-    \includegraphics[width=0.65\textwidth]{04-figuras/auth.png}
+    \includegraphics[width=0.975\textwidth]{04-figuras/auth.png}
   }{%
     \fbox{Imagem `auth.png' ausente em `04-figuras/'}
   }
@@ -156,7 +160,7 @@ O processo de autenticação é iniciado pelo preenchimento dos campos de identi
 \begin{figure}[H]
   \centering
   \IfFileExists{04-figuras/inicio.png}{%
-    \includegraphics[width=0.75\textwidth]{04-figuras/inicio.png}
+    \includegraphics[width=\textwidth]{04-figuras/inicio.png}
   }{%
     \fbox{Imagem `inicio.png' ausente em `04-figuras/'}
   }
@@ -195,7 +199,7 @@ A tela inicial exibe estado vazio convidativo, instruindo o usuário a iniciar u
 \begin{figure}[H]
   \centering
   \IfFileExists{04-figuras/resposta_rag.png}{%
-    \includegraphics[width=0.75\textwidth]{04-figuras/resposta_rag.png}
+    \includegraphics[width=\textwidth]{04-figuras/resposta_rag.png}
   }{%
     \fbox{Imagem `resposta\_rag.png' ausente em `04-figuras/'}
   }
@@ -232,7 +236,7 @@ A interface apresenta a resposta em linguagem natural na área principal, seguid
 \begin{figure}[H]
   \centering
   \IfFileExists{04-figuras/resposta_simples.png}{%
-    \includegraphics[width=0.75\textwidth]{04-figuras/resposta_simples.png}
+    \includegraphics[width=\textwidth]{04-figuras/resposta_simples.png}
   }{%
     \fbox{Imagem `resposta\_simples.png' ausente em `04-figuras/'}
   }
@@ -285,11 +289,10 @@ O campo de entrada de texto permite ao usuário inserir sua pergunta em linguage
 
 A seleção do modelo de linguagem permite ao usuário escolher entre diferentes modelos disponíveis no sistema. O valor padrão é definido pela configuração do sistema e pode variar conforme a instalação. A lista de modelos é carregada dinamicamente a partir da configuração centralizada da aplicação.
 
-\section{Integração entre Interface e Pipeline RAG}
-\label{sec:integracao_interface}
-
 % NOTE: Reorganizado para o novo capítulo de Desenvolvimento da Solução segundo ABNT
 % Inserção da seção de integração interface - API - RAG
+% IMPORTANTE: A seção está definida dentro do arquivo integracao_interface.tex
+% Não deve haver \section{...} aqui para evitar duplicação
 \input{./02-elementos-textuais/integracao_interface}
 
 \section{Diagrama de Caso de Uso}
@@ -302,7 +305,7 @@ Conforme apresentado na Figura~\ref{fig:diagrama-rag-seeu}, o sistema organiza o
 \begin{figure}[!htbp]
   \centering
   \IfFileExists{04-figuras/casoDeUso.pdf}{%
-    \includegraphics[width=0.75\textwidth,keepaspectratio]{04-figuras/casoDeUso.pdf}
+    \includegraphics[width=\textwidth,keepaspectratio]{04-figuras/casoDeUso.pdf}
   }{%
     \fbox{Figura ausente: `casoDeUso.pdf'}
   }
